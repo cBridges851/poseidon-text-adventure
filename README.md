@@ -1,3 +1,5 @@
 # Poseidon-Text-Adventure
 To be continued...
-Blah blah blah
+
+## Map
+![alt text]("Poseidon Text Game Map.png")
