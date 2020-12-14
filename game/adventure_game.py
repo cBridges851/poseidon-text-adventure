@@ -3,8 +3,23 @@
 # John Mason
 # The Adventure Game to end all adventure games
 import time
+import random
 
 BANK_FILENAME = "./bank.txt"
+
+class Monster:
+    name = "Goblin"
+
+    def __init__(self):
+        self.health = 100
+        self.damage = random.randint(1, 20)
+
+class Player:
+    def __init__(self):
+        self.health = 100
+        self.damage = 15
+        self.coins = 0
+
 
 def text_delay(sentence):
     '''
@@ -14,7 +29,8 @@ def text_delay(sentence):
     '''
     for letter in sentence:
         print(letter, sep="", end="", flush=True)
-        time.sleep(.1)
+        time.sleep(.03)
+    print("")
 
 
 def get_balance(player):
@@ -93,5 +109,61 @@ def update_balance(player, coins):
         exit()
 
 
-print(get_balance("John"))
-update_balance("John", 12)
+def is_player_dead(player_health):
+    '''
+    Check whether a player has 0 or less health.
+    Args:
+        player_health: int, representing the player health.
+    Returns:
+        True: bool, if the players health is below or equal to 0.
+    '''
+    if player_health <= 0:
+        return True
+
+
+def monster_fight(player):
+    '''
+    Reuseable component where players can fight monsters to gain coins.
+    Args:
+        player: obj, representing a player.
+    '''
+    monster = Monster()
+
+    playing = True
+    while playing:
+        text_delay(f"You have encoutered a {monster.name}")
+        while monster.health > 0:
+            print("------------------------------------------------------------------------------")
+            player_input = input("To attack the monster press (A) to run away press (R): ").upper()
+
+            while player_input != "A" and player_input != "R":
+                player_input = input("To attack the monster press (A) to run away press (R): ").upper()
+            
+            if player_input == "A":
+                monster.health -= player.damage
+                print(f"You attacked the {monster.name} dealing {player.damage}. The monster has {monster.health} left.")
+                player.health -= monster.damage
+                print(f"The monster attacked you leaving you with {player.health}.")
+
+            if player_input == "R":
+                break
+            
+            if is_player_dead(player.health) == True:
+                break
+
+        if monster.health <= 0:
+            print("------------------------------------------------------------------------------")
+            print(f"You defeated the monster!")
+            coins_earned = player.health / 10
+            player.coins += coins_earned
+            text_delay(f"You earned {coins_earned} coins putting your total to {player.coins}.")
+
+        if player.health <= 0:
+            print("------------------------------------------------------------------------------")
+            text_delay("You have died losing all coins on your person.")
+        playing = False
+
+
+player = Player()
+
+monster_fight(player)
