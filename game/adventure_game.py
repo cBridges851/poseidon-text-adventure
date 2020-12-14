@@ -76,7 +76,7 @@ def update_balance(player, coins):
         print("ERROR: File not found check your file path.")
         exit()
     except PermissionError:
-        print("ERROR: You lack the permissions to write this file.")
+        print("ERROR: You lack the permissions to read this file.")
         exit()
 
     for item in range(len(file)):
@@ -101,6 +101,45 @@ def update_balance(player, coins):
     try:
         with open(BANK_FILENAME, "w") as content:
             content.writelines(file)
+    except FileNotFoundError:
+        print("ERROR: File not found check your file path.")
+        exit()
+    except PermissionError:
+        print("ERROR: You lack the permissions to write this file.")
+        exit()
+
+
+def add_player(player):
+    '''
+    Adds a new player to the database.
+    Args:
+        player: string, player name.
+    '''
+    try:
+        with open(BANK_FILENAME, "r") as content:
+            file = content.read().split("\n")
+    except FileNotFoundError:
+        print("ERROR: File not found check your file path.")
+        exit()
+    except PermissionError:
+        print("ERROR: You lack the permissions to read this file.")
+        exit()
+
+    for item in range(len(file)):
+        if file[item] == "":
+            file.remove(file[item])
+
+    file.append("0" + " " + player)
+
+    for item in range(len(file)):
+        if item != 0:
+            file[item] = "\n" + file[item]
+        else:
+            file[item] = file[item]
+            
+    try:
+        with open(BANK_FILENAME, "w") as content:
+            content.writelines(file)  
     except FileNotFoundError:
         print("ERROR: File not found check your file path.")
         exit()
@@ -170,22 +209,44 @@ def adventure_game():
     '''
     Runs the main program.
     '''
-    # user_input = input("Welcome to Pebble Town are you a new(N) or returning(R) player? ").upper()
+    user_input = input("Welcome to Pebble Town are you a new(N) or returning(R) player? ").upper()
 
-    # while user_input != "N" and user_input != "R":
-    #     user_input = input("Welcome to the Poseiden text adventure are you a new(N) or returning(R) player? ").upper()
+    while user_input != "N" and user_input != "R":
+        user_input = input("Welcome to the Poseiden text adventure are you a new(N) or returning(R) player? ").upper()
     
-    # if user_input == "N":
-    #     # Create some new stats the user can use
-    #     return True
-
-    # if user_input == "R":
-    #     # Read in the current users stats
-    #     return True
-
     player = Player()
 
-    monster_fight(player)
+    if user_input == "N":
+        # Create some new stats the user can use
+        player.name = input("What is your first name? ")
+        add_player(player.name)
+
+    if user_input == "R":
+        # Read in the current users stats
+        player.name = input("Welcome back to the program what name did you use last time? ")
+    
+    text_delay("You find yourself in the main square of PebbleTown...")
+    text_delay("Around you is a shop(S), your house(H), the bank(B), the hospital(H) and what appears to be a field(F): ")
+
+    user_input = input("What would you like to do? ").upper()
+
+    while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "H" and user_input != "F":
+        user_input = input("What would you like to do? ").upper()
+
+    if user_input == "S":
+        NotImplemented
+    
+    if user_input == "H":
+        NotImplemented
+
+    if user_input == "B":
+        NotImplemented
+    
+    if user_input == "H":
+        NotImplemented
+    
+    if user_input == "F":
+        monster_fight(player)
 
 
 # Driver function
