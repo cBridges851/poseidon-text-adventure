@@ -10,11 +10,12 @@ BANK_FILENAME = "./bank.txt"
 class Monster:
     def __init__(self):
         self.name = random.choice(["Trow", "Kobold", "Hobgoblin", "Bugbear"])
-        self.health = 100
+        self.health = random.randint(90, 100)
         self.damage = random.randint(1, 20)
 
 class Player:
     def __init__(self):
+        self.name = None
         self.health = 100
         self.damage = 15
         self.coins = 0
@@ -141,6 +142,7 @@ def monster_fight(player):
             if player_input == "A":
                 monster.health -= player.damage
                 print(f"You attacked the {monster.name} dealing {player.damage}. The monster has {monster.health} left.")
+                monster.damage = random.randint(1, 20)
                 player.health -= monster.damage
                 print(f"The monster attacked you leaving you with {player.health}.")
 
@@ -154,15 +156,38 @@ def monster_fight(player):
             print("------------------------------------------------------------------------------")
             print(f"You defeated the monster!")
             coins_earned = player.health / 10
-            player.coins += coins_earned
-            text_delay(f"You earned {coins_earned} coins putting your total to {player.coins}.")
+            player.coins += round(coins_earned)
+            text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
 
         if player.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay("You have died losing all coins on your person.")
+            player.coins = 0
         playing = False
 
 
-player = Player()
+def adventure_game():
+    '''
+    Runs the main program.
+    '''
+    # user_input = input("Welcome to Pebble Town are you a new(N) or returning(R) player? ").upper()
 
-monster_fight(player)
+    # while user_input != "N" and user_input != "R":
+    #     user_input = input("Welcome to the Poseiden text adventure are you a new(N) or returning(R) player? ").upper()
+    
+    # if user_input == "N":
+    #     # Create some new stats the user can use
+    #     return True
+
+    # if user_input == "R":
+    #     # Read in the current users stats
+    #     return True
+
+    player = Player()
+
+    monster_fight(player)
+
+
+# Driver function
+if __name__ == "__main__":
+    adventure_game()
