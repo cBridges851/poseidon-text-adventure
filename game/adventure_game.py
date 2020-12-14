@@ -8,9 +8,8 @@ import random
 BANK_FILENAME = "./bank.txt"
 
 class Monster:
-    name = "Goblin"
-
     def __init__(self):
+        self.name = random.choice(["Trow", "Kobold", "Hobgoblin", "Bugbear"])
         self.health = 100
         self.damage = random.randint(1, 20)
 
