@@ -216,11 +216,14 @@ def adventure_game():
     playing = True
     while playing == True:
         
+        print("------------------------------------------------------------------------------")
         text_delay("Around you is a shop(S), your house(H), the bank(B), the hospital(H) and what appears to be a field(F) and finally to exit the game press(E): ")
         user_input = input("What would you like to do? ").upper()
+        print("------------------------------------------------------------------------------")
 
         while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "H" and user_input != "F" and user_input != "E":
             user_input = input("What would you like to do? ").upper()
+            print("------------------------------------------------------------------------------")
 
         if user_input == "S":
             NotImplemented
@@ -235,6 +238,8 @@ def adventure_game():
 
             while user_input != "D" and user_input != "C":
                 user_input = input("Do you want to deposit(D) or checkout your balance(C)? ").upper()
+
+            print("------------------------------------------------------------------------------")
 
             if user_input == "D":
                 print("You chose too deposit")
@@ -264,6 +269,5 @@ if __name__ == "__main__":
 # could deposit a set amount
 # take money out of the bank
 # monster shouldn't be able to attack when dead pepe4head
-# seperate prints a litte
 # staying in the bank!
 # location var poss
