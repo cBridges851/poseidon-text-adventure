@@ -4,26 +4,14 @@
 # The Adventure Game to end all adventure games
 import time
 import random
+from monster import Monster
+from player import Player
 
 BANK_FILENAME = "./bank.txt"
 
-class Monster:
-    def __init__(self):
-        self.name = random.choice(["Trow", "Kobold", "Hobgoblin", "Bugbear"])
-        self.health = random.randint(90, 100)
-        self.damage = random.randint(1, 20)
-
-class Player:
-    def __init__(self):
-        self.name = None
-        self.health = 100
-        self.damage = 15
-        self.coins = 0
-
-
 def text_delay(sentence):
     '''
-    Print's out text in a retro games console style.
+    Prints out text in a retro games console style.
     Args:
         sentence: string, to print out.
     '''
@@ -31,6 +19,44 @@ def text_delay(sentence):
         print(letter, sep="", end="", flush=True)
         time.sleep(.03)
     print("")
+
+
+def open_file_by_newline(filepath):
+    '''
+    Open a file and split the content by newlines.
+    Args:
+        filepath: string, representing a filepath.
+    Returns:
+        file: list, representing the file contents by newline.
+    '''
+    try:
+        with open(filepath, "r") as content:
+            file = content.read().split("\n")
+    except FileNotFoundError:
+        print("ERROR: File not found, check your file path.")
+        exit()
+    except PermissionError:
+        print("ERROR: You lack the permissions to read this file.")
+        exit()
+
+    return file
+
+
+def write_file_using_list(file_content):
+    '''
+    Write to a file using an given in list.
+    Args: 
+        list: list, containing the file contents.
+    '''
+    try:
+        with open(BANK_FILENAME, "w") as content:
+            content.writelines(file_content)
+    except FileNotFoundError:
+        print("ERROR: File not found, check your file path.")
+        exit()
+    except PermissionError:
+        print("ERROR: You lack the permissions to write this file.")
+        exit()
 
 
 def get_balance(player):
@@ -41,15 +67,7 @@ def get_balance(player):
     Returns:
         balance: integer, player coin balance.
     '''
-    try:
-        with open(BANK_FILENAME, "r") as content:
-            records = content.read().split("\n")
-    except FileNotFoundError:
-        print("ERROR: File not found check your file path.")
-        exit()
-    except PermissionError:
-        print("ERROR: You lack the permissions to open this file.")
-        exit()
+    records = open_file_by_newline(BANK_FILENAME)
     
     individual_player = ""
     balance = 0
@@ -69,15 +87,7 @@ def update_balance(player, coins):
         player: string, player name.
         coins: integer, coins in the players inventory.
     '''
-    try:
-        with open(BANK_FILENAME, "r") as content:
-            file = content.read().split("\n")
-    except FileNotFoundError:
-        print("ERROR: File not found check your file path.")
-        exit()
-    except PermissionError:
-        print("ERROR: You lack the permissions to read this file.")
-        exit()
+    file = open_file_by_newline(BANK_FILENAME)
 
     for item in range(len(file)):
         if file[item] == "":
@@ -98,15 +108,7 @@ def update_balance(player, coins):
         else:
             file[item] = file[item]
 
-    try:
-        with open(BANK_FILENAME, "w") as content:
-            content.writelines(file)
-    except FileNotFoundError:
-        print("ERROR: File not found check your file path.")
-        exit()
-    except PermissionError:
-        print("ERROR: You lack the permissions to write this file.")
-        exit()
+    write_file_using_list(file)
 
 
 def add_player(player):
@@ -115,15 +117,7 @@ def add_player(player):
     Args:
         player: string, player name.
     '''
-    try:
-        with open(BANK_FILENAME, "r") as content:
-            file = content.read().split("\n")
-    except FileNotFoundError:
-        print("ERROR: File not found check your file path.")
-        exit()
-    except PermissionError:
-        print("ERROR: You lack the permissions to read this file.")
-        exit()
+    file = open_file_by_newline(BANK_FILENAME)
 
     for item in range(len(file)):
         if file[item] == "":
@@ -137,15 +131,7 @@ def add_player(player):
         else:
             file[item] = file[item]
             
-    try:
-        with open(BANK_FILENAME, "w") as content:
-            content.writelines(file)  
-    except FileNotFoundError:
-        print("ERROR: File not found check your file path.")
-        exit()
-    except PermissionError:
-        print("ERROR: You lack the permissions to write this file.")
-        exit()
+    write_file_using_list(file)
 
 
 def is_player_dead(player_health):
@@ -173,10 +159,10 @@ def monster_fight(player):
         text_delay(f"You have encoutered a {monster.name}")
         while monster.health > 0:
             print("------------------------------------------------------------------------------")
-            player_input = input("To attack the monster press (A) to run away press (R): ").upper()
+            player_input = input("To attack the monster, press (A). To run away press (R): ").upper()
 
             while player_input != "A" and player_input != "R":
-                player_input = input("To attack the monster press (A) to run away press (R): ").upper()
+                player_input = input("To attack the monster, press (A). To run away press (R): ").upper()
             
             if player_input == "A":
                 monster.health -= player.damage
@@ -193,7 +179,7 @@ def monster_fight(player):
 
         if monster.health <= 0:
             print("------------------------------------------------------------------------------")
-            print(f"You defeated the monster!")
+            print("You defeated the monster!")
             coins_earned = player.health / 10
             player.coins += round(coins_earned)
             text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
@@ -209,10 +195,10 @@ def adventure_game():
     '''
     Runs the main program.
     '''
-    user_input = input("Welcome to Pebble Town are you a new(N) or returning(R) player? ").upper()
+    user_input = input("Welcome to PebbleTown are you a new(N) or returning(R) player? ").upper()
 
     while user_input != "N" and user_input != "R":
-        user_input = input("Welcome to the Poseiden text adventure are you a new(N) or returning(R) player? ").upper()
+        user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
     
     player = Player()
 
@@ -223,7 +209,7 @@ def adventure_game():
 
     if user_input == "R":
         # Read in the current users stats
-        player.name = input("Welcome back to the program what name did you use last time? ")
+        player.name = input("Welcome back to the program, what name did you use last time? ")
     
     text_delay("You find yourself in the main square of PebbleTown...")
     text_delay("Around you is a shop(S), your house(H), the bank(B), the hospital(H) and what appears to be a field(F): ")
