@@ -212,29 +212,58 @@ def adventure_game():
         player.name = input("Welcome back to the program, what name did you use last time? ")
     
     text_delay("You find yourself in the main square of PebbleTown...")
-    text_delay("Around you is a shop(S), your house(H), the bank(B), the hospital(H) and what appears to be a field(F): ")
 
-    user_input = input("What would you like to do? ").upper()
-
-    while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "H" and user_input != "F":
+    playing = True
+    while playing == True:
+        
+        text_delay("Around you is a shop(S), your house(H), the bank(B), the hospital(H) and what appears to be a field(F) and finally to exit the game press(E): ")
         user_input = input("What would you like to do? ").upper()
 
-    if user_input == "S":
-        NotImplemented
-    
-    if user_input == "H":
-        NotImplemented
+        while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "H" and user_input != "F" and user_input != "E":
+            user_input = input("What would you like to do? ").upper()
 
-    if user_input == "B":
-        NotImplemented
-    
-    if user_input == "H":
-        NotImplemented
-    
-    if user_input == "F":
-        monster_fight(player)
+        if user_input == "S":
+            NotImplemented
+        
+        if user_input == "H":
+            NotImplemented
+
+        if user_input == "B":
+            text_delay("You open the door to the bank and look inside...")
+            text_delay("You notice you can deposit the coins on you into your account or check your balance.")
+            user_input = input("Do you want to deposit(D) or checkout your balance(C)? ").upper()
+
+            while user_input != "D" and user_input != "C":
+                user_input = input("Do you want to deposit(D) or checkout your balance(C)? ").upper()
+
+            if user_input == "D":
+                print("You chose too deposit")
+                update_balance(player.name, player.coins)
+                print(f"Balanced has been updated, new balance is {get_balance(player.name)} coins.")
+
+            if user_input == "C":
+                print("You chose too checkout your balance.")
+                print(f"Your current balance is {get_balance(player.name)} coins.")
+
+        if user_input == "H":
+            NotImplemented
+        
+        if user_input == "F":
+            monster_fight(player)
+
+        if user_input == "E":
+            print("Goodbye, Thanks for playing!")
+            playing = False
 
 
 # Driver function
 if __name__ == "__main__":
     adventure_game()
+
+
+# could deposit a set amount
+# take money out of the bank
+# monster shouldn't be able to attack when dead pepe4head
+# seperate prints a litte
+# staying in the bank!
+# location var poss
