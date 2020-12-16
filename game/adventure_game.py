@@ -10,6 +10,7 @@ from text_delay import text_delay
 from file_logic import FileLogic
 from monster_fight import monster_fight
 from bank import bank_logic
+from medical_centre import MedicalCentre
 
 BANK_FILENAME = "./bank.txt"
 
@@ -54,7 +55,7 @@ def adventure_game():
             NotImplemented
 
         if user_input == "M":
-            NotImplemented
+            player.health = MedicalCentre(player.health).heal()
 
         if user_input == "B":
             bank_logic(player)

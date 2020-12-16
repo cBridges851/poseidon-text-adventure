@@ -13,7 +13,7 @@ def monster_fight(player):
 
     playing = True
     while playing:
-        text_delay(f"You have encoutered a {monster.name}")
+        text_delay(f"You have encountered a {monster.name}")
         while monster.health > 0:
             print("------------------------------------------------------------------------------")
             player_input = input("To attack the monster, press (A). To run away press (R): ").upper()
