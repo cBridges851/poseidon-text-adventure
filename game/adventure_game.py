@@ -82,7 +82,7 @@ def adventure_game():
                             bet = input("How much do you want to bet? ")
                         bet = int(bet)
                         if bet > player.coins or bet <= 0:
-                            text_delay("The amount your entered was out of range.")
+                            text_delay("The amount you entered was out of range.")
                         else:
                             text_delay(f"Taken {bet} coins from your inventory.")
                             player.coins -= bet
