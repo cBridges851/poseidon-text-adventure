@@ -50,7 +50,7 @@ class Casino:
         is_player_bust = False
         value = 0
 
-        amount_of_cards = len(cards)-1
+        amount_of_cards = len(cards) - 1
         player_selection = ""
         print("------------------------------------------------------------------------------")
         while player_selection.upper() != "S":
