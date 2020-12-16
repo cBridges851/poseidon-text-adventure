@@ -11,6 +11,7 @@ from file_logic import FileLogic
 from monster_fight import monster_fight
 from bank import bank_logic
 from medical_centre import MedicalCentre
+from casino import Casino
 
 BANK_FILENAME = "./bank.txt"
 
@@ -44,7 +45,7 @@ def adventure_game():
         user_input = input("What would you like to do? ").upper()
         print("------------------------------------------------------------------------------")
 
-        while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "M" and user_input != "F" and user_input != "E":
+        while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "M" and user_input != "F" and user_input != "E" and user_input != "C":
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
 
@@ -62,6 +63,9 @@ def adventure_game():
 
         if user_input == "F":
             monster_fight(player)
+
+        if user_input == "C":
+            Casino().better_and_runner(player)
 
         if user_input == "E":
             print("Goodbye, Thanks for playing!")
