@@ -18,7 +18,7 @@ class Casino:
         '''
         Calculates the value of the players hand.
         Args:
-            cards: list, cards in the players hand.
+            cards: list, cards in the player's hand.
         Returns:
             value: int, value of the list.
         '''
