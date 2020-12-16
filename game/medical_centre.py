@@ -20,7 +20,7 @@ class MedicalCentre:
         text_delay("You enter the medical centre. There are lots of ill people about, but at least the place is somewhat clean.")
         print(f"Your current health is {self.current_health}!")
         text_delay("Healing...")
-        delay_time = (100 - self.current_health) / 2 / 10 
+        delay_time = (100 - self.current_health) / 20 
         time.sleep(delay_time)
         print("You are all better!")
         print(f"Your current health is now 100!")
