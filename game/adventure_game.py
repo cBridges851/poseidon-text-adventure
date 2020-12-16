@@ -11,6 +11,7 @@ from file_logic import FileLogic
 from monster_fight import monster_fight
 from bank import bank_logic
 from medical_centre import MedicalCentre
+from casino import Casino
 
 BANK_FILENAME = "./bank.txt"
 
@@ -44,7 +45,7 @@ def adventure_game():
         user_input = input("What would you like to do? ").upper()
         print("------------------------------------------------------------------------------")
 
-        while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "M" and user_input != "F" and user_input != "E":
+        while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "M" and user_input != "F" and user_input != "E" and user_input != "C":
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
 
@@ -62,6 +63,44 @@ def adventure_game():
 
         if user_input == "F":
             monster_fight(player)
+
+        if user_input == "C":
+            text_delay("Welcome to the casino here you can play blackjack: ")
+            in_casino = True
+            while in_casino == True:
+                user_input = input("Would you like to play?(Y/N): ").upper()
+
+                while user_input != "Y" and user_input != "N":
+                    user_input = input("Would you like to play?(Y/N): ").upper()
+
+                if user_input == "Y":
+                    game_result = ""
+                    while True:
+                        bet = input("How much do you want to bet? ")
+                        while isinstance(user_input, int):
+                            print("Invalid bet!")
+                            bet = input("How much do you want to bet? ")
+                        bet = int(bet)
+                        if bet > player.coins or bet <= 0:
+                            text_delay("The amount your entered was out of range.")
+                        else:
+                            text_delay(f"Taken {bet} coins from your inventory.")
+                            player.coins -= bet
+                            game_result = Casino().play_blackjack()
+                            break
+
+                    if game_result == "W":
+                        player.coins += bet * 2
+                        text_delay("You doubled your bet. Added your earnings to your inventory.")
+                    elif game_result == "L":
+                        text_delay("You lost your bet.")
+                    else:
+                        player.coins += bet
+                        text_delay("Bet returned to your inventory.")
+
+                if user_input == "N":
+                    text_delay("Okay, thanks for coming!")
+                    in_casino = False
 
         if user_input == "E":
             print("Goodbye, Thanks for playing!")

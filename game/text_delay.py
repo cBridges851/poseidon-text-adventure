@@ -8,5 +8,5 @@ def text_delay(sentence):
     '''
     for letter in sentence:
         print(letter, sep="", end="", flush=True)
-        time.sleep(.03)
+        time.sleep(.01)
     print("")
