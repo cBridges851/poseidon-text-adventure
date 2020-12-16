@@ -16,7 +16,7 @@ class Casino:
     
     def calc_card_value(self, cards):
         '''
-        Calculates the value of the players hand.
+        Calculates the value of the player's hand.
         Args:
             cards: list, cards in the player's hand.
         Returns:
