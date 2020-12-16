@@ -6,7 +6,7 @@ class Casino:
         '''
         Prints the cards of the given list.
         Args:
-            cards: list, contaning card values.
+            cards: list, containing card values.
         '''
         for i in range(len(cards)):
             if i == len(cards) - 1:
