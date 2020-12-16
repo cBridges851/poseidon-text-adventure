@@ -62,10 +62,3 @@ def bank_logic(player):
             text_delay("Goodbye, thanks for using the bank.")
             print("------------------------------------------------------------------------------")
             playing = False
-
-# monster shouldn't be able to attack when dead pepe4head
-import player
-player = player.Player()
-player.name = "John"
-player.coins = 3
-bank_logic(player)

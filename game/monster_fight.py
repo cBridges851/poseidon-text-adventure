@@ -25,7 +25,10 @@ def monster_fight(player):
                 monster.health -= player.damage
                 print(f"You attacked the {monster.name} dealing {player.damage}. The monster has {monster.health} left.")
                 monster.damage = random.randint(1, 20)
-                player.health -= monster.damage
+                if monster.health < 0:
+                    break
+                else:
+                    player.health -= monster.damage
                 print(f"The monster attacked you leaving you with {player.health}.")
 
             if player_input == "R":
