@@ -42,7 +42,7 @@ def bank_logic(player):
                     text_delay("Coins added to your account.")
                     FileLogic().update_balance_set_amount(BANK_FILENAME, player.name, user_input)
                     player.coins -= user_input
-                    print(f"Balanced has been updated, new balance is {FileLogic().get_balance(BANK_FILENAME, player.name)} coins.")
+                    print(f"Balance has been updated, new balance is {FileLogic().get_balance(BANK_FILENAME, player.name)} coins.")
 
         if user_input == "B":
             text_delay("You chose to checkout your balance.")
