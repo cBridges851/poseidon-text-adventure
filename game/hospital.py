@@ -19,7 +19,6 @@ class Hospital:
         print("You enter the hospital. There are lots of ill people about, but at least the place is clean.")
         print("Healing...")
         delayTime = (100 - self.currentHealth) / 2 / 10 
-        print(delayTime)
         time.sleep(delayTime)
         print("You are all better!")
         return 100
