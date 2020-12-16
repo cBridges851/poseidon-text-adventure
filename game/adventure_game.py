@@ -6,6 +6,7 @@ import time
 import random
 from monster import Monster
 from player import Player
+from hospital import Hospital
 
 BANK_FILENAME = "./bank.txt"
 
@@ -212,11 +213,11 @@ def adventure_game():
         player.name = input("Welcome back to the program, what name did you use last time? ")
     
     text_delay("You find yourself in the main square of PebbleTown...")
-    text_delay("Around you is a shop(S), your house(H), the bank(B), the hospital(H) and what appears to be a field(F): ")
+    text_delay("Around you is a shop(S), your house(H), the bank(B), the medical centre (M) and what appears to be a field(F): ")
 
     user_input = input("What would you like to do? ").upper()
 
-    while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "H" and user_input != "F":
+    while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "M" and user_input != "F":
         user_input = input("What would you like to do? ").upper()
 
     if user_input == "S":
@@ -228,8 +229,8 @@ def adventure_game():
     if user_input == "B":
         NotImplemented
     
-    if user_input == "H":
-        NotImplemented
+    if user_input == "M":
+        player.health = Hospital(player.health).heal()
     
     if user_input == "F":
         monster_fight(player)
