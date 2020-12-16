@@ -55,7 +55,7 @@ def bank_logic(player):
             user_input = int(input("How much do you want to take out? "))
 
             if user_input > current_amount or user_input <= 0:
-                    text_delay("The amount your entered was out of range.")
+                    text_delay("The amount you entered was out of range.")
             else:
                 update_amount = current_amount - user_input
                 FileLogic().remove_by_set_amount(BANK_FILENAME, player.name, update_amount)
