@@ -1,4 +1,4 @@
 100 Christa
 100 Josh
-171 John
+100 John
 5 Sam

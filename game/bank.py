@@ -5,11 +5,11 @@ BANK_FILENAME = "./bank.txt"
 
 def bank_logic(player):
     text_delay("You open the door to the bank and look inside...")
-    text_delay("You notice you can deposit the coins on you into your account or check your balance.")
-    user_input = input("Do you want to deposit(D) or checkout your balance(B)? ").upper()
+    text_delay("You notice you can deposit the coins on you into your account, check your balance or take some money out.")
+    user_input = input("Do you want to deposit(D), checkout your balance(B) or take money out the bank(T)? ").upper()
 
-    while user_input != "D" and user_input != "B":
-        user_input = input("Do you want to deposit(D) or checkout your balance(B)? ").upper()
+    while user_input != "D" and user_input != "B" and user_input != "T":
+        user_input = input("Do you want to deposit(D), checkout your balance(B) or take money out the bank(T)? ").upper()
 
     print("------------------------------------------------------------------------------")
 
@@ -42,8 +42,20 @@ def bank_logic(player):
         print("You chose too checkout your balance.")
         print(f"Your current balance is {FileLogic().get_balance(BANK_FILENAME, player.name)} coins.")
 
+    if user_input == "T":
+        print("You have chosen to take money out.")
+        current_amount = FileLogic().get_balance(BANK_FILENAME, player.name)
+        print(f"Your current balance is {current_amount} coins.")
+        user_input = int(input("How much do you want to take out? "))
 
-# take money out of the bank
+        if user_input > current_amount or user_input <= 0:
+                print("The amount your entered was out of range.")
+        else:
+            update_amount = current_amount - user_input
+            FileLogic().remove_by_set_amount(BANK_FILENAME, player.name, update_amount)
+            player.coins += user_input
+            print(f"You now have {player.coins} in your inventory.")
+
 # monster shouldn't be able to attack when dead pepe4head
 # staying in the bank!
 import player

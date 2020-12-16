@@ -124,6 +124,38 @@ class FileLogic:
         FileLogic().write_file_using_list(filepath, file)
 
 
+    def remove_by_set_amount(self, filepath, player, coins):
+        '''
+        Update the coin balance of an existing player takes money out.
+        Args:
+            filepath: string, representing a filepath.
+            player: string, player name.
+            coins: integer, updated amount.
+        '''
+        file = FileLogic().open_file_by_newline(filepath)
+
+        for item in range(len(file)):
+            if file[item] == "":
+                file.remove(file[item])
+
+        individual_player = ""
+        for item in range(len(file)):
+            individual_player = file[item].split()
+
+            if individual_player[1] == player:
+                updated_total = coins
+                if item != 0:
+                    file[item] = "\n" + str(updated_total) + " " + player
+                else:
+                    file[item] = str(updated_total) + " " + player
+            elif item != 0:
+                file[item] = "\n" + file[item]
+            else:
+                file[item] = file[item]
+
+        FileLogic().write_file_using_list(filepath, file)
+
+
     def add_player(self, filepath, player):
         '''
         Adds a new player to the database.
