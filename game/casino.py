@@ -127,7 +127,7 @@ class Casino:
                     time.sleep(1)
     
     def better_and_runner(self, player):
-        text_delay("Welcome to the casino here you can play blackjack: ")
+        text_delay("Welcome to the casino! Here, you can play blackjack: ")
         in_casino = True
         while in_casino == True:
             user_input = input("Would you like to play?(Y/N): ").upper()
