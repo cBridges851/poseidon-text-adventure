@@ -4,6 +4,11 @@ from file_logic import FileLogic
 BANK_FILENAME = "./bank.txt"
 
 def bank_logic(player):
+    '''
+    Main program logic for the bank.
+    Args:
+        player: obj, player object.
+    '''
     text_delay("You open the door to the bank and look inside...")
     text_delay("You notice you can deposit the coins on you into your account, check your balance or take some money out.")
     playing = True
@@ -27,7 +32,7 @@ def bank_logic(player):
                 print(f"Balanced has been updated, new balance is {FileLogic().get_balance(BANK_FILENAME, player.name)} coins.")
             
             if user_input == "C":
-                text_delay("You chose too deposit a set amount.")
+                text_delay("You chose to deposit a set amount.")
                 print(f"You currently have {player.coins} coins.")
                 user_input = int(input("How much do you want to deposit? "))
 
@@ -40,7 +45,7 @@ def bank_logic(player):
                     print(f"Balanced has been updated, new balance is {FileLogic().get_balance(BANK_FILENAME, player.name)} coins.")
 
         if user_input == "B":
-            text_delay("You chose too checkout your balance.")
+            text_delay("You chose to checkout your balance.")
             print(f"Your current balance is {FileLogic().get_balance(BANK_FILENAME, player.name)} coins.")
 
         if user_input == "T":
