@@ -6,6 +6,13 @@ GAME_ITEMS_FILEPATH = r"./game/game_items.json"
 
 class Shop():
     def __init__(self, player_coins, player_house, player_inventory):
+        '''
+            The method for initalising the shop.
+            Args:
+                player_coins: integer, the number of coins the player has upon entering the shop.
+                player_house: string, the type of house the player has upon entering the shop.
+                player_inventory: dict, the items the player has upon entering the shop.
+        '''
         self.player_coins = player_coins
         self.player_house = player_house
         self.player_inventory = {}
@@ -14,11 +21,17 @@ class Shop():
         self.all_game_items = self.get_all_game_items()
 
     def get_all_game_items(self):
+        '''
+            Gets all the items the player could possibly buy and/or sell.
+        '''
         item_content = FileLogic().open_json(GAME_ITEMS_FILEPATH)
         item_content = json.load(item_content)
         return item_content
 
     def enter_shop(self):
+        '''
+            The method is called when the player enters the shop.
+        '''
         text_delay("You open the door to the shop and step inside. It's a little bit dark given" 
                     + " it is only lit using candles, so do watch your step." 
                     + " There are a few risen floor boards"
@@ -27,6 +40,9 @@ class Shop():
         self.shop_menu()
 
     def shop_menu(self):
+        '''
+            The method that allows the player to select what they will do in the shop.
+        '''
         text_delay(f"You have {self.player_coins} coins on your person.")
 
         if len(self.player_inventory) != 0:
@@ -44,7 +60,7 @@ class Shop():
             self.buy()
 
         elif user_input == "S":
-            print("You are choosing to sell")
+            self.sell()
         
         elif user_input == "U":
             print("You are choosing to upgrade your house")
@@ -53,8 +69,10 @@ class Shop():
             return (self.player_house, self.player_coins)
 
     def buy(self):
+        '''
+            The method that allows the player to buy items from the shop.
+        '''
         print("Here are the items you can buy:")
-        
         print("----------------------------------------")
 
         for item in self.shop_items:
@@ -96,7 +114,38 @@ class Shop():
         self.shop_menu()
 
     def sell(self):
-        print()
+        '''
+            The method that allow the player to sell items from their inventory.
+        '''
+        if len(self.player_inventory) == 0:
+            print("You have no items you can sell. What do you plan to sell? Air from your lungs?")
+            self.shop_menu()
+            return
+
+        print("Here are the items in your inventory you can sell:")
+        print("--------------------------------------------------")
+        for item in self.player_inventory:
+            print(f"Item: {item}")
+            print(f"Quantity: {self.player_inventory[item]}")
+            print(f"Price per item: {self.all_game_items[item]}")
+            print("----------------------------------------")
+
+        item_to_sell = input("What would you like to sell?")
+
+        if item_to_sell not in self.player_inventory:
+            print(f"Oh you'd like to sell your {item_to_sell}? Where is it then?" 
+                    + " Oh you don't actually have one? Funny that. I don't buy imaginary items.")
+            self.sell()
+
+        quantity = int(input(f"How many {item_to_sell}s would you like to sell?"))
+        cost = self.player_inventory[item_to_sell] * quantity
+        confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N)").upper()
+
+        while confirm_sell != "Y" and confirm_sell != "N":
+            confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N)").upper()
+
+        
+        
 
     def upgrade_house(self):
         print()
