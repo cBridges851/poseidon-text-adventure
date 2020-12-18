@@ -178,3 +178,7 @@ class FileLogic:
                 file[item] = file[item]
                 
         FileLogic().write_file_using_list(filepath, file)
+
+    def open_json(self, filepath):
+        jsonContents = open(filepath)
+        return jsonContents

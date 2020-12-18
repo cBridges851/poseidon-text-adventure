@@ -1,4 +1,8 @@
 from text_delay import text_delay
+from file_logic import FileLogic
+import json
+
+GAME_ITEMS_FILEPATH = r"./game/game_items.json"
 
 class Shop():
     def __init__(self, player_coins, player_house, player_inventory):
@@ -6,11 +10,13 @@ class Shop():
         self.player_house = player_house
         self.player_inventory = {}
         self.available_houses = ["Bungalow"]
-        self.shop_items = {
-            "item1": 1000,
-            "item2": 2,
-            "item3": 3
-        }
+        self.shop_items = ["armour", "apple", "jar of air"]
+        self.all_game_items = self.get_all_game_items()
+
+    def get_all_game_items(self):
+        item_content = FileLogic().open_json(GAME_ITEMS_FILEPATH)
+        item_content = json.load(item_content)
+        return item_content
 
     def enter_shop(self):
         text_delay("You open the door to the shop and step inside. It's a little bit dark given" 
@@ -53,11 +59,13 @@ class Shop():
 
         for item in self.shop_items:
             print(f"Item Name: {item}")
-            print(f"Price: {self.shop_items[item]}")
+            
+            if item in self.all_game_items:
+                print(f"Price: {self.all_game_items[item]}")
             print("----------------------------------------")
 
         item_to_buy = input("Enter the item name of what you could like to buy," 
-                            + " or press E if you're being awkward and changed your mind: ")
+                            + " or press E if you're being awkward and changed your mind: ").lower()
 
         if item_to_buy not in self.shop_items:
             print("That isn't an item in the shop. Can you even read?")
@@ -65,8 +73,7 @@ class Shop():
             return
 
         quantity = int(input(f"How many {item_to_buy}s would you like to buy?"))
-
-        cost = quantity * self.shop_items[item_to_buy]
+        cost = quantity * self.all_game_items[item_to_buy]
         print(f"{item_to_buy} costs {cost}")
 
         if self.player_coins < cost:
@@ -74,14 +81,23 @@ class Shop():
             self.buy()
             return
 
-        self.player_coins -= cost
-        if item_to_buy in self.player_inventory:
-            self.player_inventory[item_to_buy] += quantity
-        else:
-            self.player_inventory[item_to_buy] = quantity
+        confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }s? (Y/N)").upper()
+
+        while confirm_buy != "Y" and confirm_buy != "N":
+            confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }s? (Y/N)").upper()
+
+        if confirm_buy == "Y":
+            self.player_coins -= cost
+            if item_to_buy in self.player_inventory:
+                self.player_inventory[item_to_buy] += quantity
+            else:
+                self.player_inventory[item_to_buy] = quantity
 
         self.shop_menu()
 
+    def sell(self):
+        print()
 
 
-Shop(5, "no house", []).enter_shop()
+
+Shop(500, "no house", []).enter_shop()
