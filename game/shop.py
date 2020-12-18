@@ -59,12 +59,12 @@ class Shop():
         item_to_buy = input("Enter the item name of what you could like to buy," 
                             + " or press E if you're being awkward and changed your mind: ")
 
-        quantity = int(input(f"How many {item_to_buy}s would you like to buy?"))
-
         if item_to_buy not in self.shop_items:
-            print("That isn't an item in the shop you plonk.")
+            print("That isn't an item in the shop. Can you even read?")
             self.buy()
             return
+
+        quantity = int(input(f"How many {item_to_buy}s would you like to buy?"))
 
         cost = quantity * self.shop_items[item_to_buy]
         print(f"{item_to_buy} costs {cost}")
