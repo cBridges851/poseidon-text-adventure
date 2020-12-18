@@ -37,7 +37,7 @@ class Shop():
                 print("----------------------------------------")
 
         user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
-        while user_input != "B" and user_input != "S":
+        while user_input != "B" and user_input != "S" and user_input != "U" and user_input != "E":
             user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
 
         if user_input == "B":
@@ -98,6 +98,7 @@ class Shop():
     def sell(self):
         print()
 
-
+    def upgrade_house(self):
+        print()
 
 Shop(500, "no house", []).enter_shop()
