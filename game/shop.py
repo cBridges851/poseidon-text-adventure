@@ -2,7 +2,7 @@ from text_delay import text_delay
 from file_logic import FileLogic
 import json
 
-GAME_ITEMS_FILEPATH = "./game/game_items.json"
+GAME_ITEMS_FILEPATH = "./game_items.json"
 
 class Shop():
     def __init__(self, player_coins, player_house, player_inventory):
