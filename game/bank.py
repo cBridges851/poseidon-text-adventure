@@ -1,7 +1,7 @@
 from text_delay import text_delay
 from file_logic import FileLogic
 
-BANK_FILENAME = "./bank.txt"
+BANK_FILENAME = "./game/bank.txt"
 
 def bank_logic(player):
     '''

@@ -15,7 +15,7 @@ class Shop():
         '''
         self.player_coins = player_coins
         self.player_house = player_house
-        self.player_inventory = {}
+        self.player_inventory = player_inventory
         self.available_houses = {
             "shack": 0, 
             "bungalow": 100, 
@@ -43,6 +43,7 @@ class Shop():
                     + " and a few mice here and there... Anyway, you can buy and sell items here! Oh!"
                     + " You can upgrade your house too.")
         self.shop_menu()
+        return (self.player_coins, self.player_house, self.player_inventory)
 
     def shop_menu(self):
         '''
@@ -72,7 +73,8 @@ class Shop():
             self.upgrade_house()
 
         else:
-            return (self.player_house, self.player_coins)
+            text_delay("Great, thanks for stopping by. Now get out.")
+            return (self.player_coins, self.player_house, self.player_inventory)
 
     def buy(self):
         '''
@@ -229,5 +231,3 @@ class Shop():
             self.player_coins -= self.available_houses[next_house]
 
         self.shop_menu()
-
-Shop(500, "shack", []).enter_shop()

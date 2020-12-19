@@ -11,8 +11,9 @@ from file_logic import FileLogic
 from monster_fight import monster_fight
 from bank import bank_logic
 from medical_centre import MedicalCentre
+from shop import Shop
 
-BANK_FILENAME = "./bank.txt"
+BANK_FILENAME = "./game/bank.txt"
 
 def adventure_game():
     '''
@@ -49,7 +50,10 @@ def adventure_game():
             print("------------------------------------------------------------------------------")
 
         if user_input == "S":
-            NotImplemented
+            shop = Shop(player.coins, player.house, player.inventory).enter_shop()
+            player.coins = shop[0]
+            player.house = shop[1]
+            player.inventory = shop[2]
         
         if user_input == "H":
             NotImplemented
