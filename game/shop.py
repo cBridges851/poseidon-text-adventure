@@ -2,7 +2,7 @@ from text_delay import text_delay
 from file_logic import FileLogic
 import json
 
-GAME_ITEMS_FILEPATH = r"./game/game_items.json"
+GAME_ITEMS_FILEPATH = "./game/game_items.json"
 
 class Shop():
     def __init__(self, player_coins, player_house, player_inventory):
@@ -43,6 +43,7 @@ class Shop():
         '''
             The method that allows the player to select what they will do in the shop.
         '''
+        print("---------------------------------------------------------------------------------------------")
         text_delay(f"You have {self.player_coins} coins on your person.")
 
         if len(self.player_inventory) != 0:
@@ -50,7 +51,7 @@ class Shop():
             for item in self.player_inventory:
                 print(f"Item Name: {item}")
                 print(f"Quantity: {self.player_inventory[item]}")
-                print("----------------------------------------")
+                print("---------------------------------------------------------------------------------------------")
 
         user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
         while user_input != "B" and user_input != "S" and user_input != "U" and user_input != "E":
@@ -73,36 +74,55 @@ class Shop():
             The method that allows the player to buy items from the shop.
         '''
         print("Here are the items you can buy:")
-        print("----------------------------------------")
+        print("---------------------------------------------------------------------------------------------")
 
         for item in self.shop_items:
             print(f"Item Name: {item}")
             
             if item in self.all_game_items:
                 print(f"Price: {self.all_game_items[item]}")
-            print("----------------------------------------")
+            print("---------------------------------------------------------------------------------------------")
 
         item_to_buy = input("Enter the item name of what you could like to buy," 
                             + " or press E if you're being awkward and changed your mind: ").lower()
+
+        if item_to_buy == "e":
+            self.shop_menu()
+            return
 
         if item_to_buy not in self.shop_items:
             print("That isn't an item in the shop. Can you even read?")
             self.buy()
             return
 
-        quantity = int(input(f"How many {item_to_buy}s would you like to buy?"))
+        quantity = int(input(f"How many {item_to_buy}s would you like to buy? "))
         cost = quantity * self.all_game_items[item_to_buy]
-        print(f"{item_to_buy} costs {cost}")
+
+        if quantity == 0:
+            print(f"What do you mean you want to buy 0 {item_to_buy}s?")
+            self.buy()
+        elif quantity == 1:
+            print(f"{quantity} {item_to_buy} costs {cost} coins.")
+        else:
+            print(f"{quantity} {item_to_buy}s cost {cost} coins.")
 
         if self.player_coins < cost:
             print("You don't have enough money, and we don't do discounts.")
             self.buy()
             return
 
-        confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }s? (Y/N)").upper()
+        confirm_buy = ""
+
+        if quantity == 1:
+            confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }? (Y/N) ").upper()
+        else:
+            confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }s? (Y/N) ").upper()
 
         while confirm_buy != "Y" and confirm_buy != "N":
-            confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }s? (Y/N)").upper()
+            if quantity == 1:
+                confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }? (Y/N) ").upper()
+            else:
+                confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }s? (Y/N) ").upper()
 
         if confirm_buy == "Y":
             self.player_coins -= cost
@@ -123,29 +143,57 @@ class Shop():
             return
 
         print("Here are the items in your inventory you can sell:")
-        print("--------------------------------------------------")
+        print("---------------------------------------------------------------------------------------------")
         for item in self.player_inventory:
             print(f"Item: {item}")
             print(f"Quantity: {self.player_inventory[item]}")
             print(f"Price per item: {self.all_game_items[item]}")
-            print("----------------------------------------")
+            print("---------------------------------------------------------------------------------------------")
 
-        item_to_sell = input("What would you like to sell?")
+        item_to_sell = input("What would you like to sell, or are you going to be awkward and press E to exit? ").lower()
+
+        if item_to_sell == "e":
+            self.shop_menu()
+            return
 
         if item_to_sell not in self.player_inventory:
             print(f"Oh you'd like to sell your {item_to_sell}? Where is it then?" 
                     + " Oh you don't actually have one? Funny that. I don't buy imaginary items.")
             self.sell()
 
-        quantity = int(input(f"How many {item_to_sell}s would you like to sell?"))
-        cost = self.player_inventory[item_to_sell] * quantity
-        confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N)").upper()
+        quantity = int(input(f"How many {item_to_sell}s would you like to sell? "))
+
+        if quantity == 0:
+            print(f"Fine, I won't buy any {item_to_sell}s from you then, weirdo.")
+            self.sell()
+
+        if quantity > self.player_inventory[item_to_sell]:
+            print(f"You don't even have that many {item_to_sell}s, can you even count?")
+            self.sell()
+            return
+
+        cost = self.all_game_items[item_to_sell] * quantity
+        confirm_sell = ""
+
+        if quantity == 1:
+            confirm_sell = input(f"I'll buy {quantity} {item_to_sell} for {cost} coins. Does that sound good? (Y/N) ").upper()
+        else:
+            confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N) ").upper()
 
         while confirm_sell != "Y" and confirm_sell != "N":
-            confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N)").upper()
+            if quantity == 1:
+                confirm_sell = input(f"I'll buy {quantity} {item_to_sell} for {cost} coins. Does that sound good? (Y/N) ").upper()
+            else:
+                confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N) ").upper()
 
-        
-        
+        if confirm_sell == "Y":
+            self.player_coins += cost
+            self.player_inventory[item_to_sell] -= quantity
+
+            if self.player_inventory[item_to_sell] == 0:
+                self.player_inventory.pop(item_to_sell)
+
+        self.shop_menu()
 
     def upgrade_house(self):
         print()
