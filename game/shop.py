@@ -16,7 +16,12 @@ class Shop():
         self.player_coins = player_coins
         self.player_house = player_house
         self.player_inventory = {}
-        self.available_houses = ["Bungalow"]
+        self.available_houses = {
+            "shack": 0, 
+            "bungalow": 100, 
+            "two-story house": 300, 
+            "mansion": 500
+        }
         self.shop_items = ["armour", "apple", "jar of air"]
         self.all_game_items = self.get_all_game_items()
 
@@ -64,7 +69,7 @@ class Shop():
             self.sell()
         
         elif user_input == "U":
-            print("You are choosing to upgrade your house")
+            self.upgrade_house()
 
         else:
             return (self.player_house, self.player_coins)
@@ -73,7 +78,7 @@ class Shop():
         '''
             The method that allows the player to buy items from the shop.
         '''
-        print("Here are the items you can buy:")
+        print("\nHere are the items you can buy:")
         print("---------------------------------------------------------------------------------------------")
 
         for item in self.shop_items:
@@ -142,7 +147,7 @@ class Shop():
             self.shop_menu()
             return
 
-        print("Here are the items in your inventory you can sell:")
+        print("\nHere are the items in your inventory you can sell:")
         print("---------------------------------------------------------------------------------------------")
         for item in self.player_inventory:
             print(f"Item: {item}")
@@ -196,6 +201,33 @@ class Shop():
         self.shop_menu()
 
     def upgrade_house(self):
-        print()
+        '''
+            The method that allows the user to upgrade their house.s
+        '''
+        print(f"\nThis is the house you currently have: {self.player_house}")
+        current_house_index = list(self.available_houses.keys()).index(self.player_house)
 
-Shop(500, "no house", []).enter_shop()
+        if current_house_index + 1 > len(list(self.available_houses.keys())) - 1:
+            print("You can't upgrade your house any more.")
+            self.shop_menu()
+            return
+
+        next_house = list(self.available_houses.keys())[current_house_index + 1]
+
+        if self.available_houses[next_house] > self.player_coins:
+            print("You don't have enough money to upgrade")
+            self.shop_menu()
+            return
+        
+        confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
+
+        while confirm_upgrade != "Y" and confirm_upgrade != "N":
+            confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
+
+        if confirm_upgrade == "Y":
+            self.player_house = next_house
+            self.player_coins -= self.available_houses[next_house]
+
+        self.shop_menu()
+
+Shop(500, "shack", []).enter_shop()
