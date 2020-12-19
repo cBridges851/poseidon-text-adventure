@@ -10,13 +10,13 @@ def bank_logic(player):
         player: obj, player object.
     '''
     text_delay("You open the door to the bank and look inside...")
-    text_delay("You notice you can deposit the coins on you into your account, check your balance or take some money out.")
+    text_delay("You notice you can deposit the coins on you into your account, check your balance or withdraw money out.")
     playing = True
     while playing == True:
-        user_input = input("Do you want to deposit(D), checkout your balance(B), take money out the bank(T) or exit(E)? ").upper()
+        user_input = input("Do you want to deposit(D), checkout your balance(B), withdraw money from the bank(W) or exit(E)? ").upper()
 
-        while user_input != "D" and user_input != "B" and user_input != "T" and user_input != "E":
-            user_input = input("Do you want to deposit(D), checkout your balance(B), take money out the bank(T) or exit(E)? ").upper()
+        while user_input != "D" and user_input != "B" and user_input != "W" and user_input != "E":
+            user_input = input("Do you want to deposit(D), checkout your balance(B), withdraw money from the bank(W) or exit(E)? ").upper()
         print("------------------------------------------------------------------------------")
 
         if user_input == "D":
@@ -49,7 +49,7 @@ def bank_logic(player):
             text_delay("You chose to checkout your balance.")
             print(f"Your current balance is {FileLogic().get_balance(BANK_FILENAME, player.name)} coins.")
 
-        if user_input == "T":
+        if user_input == "W":
             text_delay("You have chosen to take money out.")
             current_amount = FileLogic().get_balance(BANK_FILENAME, player.name)
             print(f"Your current balance is {current_amount} coins.")
@@ -65,5 +65,4 @@ def bank_logic(player):
         
         if user_input == "E":
             text_delay("Goodbye, thanks for using the bank.")
-            print("------------------------------------------------------------------------------")
             playing = False
