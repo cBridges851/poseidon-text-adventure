@@ -14,7 +14,7 @@ from medical_centre import MedicalCentre
 from shop import Shop
 from casino import Casino
 
-BANK_FILENAME = "./game/bank.txt"
+BANK_FILENAME = "./bank.txt"
 
 def adventure_game():
     '''
