@@ -11,7 +11,7 @@ class Shop():
             Args:
                 player_coins: integer, the number of coins the player has upon entering the shop.
                 player_house: string, the type of house the player has upon entering the shop.
-                player_inventory: dict, the items the player has upon entering the shop.
+                player_inventory: dictionary, the items the player has upon entering the shop.
         '''
         self.player_coins = player_coins
         self.player_house = player_house
@@ -28,6 +28,8 @@ class Shop():
     def get_all_game_items(self):
         '''
             Gets all the items the player could possibly buy and/or sell.
+            Returns:
+                item_content: dictionary, all the possible items in the game.
         '''
         item_content = FileLogic().open_json(GAME_ITEMS_FILEPATH)
         item_content = json.load(item_content)
@@ -36,6 +38,10 @@ class Shop():
     def enter_shop(self):
         '''
             The method is called when the player enters the shop.
+            Returns:
+                (self.player_coins, self.player_house, self.player_inventory): Tuple, contains 
+                the three properties that may have changed while the player has been at the shop 
+                (the number of coins they have, their house, the contents of their inventory)
         '''
         text_delay("You open the door to the shop and step inside. It's a little bit dark given" 
                     + " it is only lit using candles, so do watch your step." 
@@ -48,6 +54,11 @@ class Shop():
     def shop_menu(self):
         '''
             The method that allows the player to select what they will do in the shop.
+            Returns (when the user chooses to exit):
+                (self.player_coins, self.player_house, self.player_inventory): Tuple, the items that 
+                may have changed when the player has visited the shop (the number of coins they have,
+                their house, and the contents of their inventory). Returns to the enter_shop method 
+                as this is was called when they selected to enter the shop.
         '''
         print("---------------------------------------------------------------------------------------------")
         text_delay(f"You have {self.player_coins} coins on your person.")
@@ -79,6 +90,9 @@ class Shop():
     def buy(self):
         '''
             The method that allows the player to buy items from the shop.
+            Calls the shop_menu method when they have finished buying an item.
+            Returns:
+                Just returns when there is an invalid input to prevent code continuing.
         '''
         print("\nHere are the items you can buy:")
         print("---------------------------------------------------------------------------------------------")
@@ -143,6 +157,9 @@ class Shop():
     def sell(self):
         '''
             The method that allow the player to sell items from their inventory.
+            Calls the shop_menu method when they have finished selling an item.
+            Returns:
+                Just returns when there is an invalid input to prevent code continuing.
         '''
         if len(self.player_inventory) == 0:
             print("You have no items you can sell. What do you plan to sell? Air from your lungs?")
@@ -204,7 +221,11 @@ class Shop():
 
     def upgrade_house(self):
         '''
-            The method that allows the user to upgrade their house.s
+            The method that allows the user to upgrade their house.
+            Calls the shop_menu method when they have finished upgrading their house.
+            Returns:
+                Just returns when the player does not have enough coins or 
+                cannot upgrade anymore to prevent code continuing. 
         '''
         print(f"\nThis is the house you currently have: {self.player_house}")
         current_house_index = list(self.available_houses.keys()).index(self.player_house)

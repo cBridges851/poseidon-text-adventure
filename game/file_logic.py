@@ -180,5 +180,10 @@ class FileLogic:
         FileLogic().write_file_using_list(filepath, file)
 
     def open_json(self, filepath):
+        '''
+            Opens a JSON file
+            Returns:
+                jsonContents: IO, the contents of what is in the given JSON file.
+        '''
         jsonContents = open(filepath)
         return jsonContents
