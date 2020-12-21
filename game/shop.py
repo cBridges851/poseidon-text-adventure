@@ -31,8 +31,7 @@ class Shop():
             Returns:
                 item_content: dictionary, all the possible items in the game.
         '''
-        item_content = FileLogic().open_json(GAME_ITEMS_FILEPATH)
-        item_content = json.load(item_content)
+        item_content = FileLogic().get_json(GAME_ITEMS_FILEPATH)
         return item_content
 
     def enter_shop(self):

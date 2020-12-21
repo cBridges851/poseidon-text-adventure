@@ -14,7 +14,7 @@ from medical_centre import MedicalCentre
 from shop import Shop
 from casino import Casino
 
-BANK_FILENAME = "./bank.txt"
+BANK_FILENAME = "./bank.json"
 
 def adventure_game():
     '''
@@ -30,7 +30,7 @@ def adventure_game():
     if user_input == "N":
         # Create some new stats the user can use
         player.name = input("What is your first name? ")
-        FileLogic().add_player(BANK_FILENAME, player.name)
+        FileLogic().add_new_player(BANK_FILENAME, player)
 
     if user_input == "R":
         # Read in the current users stats
