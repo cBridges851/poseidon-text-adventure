@@ -1,15 +1,17 @@
+import json
+
 class FileLogic:
-    def open_file_by_newline(self, filepath):
+    def get_json(self, filepath):
         '''
-        Open a file and split the content by newlines.
+        Opens the content of the Json file.
         Args:
             filepath: string, representing a filepath.
         Returns:
-            file: list, representing the file contents by newline.
+            file_content: dic, representing file contents.
         '''
         try:
             with open(filepath, "r") as content:
-                file = content.read().split("\n")
+                file = content.read()
         except FileNotFoundError:
             print("ERROR: File not found, check your file path.")
             exit()
@@ -17,164 +19,120 @@ class FileLogic:
             print("ERROR: You lack the permissions to read this file.")
             exit()
 
-        return file
+        file_content = json.loads(file)
+
+        return file_content
 
 
-    def write_file_using_list(self, filepath, file_content):
+    def update_json_file(self, filepath, file_content):
         '''
-        Write to a file using an given in list.
-        Args: 
+        Update the Json file using the content passed in.
+        Args:
             filepath: string, representing a filepath.
-            list: list, containing the file contents.
+            file_content: dic, representing Json.
         '''
         try:
+            file_content = json.dumps(file_content)
             with open(filepath, "w") as content:
-                content.writelines(file_content)
+                content.write(file_content)
         except FileNotFoundError:
             print("ERROR: File not found, check your file path.")
             exit()
         except PermissionError:
-            print("ERROR: You lack the permissions to write this file.")
+            print("ERROR: You lack the permissions to read this file.")
             exit()
 
-    
+
     def get_balance(self, filepath, player):
         '''
         Get the coin balance of a given player.
         Args:
             filepath: string, representing a filepath.
-            player: string, player name.
+            player: obj, player object with properties on.
         Returns:
-            balance: integer, player coin balance.
+            balance: integer, player's coin balance.
         '''
-        records = FileLogic().open_file_by_newline(filepath)
-        
-        individual_player = ""
+        file_content = FileLogic().get_json(filepath)
+
         balance = 0
 
-        for record in range(len(records)):
-            individual_player = records[record].split()
-            if individual_player[1] == player:
-                balance = int(individual_player[0])
+        for item in file_content["Players"]:
+            if item["Name"] == player.name:
+                balance = item["Balance"]
 
         return balance
 
 
-    def update_balance(self, filepath, player, coins):
+    def update_balance(self, filepath, player):
         '''
-        Update the coin balance of an existing player.
+        Update the coin balance in the bank.
         Args:
             filepath: string, representing a filepath.
-            player: string, player name.
-            coins: integer, coins in the players inventory.
+            player: obj, player object with properties on.
         '''
-        file = FileLogic().open_file_by_newline(filepath)
+        file_content = FileLogic().get_json(filepath)
 
-        for item in range(len(file)):
-            if file[item] == "":
-                file.remove(file[item])
-
-        individual_player = ""
-        for item in range(len(file)):
-            individual_player = file[item].split()
-
-            if individual_player[1] == player:
-                updated_total = int(individual_player[0]) + coins
-                if item != 0:
-                    file[item] = "\n" + str(updated_total) + " " + player
-                else:
-                    file[item] = str(updated_total) + " " + player
-            elif item != 0:
-                file[item] = "\n" + file[item]
-            else:
-                file[item] = file[item]
-
-        FileLogic().write_file_using_list(filepath, file)
+        for item in file_content["Players"]:
+            if item["Name"] == player.name:
+                item["Balance"] += player.coins
+        
+        FileLogic().update_json_file(filepath, file_content)
 
 
-    def update_balance_set_amount(self, filepath, player, coins):
+    def update_balance_by_set_amount(self, filepath, player, coins):
         '''
-        Update the coin balance of an existing player by a set amount.
+        Update the coin balance in the bank by a set amount.
         Args:
             filepath: string, representing a filepath.
-            player: string, player name.
-            coins: integer, coins to update.
+            player: obj, player object with properties on.
+            coins: integer, coins to update by.
         '''
-        file = FileLogic().open_file_by_newline(filepath)
 
-        for item in range(len(file)):
-            if file[item] == "":
-                file.remove(file[item])
+        file_content = FileLogic().get_json(filepath)
 
-        individual_player = ""
-        for item in range(len(file)):
-            individual_player = file[item].split()
+        for item in file_content["Players"]:
+            if item["Name"] == player.name:
+                item["Balance"] += coins
 
-            if individual_player[1] == player:
-                updated_total = int(individual_player[0]) + coins
-                if item != 0:
-                    file[item] = "\n" + str(updated_total) + " " + player
-                else:
-                    file[item] = str(updated_total) + " " + player
-            elif item != 0:
-                file[item] = "\n" + file[item]
-            else:
-                file[item] = file[item]
-
-        FileLogic().write_file_using_list(filepath, file)
+        FileLogic().update_json_file(filepath, file_content)
 
 
-    def remove_by_set_amount(self, filepath, player, coins):
+    def withdraw_by_set_amount(self, filepath, player, coins):
         '''
-        Update the coin balance of an existing player takes money out.
+        Withdraw money from the bank by a set amount.
         Args:
             filepath: string, representing a filepath.
-            player: string, player name.
-            coins: integer, updated amount.
+            player: obj, player object with properties on.
+            coins: integer, amount to restore.
+        Returns: 
+            player: obj, player object with updated properties on.
         '''
-        file = FileLogic().open_file_by_newline(filepath)
+        file_content = FileLogic().get_json(filepath)
 
-        for item in range(len(file)):
-            if file[item] == "":
-                file.remove(file[item])
+        for item in file_content["Players"]:
+            if item["Name"] == player.name:
+                item["Balance"] -= coins
+        
+        FileLogic().update_json_file(filepath, file_content)
+        player.coins += coins
 
-        individual_player = ""
-        for item in range(len(file)):
-            individual_player = file[item].split()
-
-            if individual_player[1] == player:
-                updated_total = coins
-                if item != 0:
-                    file[item] = "\n" + str(updated_total) + " " + player
-                else:
-                    file[item] = str(updated_total) + " " + player
-            elif item != 0:
-                file[item] = "\n" + file[item]
-            else:
-                file[item] = file[item]
-
-        FileLogic().write_file_using_list(filepath, file)
+        return player
 
 
-    def add_player(self, filepath, player):
+    def add_new_player(self, filepath, player):
         '''
-        Adds a new player to the database.
+        Add a new player to the bank.json file with a balance of 0.
         Args:
             filepath: string, representing a filepath.
-            player: string, player name.
+            player: obj, player object representing a new player.
         '''
-        file = FileLogic().open_file_by_newline(filepath)
+        file_content = FileLogic().get_json(filepath)
 
-        for item in range(len(file)):
-            if file[item] == "":
-                file.remove(file[item])
+        new_player = {
+            "Name" : player.name,
+            "Balance" : 0
+        }
 
-        file.append("0" + " " + player)
+        file_content["Players"].append(new_player)
 
-        for item in range(len(file)):
-            if item != 0:
-                file[item] = "\n" + file[item]
-            else:
-                file[item] = file[item]
-                
-        FileLogic().write_file_using_list(filepath, file)
+        FileLogic().update_json_file(filepath, file_content)
