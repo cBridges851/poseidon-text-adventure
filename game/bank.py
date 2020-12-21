@@ -59,7 +59,7 @@ def bank_logic(player):
             if user_input > current_amount or user_input <= 0:
                     text_delay("The amount you entered was out of range.")
             else:
-                player = FileLogic().withdaw_by_set_amount(BANK_FILENAME, player, user_input)
+                player = FileLogic().withdraw_by_set_amount(BANK_FILENAME, player, user_input)
                 text_delay(f"You now have {player.coins} in your inventory.")
         
         if user_input == "E":

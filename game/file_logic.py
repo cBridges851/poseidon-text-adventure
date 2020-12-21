@@ -7,7 +7,7 @@ class FileLogic:
         Args:
             filepath: string, representing a filepath.
         Returns:
-            file_content: obj, representing file contents.
+            file_content: dic, representing file contents.
         '''
         try:
             with open(filepath, "r") as content:
@@ -97,7 +97,7 @@ class FileLogic:
         FileLogic().update_json_file(filepath, file_content)
 
 
-    def withdaw_by_set_amount(self, filepath, player, coins):
+    def withdraw_by_set_amount(self, filepath, player, coins):
         '''
         Withdraw money from the bank by a set amount.
         Args:
