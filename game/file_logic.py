@@ -47,7 +47,7 @@ class FileLogic:
         '''
         Get the coin balance of a given player.
         Args:
-            filepath, string, representing a filepath.
+            filepath: string, representing a filepath.
             player, obj, player object with properties on.
         Returns:
             balance: integer, players coin balance.
