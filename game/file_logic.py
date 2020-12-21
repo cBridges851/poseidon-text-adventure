@@ -50,7 +50,7 @@ class FileLogic:
             filepath: string, representing a filepath.
             player, obj, player object with properties on.
         Returns:
-            balance: integer, players coin balance.
+            balance: integer, player's coin balance.
         '''
         file_content = FileLogic().get_json(filepath)
 
