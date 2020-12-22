@@ -9,7 +9,7 @@ class Shop():
         '''
             The method for initalising the shop.
             Args:
-                player: obj, represents the player
+                player: obj, player object.
         '''
         self.player = player
         self.available_houses = {
@@ -34,9 +34,7 @@ class Shop():
         '''
             The method is called when the player enters the shop.
             Returns:
-                (self.player.coins, self.player_house, self.player.inventory): Tuple, contains 
-                the three properties that may have changed while the player has been at the shop 
-                (the number of coins they have, their house, the contents of their inventory)
+                player: obj, player object.
         '''
         text_delay("You open the door to the shop and step inside. It's a little bit dark given" 
                     + " it is only lit using candles, so do watch your step." 
@@ -50,10 +48,7 @@ class Shop():
         '''
             The method that allows the player to select what they will do in the shop.
             Returns (when the user chooses to exit):
-                (self.player.coins, self.player_house, self.player.inventory): Tuple, the items that 
-                may have changed when the player has visited the shop (the number of coins they have,
-                their house, and the contents of their inventory). Returns to the enter_shop method 
-                as this is was called when they selected to enter the shop.
+                player: obj, player object.
         '''
         print("---------------------------------------------------------------------------------------------")
         text_delay(f"You have {self.player.coins} coins on your person.")
