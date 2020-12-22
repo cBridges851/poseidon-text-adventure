@@ -209,6 +209,7 @@ class Shop():
             if self.player.inventory[item_to_sell] == 0:
                 self.player.inventory.pop(item_to_sell)
 
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
         self.shop_menu()
 
     def upgrade_house(self):
