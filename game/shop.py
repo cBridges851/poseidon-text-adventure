@@ -5,17 +5,13 @@ import json
 GAME_ITEMS_FILEPATH = "./game_items.json"
 
 class Shop():
-    def __init__(self, player_coins, player_house, player_inventory):
+    def __init__(self, player):
         '''
             The method for initalising the shop.
             Args:
-                player_coins: integer, the number of coins the player has upon entering the shop.
-                player_house: string, the type of house the player has upon entering the shop.
-                player_inventory: dictionary, the items the player has upon entering the shop.
+                player: obj, represents the player
         '''
-        self.player_coins = player_coins
-        self.player_house = player_house
-        self.player_inventory = player_inventory
+        self.player = player
         self.available_houses = {
             "shack": 0, 
             "bungalow": 100, 
@@ -38,7 +34,7 @@ class Shop():
         '''
             The method is called when the player enters the shop.
             Returns:
-                (self.player_coins, self.player_house, self.player_inventory): Tuple, contains 
+                (self.player.coins, self.player_house, self.player.inventory): Tuple, contains 
                 the three properties that may have changed while the player has been at the shop 
                 (the number of coins they have, their house, the contents of their inventory)
         '''
@@ -48,25 +44,25 @@ class Shop():
                     + " and a few mice here and there... Anyway, you can buy and sell items here! Oh!"
                     + " You can upgrade your house too.")
         self.shop_menu()
-        return (self.player_coins, self.player_house, self.player_inventory)
+        return (self.player)
 
     def shop_menu(self):
         '''
             The method that allows the player to select what they will do in the shop.
             Returns (when the user chooses to exit):
-                (self.player_coins, self.player_house, self.player_inventory): Tuple, the items that 
+                (self.player.coins, self.player_house, self.player.inventory): Tuple, the items that 
                 may have changed when the player has visited the shop (the number of coins they have,
                 their house, and the contents of their inventory). Returns to the enter_shop method 
                 as this is was called when they selected to enter the shop.
         '''
         print("---------------------------------------------------------------------------------------------")
-        text_delay(f"You have {self.player_coins} coins on your person.")
+        text_delay(f"You have {self.player.coins} coins on your person.")
 
-        if len(self.player_inventory) != 0:
+        if len(self.player.inventory) != 0:
             print("Here is your inventory:")
-            for item in self.player_inventory:
+            for item in self.player.inventory:
                 print(f"Item Name: {item}")
-                print(f"Quantity: {self.player_inventory[item]}")
+                print(f"Quantity: {self.player.inventory[item]}")
                 print("---------------------------------------------------------------------------------------------")
 
         user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
@@ -84,7 +80,7 @@ class Shop():
 
         else:
             text_delay("Great, thanks for stopping by. Now get out.")
-            return (self.player_coins, self.player_house, self.player_inventory)
+            return (self.player)
 
     def buy(self):
         '''
@@ -126,7 +122,7 @@ class Shop():
         else:
             print(f"{quantity} {item_to_buy}s cost {cost} coins.")
 
-        if self.player_coins < cost:
+        if self.player.coins < cost:
             print("You don't have enough money, and we don't do discounts.")
             self.buy()
             return
@@ -145,11 +141,11 @@ class Shop():
                 confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }s? (Y/N) ").upper()
 
         if confirm_buy == "Y":
-            self.player_coins -= cost
-            if item_to_buy in self.player_inventory:
-                self.player_inventory[item_to_buy] += quantity
+            self.player.coins -= cost
+            if item_to_buy in self.player.inventory:
+                self.player.inventory[item_to_buy] += quantity
             else:
-                self.player_inventory[item_to_buy] = quantity
+                self.player.inventory[item_to_buy] = quantity
 
         self.shop_menu()
 
@@ -160,16 +156,16 @@ class Shop():
             Returns:
                 Just returns when there is an invalid input to prevent code continuing.
         '''
-        if len(self.player_inventory) == 0:
+        if len(self.player.inventory) == 0:
             print("You have no items you can sell. What do you plan to sell? Air from your lungs?")
             self.shop_menu()
             return
 
         print("\nHere are the items in your inventory you can sell:")
         print("---------------------------------------------------------------------------------------------")
-        for item in self.player_inventory:
+        for item in self.player.inventory:
             print(f"Item: {item}")
-            print(f"Quantity: {self.player_inventory[item]}")
+            print(f"Quantity: {self.player.inventory[item]}")
             print(f"Price per item: {self.all_game_items[item]}")
             print("---------------------------------------------------------------------------------------------")
 
@@ -179,7 +175,7 @@ class Shop():
             self.shop_menu()
             return
 
-        if item_to_sell not in self.player_inventory:
+        if item_to_sell not in self.player.inventory:
             print(f"Oh you'd like to sell your {item_to_sell}? Where is it then?" 
                     + " Oh you don't actually have one? Funny that. I don't buy imaginary items.")
             self.sell()
@@ -190,7 +186,7 @@ class Shop():
             print(f"Fine, I won't buy any {item_to_sell}s from you then, weirdo.")
             self.sell()
 
-        if quantity > self.player_inventory[item_to_sell]:
+        if quantity > self.player.inventory[item_to_sell]:
             print(f"You don't even have that many {item_to_sell}s, can you even count?")
             self.sell()
             return
@@ -210,11 +206,11 @@ class Shop():
                 confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N) ").upper()
 
         if confirm_sell == "Y":
-            self.player_coins += cost
-            self.player_inventory[item_to_sell] -= quantity
+            self.player.coins += cost
+            self.player.inventory[item_to_sell] -= quantity
 
-            if self.player_inventory[item_to_sell] == 0:
-                self.player_inventory.pop(item_to_sell)
+            if self.player.inventory[item_to_sell] == 0:
+                self.player.inventory.pop(item_to_sell)
 
         self.shop_menu()
 
@@ -226,8 +222,8 @@ class Shop():
                 Just returns when the player does not have enough coins or 
                 cannot upgrade anymore to prevent code continuing. 
         '''
-        print(f"\nThis is the house you currently have: {self.player_house}")
-        current_house_index = list(self.available_houses.keys()).index(self.player_house)
+        print(f"\nThis is the house you currently have: {self.player.house}")
+        current_house_index = list(self.available_houses.keys()).index(self.player.house)
 
         if current_house_index + 1 > len(list(self.available_houses.keys())) - 1:
             print("You can't upgrade your house any more.")
@@ -236,7 +232,7 @@ class Shop():
 
         next_house = list(self.available_houses.keys())[current_house_index + 1]
 
-        if self.available_houses[next_house] > self.player_coins:
+        if self.available_houses[next_house] > self.player.coins:
             print("You don't have enough money to upgrade")
             self.shop_menu()
             return
@@ -247,7 +243,7 @@ class Shop():
             confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
 
         if confirm_upgrade == "Y":
-            self.player_house = next_house
-            self.player_coins -= self.available_houses[next_house]
+            self.player.house = next_house
+            self.player.coins -= self.available_houses[next_house]
 
         self.shop_menu()

@@ -51,10 +51,7 @@ def adventure_game():
             print("------------------------------------------------------------------------------")
 
         if user_input == "S":
-            shop = Shop(player.coins, player.house, player.inventory).enter_shop()
-            player.coins = shop[0]
-            player.house = shop[1]
-            player.inventory = shop[2]
+            player = Shop(player).enter_shop()
         
         if user_input == "H":
             NotImplemented
