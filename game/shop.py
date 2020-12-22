@@ -244,4 +244,5 @@ class Shop():
             self.player.house = next_house
             self.player.coins -= self.available_houses[next_house]
 
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "House", self.player.house)
         self.shop_menu()
