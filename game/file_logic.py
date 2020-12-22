@@ -58,7 +58,7 @@ class FileLogic:
 
         for item in file_content["Players"]:
             if item["Name"] == player.name:
-                balance = item["Balance"]
+                balance = item["Bank Balance"]
 
         return balance
 
@@ -74,7 +74,7 @@ class FileLogic:
 
         for item in file_content["Players"]:
             if item["Name"] == player.name:
-                item["Balance"] += player.coins
+                item["Bank Balance"] += player.coins
         
         FileLogic().update_json_file(filepath, file_content)
 
@@ -92,7 +92,7 @@ class FileLogic:
 
         for item in file_content["Players"]:
             if item["Name"] == player.name:
-                item["Balance"] += coins
+                item["Bank Balance"] += coins
 
         FileLogic().update_json_file(filepath, file_content)
 
@@ -111,7 +111,7 @@ class FileLogic:
 
         for item in file_content["Players"]:
             if item["Name"] == player.name:
-                item["Balance"] -= coins
+                item["Bank Balance"] -= coins
         
         FileLogic().update_json_file(filepath, file_content)
         player.coins += coins
@@ -121,7 +121,7 @@ class FileLogic:
 
     def add_new_player(self, filepath, player):
         '''
-        Add a new player to the bank.json file with a balance of 0.
+        Add a new player to the player.json file with a balance of 0.
         Args:
             filepath: string, representing a filepath.
             player: obj, player object representing a new player.
@@ -130,7 +130,7 @@ class FileLogic:
 
         new_player = {
             "Name" : player.name,
-            "Balance" : 0
+            "Bank Balance" : 0
         }
 
         file_content["Players"].append(new_player)

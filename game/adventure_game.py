@@ -14,7 +14,7 @@ from medical_centre import MedicalCentre
 from shop import Shop
 from casino import Casino
 
-BANK_FILENAME = "./bank.json"
+BANK_FILENAME = "./player.json"
 
 def adventure_game():
     '''
