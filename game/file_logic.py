@@ -136,3 +136,11 @@ class FileLogic:
         file_content["Players"].append(new_player)
 
         FileLogic().update_json_file(filepath, file_content)
+
+    def update_player_property(self, filepath, player, propertyName, propertyValue):
+        file_content = FileLogic().get_json(filepath)
+        for item in file_content["Players"]:
+            if item["Name"] == player.name:
+                item[propertyName] = propertyValue
+        
+        FileLogic().update_json_file(filepath, file_content)
