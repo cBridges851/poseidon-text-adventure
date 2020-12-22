@@ -11,6 +11,7 @@ from file_logic import FileLogic
 from monster_fight import monster_fight
 from bank import bank_logic
 from medical_centre import MedicalCentre
+from shop import Shop
 from casino import Casino
 
 BANK_FILENAME = "./bank.json"
@@ -50,7 +51,7 @@ def adventure_game():
             print("------------------------------------------------------------------------------")
 
         if user_input == "S":
-            NotImplemented
+            player = Shop(player).enter_shop()
         
         if user_input == "H":
             NotImplemented

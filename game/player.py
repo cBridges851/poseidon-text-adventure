@@ -4,6 +4,8 @@ class Player:
         self.health = 100
         self.damage = 15
         self.coins = 0
+        self.house = "shack"
+        self.inventory = {}
 
     def is_player_dead(self, player_health):
         '''
