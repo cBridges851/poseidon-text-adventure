@@ -3,6 +3,7 @@ from file_logic import FileLogic
 import json
 
 GAME_ITEMS_FILEPATH = "./game_items.json"
+PLAYER_FILEPATH = "./player.json"
 
 class Shop():
     def __init__(self, player):
@@ -142,6 +143,8 @@ class Shop():
             else:
                 self.player.inventory[item_to_buy] = quantity
 
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Coins", self.player.coins)
         self.shop_menu()
 
     def sell(self):
@@ -207,6 +210,8 @@ class Shop():
             if self.player.inventory[item_to_sell] == 0:
                 self.player.inventory.pop(item_to_sell)
 
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Coins", self.player.coins)
         self.shop_menu()
 
     def upgrade_house(self):
@@ -241,4 +246,5 @@ class Shop():
             self.player.house = next_house
             self.player.coins -= self.available_houses[next_house]
 
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "House", self.player.house)
         self.shop_menu()

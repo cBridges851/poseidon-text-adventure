@@ -14,7 +14,7 @@ from medical_centre import MedicalCentre
 from shop import Shop
 from casino import Casino
 
-BANK_FILENAME = "./bank.json"
+PLAYER_FILENAME = "./player.json"
 
 def adventure_game():
     '''
@@ -24,17 +24,21 @@ def adventure_game():
 
     while user_input != "N" and user_input != "R":
         user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
-    
-    player = Player()
 
     if user_input == "N":
+        player = Player()
         # Create some new stats the user can use
         player.name = input("What is your first name? ")
-        FileLogic().add_new_player(BANK_FILENAME, player)
+        FileLogic().add_new_player(PLAYER_FILENAME, player)
 
     if user_input == "R":
         # Read in the current users stats
-        player.name = input("Welcome back to the program, what name did you use last time? ")
+        name = input("Welcome back to the program, what name did you use last time? ")
+        player = FileLogic().retrieve_player(PLAYER_FILENAME, name)
+        
+        if player == None:
+            adventure_game()
+            return
     
     text_delay("You find yourself in the main square of PebbleTown...")
 
@@ -58,6 +62,7 @@ def adventure_game():
 
         if user_input == "M":
             player.health = MedicalCentre(player.health).heal()
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
 
         if user_input == "B":
             bank_logic(player)
