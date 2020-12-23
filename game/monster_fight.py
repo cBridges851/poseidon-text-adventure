@@ -1,7 +1,10 @@
 from text_delay import text_delay
 from monster import Monster
 from player import Player
+from file_logic import FileLogic
 import random
+
+PLAYER_FILENAME = "./player.json"
 
 def monster_fight(player):
     '''
@@ -29,6 +32,7 @@ def monster_fight(player):
                     break
                 else:
                     player.health -= monster.damage
+                    FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
                 print(f"The monster attacked you leaving you with {player.health}.")
 
             if player_input == "R":
@@ -42,10 +46,12 @@ def monster_fight(player):
             print("You defeated the monster!")
             coins_earned = player.health / 10
             player.coins += round(coins_earned)
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
             text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
 
         if player.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay("You have died losing all coins on your person.")
             player.coins = 0
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
         playing = False
