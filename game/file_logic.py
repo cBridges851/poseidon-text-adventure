@@ -84,9 +84,8 @@ class FileLogic:
                 player.inventory = item["Inventory"]
 
         if playerFound == False:
-            print("Player not found, creating a new player.")
-            player.name = name
-            FileLogic().add_new_player("./player.json", player)
+            print("Hmmmm, we could not find that player.")
+            return None
 
         return player
 

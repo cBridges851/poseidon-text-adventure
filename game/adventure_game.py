@@ -35,6 +35,10 @@ def adventure_game():
         # Read in the current users stats
         name = input("Welcome back to the program, what name did you use last time? ")
         player = FileLogic().retrieve_player(PLAYER_FILENAME, name)
+        
+        if player == None:
+            adventure_game()
+            return
     
     text_delay("You find yourself in the main square of PebbleTown...")
 
