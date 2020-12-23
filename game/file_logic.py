@@ -68,6 +68,15 @@ class FileLogic:
         FileLogic().update_json_file(filepath, file_content)
 
     def retrieve_player(self, filepath, name):
+        '''
+            Attempts to get the player based on the name that was inputted in adventure_game.py.
+            It creates an object if the player has been found.
+            Args:
+                filepath: string, represents the file path that contains information about the registered players.
+                name: string, the name the user inputted in adventure_game.py and this is used to find the player object.
+            Returns:
+                player: obj, the player object OR None if the player is not found.
+        '''
         file_content = FileLogic().get_json(filepath)
         player = Player()
         playerFound = False
@@ -91,6 +100,14 @@ class FileLogic:
 
 
     def update_player_property(self, filepath, player, propertyName, propertyValue):
+        '''
+            Updates the value of a given property.
+            Args:
+                filepath: string, the file path to the file that needs to be adjsuted
+                player: obj, player object
+                propertyName: string, the name of the property that needs to be changed.
+                propertyValue: any, the value that the given property will be updated to.
+        '''
         file_content = FileLogic().get_json(filepath)
         for item in file_content["Players"]:
             if item["Name"] == player.name:
