@@ -144,6 +144,7 @@ class Shop():
                 self.player.inventory[item_to_buy] = quantity
 
         FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Coins", self.player.coins)
         self.shop_menu()
 
     def sell(self):
@@ -210,6 +211,7 @@ class Shop():
                 self.player.inventory.pop(item_to_sell)
 
         FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
+        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Coins", self.player.coins)
         self.shop_menu()
 
     def upgrade_house(self):

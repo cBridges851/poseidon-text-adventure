@@ -1,4 +1,6 @@
 import json
+from player import Player
+from types import SimpleNamespace
 
 class FileLogic:
     def get_json(self, filepath):
@@ -130,12 +132,40 @@ class FileLogic:
 
         new_player = {
             "Name" : player.name,
-            "Bank Balance" : 0
+            "Bank Balance" : 0,
+            "Health": 100,
+            "Damage": 15,
+            "Coins": 0,
+            "House": "shack",
+            "Inventory": {}
         }
 
         file_content["Players"].append(new_player)
 
         FileLogic().update_json_file(filepath, file_content)
+
+    def retrieve_player(self, filepath, name):
+        file_content = FileLogic().get_json(filepath)
+        player = Player()
+        playerFound = False
+
+        for item in file_content["Players"]:
+            if item["Name"] == name:
+                playerFound = True
+                player.name = item["Name"]
+                player.health = item["Health"]
+                player.damage = item["Damage"]
+                player.coins = item["Coins"]
+                player.house = item["House"]
+                player.inventory = item["Inventory"]
+
+        if playerFound == False:
+            print("Player not found, creating a new player.")
+            player.name = name
+            FileLogic().add_new_player("./player.json", player)
+
+        return player
+
 
     def update_player_property(self, filepath, player, propertyName, propertyValue):
         file_content = FileLogic().get_json(filepath)

@@ -24,17 +24,17 @@ def adventure_game():
 
     while user_input != "N" and user_input != "R":
         user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
-    
-    player = Player()
 
     if user_input == "N":
+        player = Player()
         # Create some new stats the user can use
         player.name = input("What is your first name? ")
         FileLogic().add_new_player(BANK_FILENAME, player)
 
     if user_input == "R":
         # Read in the current users stats
-        player.name = input("Welcome back to the program, what name did you use last time? ")
+        name = input("Welcome back to the program, what name did you use last time? ")
+        player = FileLogic().retrieve_player(BANK_FILENAME, name)
     
     text_delay("You find yourself in the main square of PebbleTown...")
 
