@@ -117,6 +117,7 @@ class FileLogic:
         
         FileLogic().update_json_file(filepath, file_content)
         player.coins += coins
+        FileLogic().update_player_property(filepath, player, "Coins", player.coins)
 
         return player
 

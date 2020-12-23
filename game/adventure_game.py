@@ -14,7 +14,7 @@ from medical_centre import MedicalCentre
 from shop import Shop
 from casino import Casino
 
-BANK_FILENAME = "./player.json"
+PLAYER_FILENAME = "./player.json"
 
 def adventure_game():
     '''
@@ -29,12 +29,12 @@ def adventure_game():
         player = Player()
         # Create some new stats the user can use
         player.name = input("What is your first name? ")
-        FileLogic().add_new_player(BANK_FILENAME, player)
+        FileLogic().add_new_player(PLAYER_FILENAME, player)
 
     if user_input == "R":
         # Read in the current users stats
         name = input("Welcome back to the program, what name did you use last time? ")
-        player = FileLogic().retrieve_player(BANK_FILENAME, name)
+        player = FileLogic().retrieve_player(PLAYER_FILENAME, name)
     
     text_delay("You find yourself in the main square of PebbleTown...")
 
@@ -58,6 +58,7 @@ def adventure_game():
 
         if user_input == "M":
             player.health = MedicalCentre(player.health).heal()
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
 
         if user_input == "B":
             bank_logic(player)

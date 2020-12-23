@@ -31,6 +31,7 @@ def bank_logic(player):
                 text_delay("You chose to deposit all your coins.")
                 FileLogic().update_balance(PLAYER_FILENAME, player)
                 player.coins = 0
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 print(f"Balance has been updated, new balance is {FileLogic().get_balance(PLAYER_FILENAME, player)} coins.")
             
             if user_input == "C":
@@ -44,6 +45,7 @@ def bank_logic(player):
                     text_delay("Coins added to your account.")
                     FileLogic().update_balance_by_set_amount(PLAYER_FILENAME, player, user_input)
                     player.coins -= user_input
+                    FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     print(f"Balance has been updated, new balance is {FileLogic().get_balance(PLAYER_FILENAME, player)} coins.")
 
         if user_input == "B":
