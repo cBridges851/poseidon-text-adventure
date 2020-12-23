@@ -1,6 +1,9 @@
 import random
 import time
 from text_delay import text_delay
+from file_logic import FileLogic
+
+PLAYER_FILENAME = "./player.json"
 
 class Casino:
     def print_cards(self, cards):
@@ -148,16 +151,19 @@ class Casino:
                     else:
                         text_delay(f"Taken {bet} coins from your inventory.")
                         player.coins -= bet
+                        FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                         game_result = Casino().play_blackjack()
                         break
 
                 if game_result == "W":
                     player.coins += bet * 2
+                    FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     text_delay("You doubled your bet. Added your earnings to your inventory.")
                 elif game_result == "L":
                     text_delay("You lost your bet.")
                 else:
                     player.coins += bet
+                    FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     text_delay("Bet returned to your inventory.")
 
             if user_input == "N":
