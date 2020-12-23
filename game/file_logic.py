@@ -1,6 +1,5 @@
 import json
 from player import Player
-from types import SimpleNamespace
 
 class FileLogic:
     def get_json(self, filepath):
