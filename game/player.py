@@ -1,6 +1,7 @@
 class Player:
     def __init__(self):
         self.name = None
+        self.bank_balance = 0
         self.health = 100
         self.damage = 15
         self.coins = 0

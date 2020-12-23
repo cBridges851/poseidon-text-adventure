@@ -50,7 +50,7 @@ def bank_logic(player):
 
         if user_input == "B":
             text_delay("You chose to checkout your balance.")
-            print(f"Your current balance is {FileLogic().get_balance(PLAYER_FILENAME, player)} coins.")
+            print(f"Your current balance is {player.bank_balance} coins.")
 
         if user_input == "W":
             text_delay("You have chosen to take money out.")
