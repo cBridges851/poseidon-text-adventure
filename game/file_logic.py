@@ -44,63 +44,6 @@ class FileLogic:
             print("ERROR: You lack the permissions to read this file.")
             exit()
 
-    def update_balance(self, filepath, player):
-        '''
-        Update the coin balance in the bank.
-        Args:
-            filepath: string, representing a filepath.
-            player: obj, player object with properties on.
-        '''
-        file_content = FileLogic().get_json(filepath)
-
-        for item in file_content["Players"]:
-            if item["Name"] == player.name:
-                item["Bank Balance"] += player.coins
-        
-        FileLogic().update_json_file(filepath, file_content)
-
-
-    def update_balance_by_set_amount(self, filepath, player, coins):
-        '''
-        Update the coin balance in the bank by a set amount.
-        Args:
-            filepath: string, representing a filepath.
-            player: obj, player object with properties on.
-            coins: integer, coins to update by.
-        '''
-
-        file_content = FileLogic().get_json(filepath)
-
-        for item in file_content["Players"]:
-            if item["Name"] == player.name:
-                item["Bank Balance"] += coins
-
-        FileLogic().update_json_file(filepath, file_content)
-
-
-    def withdraw_by_set_amount(self, filepath, player, coins):
-        '''
-        Withdraw money from the bank by a set amount.
-        Args:
-            filepath: string, representing a filepath.
-            player: obj, player object with properties on.
-            coins: integer, amount to restore.
-        Returns: 
-            player: obj, player object with updated properties on.
-        '''
-        file_content = FileLogic().get_json(filepath)
-
-        for item in file_content["Players"]:
-            if item["Name"] == player.name:
-                item["Bank Balance"] -= coins
-        
-        FileLogic().update_json_file(filepath, file_content)
-        player.coins += coins
-        FileLogic().update_player_property(filepath, player, "Coins", player.coins)
-
-        return player
-
-
     def add_new_player(self, filepath, player):
         '''
         Add a new player to the player.json file with a balance of 0.

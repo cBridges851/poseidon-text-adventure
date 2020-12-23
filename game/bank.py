@@ -29,10 +29,11 @@ def bank_logic(player):
 
             if user_input == "A":
                 text_delay("You chose to deposit all your coins.")
-                FileLogic().update_balance(PLAYER_FILENAME, player)
+                player.bank_balance += player.coins
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Bank Balance", player.bank_balance)
                 player.coins = 0
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
-                print(f"Balance has been updated, new balance is {FileLogic().get_balance(PLAYER_FILENAME, player)} coins.")
+                print(f"Balance has been updated, new balance is {player.bank_balance} coins.")
             
             if user_input == "C":
                 text_delay("You chose to deposit a set amount.")
@@ -43,10 +44,11 @@ def bank_logic(player):
                     text_delay("The amount your entered was out of range.")
                 else:
                     text_delay("Coins added to your account.")
-                    FileLogic().update_balance_by_set_amount(PLAYER_FILENAME, player, user_input)
+                    player.bank_balance += user_input
+                    FileLogic().update_player_property(PLAYER_FILENAME, player, "Bank Balance", player.bank_balance)
                     player.coins -= user_input
                     FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
-                    print(f"Balance has been updated, new balance is {FileLogic().get_balance(PLAYER_FILENAME, player)} coins.")
+                    print(f"Balance has been updated, new balance is {player.bank_balance} coins.")
 
         if user_input == "B":
             text_delay("You chose to checkout your balance.")
@@ -54,14 +56,16 @@ def bank_logic(player):
 
         if user_input == "W":
             text_delay("You have chosen to take money out.")
-            current_amount = FileLogic().get_balance(PLAYER_FILENAME, player)
-            print(f"Your current balance is {current_amount} coins.")
+            print(f"Your current balance is {player.bank_balance} coins.")
             user_input = int(input("How much do you want to take out? "))
 
-            if user_input > current_amount or user_input <= 0:
+            if user_input > player.bank_balance or user_input <= 0:
                     text_delay("The amount you entered was out of range.")
             else:
-                player = FileLogic().withdraw_by_set_amount(PLAYER_FILENAME, player, user_input)
+                player.bank_balance -= user_input
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Bank Balance", player.bank_balance)
+                player.coins += user_input
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 text_delay(f"You now have {player.coins} in your inventory.")
         
         if user_input == "E":
