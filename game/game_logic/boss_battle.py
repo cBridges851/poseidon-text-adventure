@@ -5,7 +5,7 @@ import random
 from components.file_logic import FileLogic
 from components.text_delay import text_delay
 
-def boss_battle():
+def boss_battle(player):
     '''
     Fill in later on:
     Todo: 
@@ -13,8 +13,8 @@ def boss_battle():
         1 big battle at the end
         Rescure the princess?
     '''
-    # monster = Monster()
-    # boss_monster = BossMonster()
+    monster = Monster()
+    boss_monster = BossMonster()
 
     playing = True
     while playing:

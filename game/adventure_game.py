@@ -74,13 +74,16 @@ def adventure_game():
                 playing = False
         
         if direction == "S":
-            text_delay("BOSS BATTLE")
+            text_delay("Do you want to fight the boss?(Y/N) and press (E) to exit the game.")
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
-            while user_input != "Y" and user_input != "E":
+            while user_input != "Y" and user_input != "N" and user_input != "E":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
             
+            if user_input == "Y":
+                boss_battle(player)
+
             if user_input == "E":
                 print("Goodbye, Thanks for playing!")
                 playing = False
