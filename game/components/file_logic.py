@@ -1,5 +1,5 @@
 import json
-from player import Player
+from models.player import Player
 
 class FileLogic:
     def get_json(self, filepath):
@@ -23,7 +23,6 @@ class FileLogic:
         file_content = json.loads(file)
 
         return file_content
-
 
     def update_json_file(self, filepath, file_content):
         '''
@@ -96,7 +95,6 @@ class FileLogic:
             return None
 
         return player
-
 
     def update_player_property(self, filepath, player, property_name, property_value):
         '''

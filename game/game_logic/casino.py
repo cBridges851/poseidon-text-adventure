@@ -1,7 +1,7 @@
 import random
 import time
-from text_delay import text_delay
-from file_logic import FileLogic
+from components.text_delay import text_delay
+from components.file_logic import FileLogic
 
 PLAYER_FILENAME = "./player.json"
 

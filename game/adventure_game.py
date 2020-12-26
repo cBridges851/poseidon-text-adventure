@@ -4,15 +4,16 @@
 # The Adventure Game to end all adventure games
 import time
 import random
-from monster import Monster
-from player import Player
-from text_delay import text_delay
-from file_logic import FileLogic
-from monster_fight import monster_fight
-from bank import bank_logic
-from medical_centre import MedicalCentre
-from shop import Shop
-from casino import Casino
+from models.monster import Monster
+from models.player import Player
+from components.text_delay import text_delay
+from components.file_logic import FileLogic
+from game_logic.monster_fight import monster_fight
+from game_logic.bank import bank_logic
+from game_logic.medical_centre import MedicalCentre
+from game_logic.shop import Shop
+from game_logic.casino import Casino
+from game_logic.boss_battle import boss_battle
 
 PLAYER_FILENAME = "./player.json"
 
@@ -44,38 +45,80 @@ def adventure_game():
 
     playing = True
     while playing == True:
+        direction = input("Would you like to go North, South, East or West: ").upper()
+
+        while direction != "N" and direction != "S" and direction != "E" and direction != "W":
+            direction = input("Would you like to go North, South, East or West: ").upper()
         
         print("------------------------------------------------------------------------------")
-        text_delay("Around you is a shop(S), your house(H), the bank(B), the medical centre(M) and what appears to be a field(F) and finally to exit the game press(E): ")
-        user_input = input("What would you like to do? ").upper()
-        print("------------------------------------------------------------------------------")
 
-        while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "M" and user_input != "F" and user_input != "E" and user_input != "C":
+        if direction == "N":
+            text_delay("Around you is a shop(S), your house(H), the bank(B) and press (E) to exit the game: ")
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
-
-        if user_input == "S":
-            player = Shop(player).enter_shop()
+            while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "E":
+                user_input = input("What would you like to do? ").upper()
+                print("------------------------------------------------------------------------------")
+            
+            if user_input == "S":
+                player = Shop(player).enter_shop()
         
-        if user_input == "H":
-            NotImplemented
+            if user_input == "H":
+                NotImplemented
+            
+            if user_input == "B":
+                bank_logic(player)
+            
+            if user_input == "E":
+                print("Goodbye, Thanks for playing!")
+                playing = False
+        
+        if direction == "S":
+            text_delay("BOSS BATTLE")
+            user_input = input("What would you like to do? ").upper()
+            print("------------------------------------------------------------------------------")
+            while user_input != "Y" and user_input != "E":
+                user_input = input("What would you like to do? ").upper()
+                print("------------------------------------------------------------------------------")
+            
+            if user_input == "E":
+                print("Goodbye, Thanks for playing!")
+                playing = False
 
-        if user_input == "M":
-            player.health = MedicalCentre(player.health).heal()
-            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+        if direction == "E":
+            text_delay("Around you is the medical centre do you want to enter(Y/N) and exit the game press(E): ")
+            user_input = input("What would you like to do? ").upper()
+            print("------------------------------------------------------------------------------")
+            while user_input != "Y" and user_input != "N" and user_input != "E" and user_input != "C":
+                user_input = input("What would you like to do? ").upper()
+                print("------------------------------------------------------------------------------")
 
-        if user_input == "B":
-            bank_logic(player)
+            if user_input == "Y":
+                player.health = MedicalCentre(player.health).heal()
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
 
-        if user_input == "F":
-            monster_fight(player)
+            if user_input == "C":
+                text_delay("You quickly run around the corner to avoid the police and enter the casino.")
+                Casino().better_and_runner(player)
+            
+            if user_input == "E":
+                print("Goodbye, Thanks for playing!")
+                playing = False
 
-        if user_input == "C":
-            Casino().better_and_runner(player)
+        if direction == "W":
+            text_delay("You see a field do you want to go in it?(Y/N) and press (E) to exit the game: ")
+            user_input = input("What would you like to do? ").upper()
+            print("------------------------------------------------------------------------------")
+            while user_input != "Y" and user_input != "N" and user_input != "E":
+                user_input = input("What would you like to do? ").upper()
+                print("------------------------------------------------------------------------------")
 
-        if user_input == "E":
-            print("Goodbye, Thanks for playing!")
-            playing = False
+            if user_input == "Y":
+                monster_fight(player)
+            
+            if user_input == "E":
+                print("Goodbye, Thanks for playing!")
+                playing = False
 
 
 # Driver function

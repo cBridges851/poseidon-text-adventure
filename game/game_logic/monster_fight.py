@@ -1,7 +1,7 @@
-from text_delay import text_delay
-from monster import Monster
-from player import Player
-from file_logic import FileLogic
+from components.text_delay import text_delay
+from models.monster import Monster
+from models.player import Player
+from components.file_logic import FileLogic
 import random
 
 PLAYER_FILENAME = "./player.json"

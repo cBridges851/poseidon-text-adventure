@@ -1,6 +1,6 @@
-from text_delay import text_delay
-from file_logic import FileLogic
-from player import Player
+from components.text_delay import text_delay
+from components.file_logic import FileLogic
+from models.player import Player
 
 PLAYER_FILENAME = "./player.json"
 
