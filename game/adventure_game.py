@@ -83,6 +83,8 @@ def adventure_game():
             
             if user_input == "Y":
                 boss_battle(player)
+                # implement players damage check to see if they can defeat them.
+                # implement damage upgrades
 
             if user_input == "E":
                 print("Goodbye, Thanks for playing!")
