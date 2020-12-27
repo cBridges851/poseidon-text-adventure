@@ -21,7 +21,7 @@ def adventure_game():
     '''
     Runs the main program.
     '''
-    user_input = input("Welcome to PebbleTown are you a new(N) or returning(R) player? ").upper()
+    user_input = ""
 
     while user_input != "N" and user_input != "R":
         user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
@@ -45,7 +45,7 @@ def adventure_game():
 
     playing = True
     while playing == True:
-        direction = input("Would you like to go North(N), South(S), East(E) or West(W) (Type 'exit' to close the game): ").upper()
+        direction = ""
 
         while direction != "N" and direction != "S" and direction != "E" and direction != "W" and direction != "EXIT":
             direction = input("Would you like to go North(N), South(S), East(E) or West(W) (Type 'exit' to close the game): ").upper()
@@ -54,7 +54,7 @@ def adventure_game():
 
         if direction == "N":
             text_delay("Around you is a shop(S), your house(H), the bank(B) (Type 'exit' to close the game): ")
-            user_input = input("What would you like to do? ").upper()
+            user_input = ""
             print("------------------------------------------------------------------------------")
             while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
@@ -75,7 +75,7 @@ def adventure_game():
         
         if direction == "S":
             text_delay("Do you want to fight the boss?(Y/N) (Type 'exit' to close the game):")
-            user_input = input("What would you like to do? ").upper()
+            user_input = ""
             print("------------------------------------------------------------------------------")
             while user_input != "Y" and user_input != "N" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
@@ -95,7 +95,7 @@ def adventure_game():
 
         if direction == "E":
             text_delay("Around you is the medical centre do you want to enter(Y/N) (Type 'exit' to close the game): ")
-            user_input = input("What would you like to do? ").upper()
+            user_input = ""
             print("------------------------------------------------------------------------------")
             while user_input != "Y" and user_input != "N" and user_input != "EXIT" and user_input != "C":
                 user_input = input("What would you like to do? ").upper()
@@ -115,7 +115,7 @@ def adventure_game():
 
         if direction == "W":
             text_delay("You see a field do you want to go in it?(Y/N) (Type 'exit' to close the game): ")
-            user_input = input("What would you like to do? ").upper()
+            user_input = ""
             print("------------------------------------------------------------------------------")
             while user_input != "Y" and user_input != "N" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()

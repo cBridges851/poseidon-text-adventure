@@ -14,7 +14,7 @@ def bank_logic(player):
     text_delay("You notice you can deposit the coins on you into your account, check your balance or withdraw money out.")
     playing = True
     while playing == True:
-        user_input = input("Do you want to deposit(D), checkout your balance(B), withdraw money from the bank(W) or exit(E)? ").upper()
+        user_input = ""
 
         while user_input != "D" and user_input != "B" and user_input != "W" and user_input != "E":
             user_input = input("Do you want to deposit(D), checkout your balance(B), withdraw money from the bank(W) or exit(E)? ").upper()
@@ -22,8 +22,8 @@ def bank_logic(player):
 
         if user_input == "D":
 
-            user_input = input("Do you want to deposit all your coins(A) or a certain amount(C)? ").upper()
-
+            user_input = ""
+            
             while user_input != "A" and user_input != "C":
                 user_input = input("Do you want to deposit all your coins(A) or a certain amount(C)? ").upper()
 

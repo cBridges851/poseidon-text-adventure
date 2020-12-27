@@ -61,7 +61,7 @@ class Shop():
                 print(f"Quantity: {self.player.inventory[item]}")
                 print("---------------------------------------------------------------------------------------------")
 
-        user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
+        user_input = ""
         while user_input != "B" and user_input != "S" and user_input != "U" and user_input != "E":
             user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
 
@@ -242,7 +242,7 @@ class Shop():
             self.shop_menu()
             return
         
-        confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
+        confirm_upgrade = ""
 
         while confirm_upgrade != "Y" and confirm_upgrade != "N":
             confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
