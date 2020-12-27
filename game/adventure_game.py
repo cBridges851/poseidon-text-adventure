@@ -63,17 +63,17 @@ def adventure_game():
             if user_input == "S":
                 player = Shop(player).enter_shop()
             
-            if user_input == "H":
+            elif user_input == "H":
                 NotImplemented
             
-            if user_input == "B":
+            elif user_input == "B":
                 bank_logic(player)
             
-            if user_input == "EXIT":
+            else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
         
-        if direction == "S":
+        elif direction == "S":
             text_delay("Do you want to fight the boss?(Y/N) (Type 'exit' to close the game):")
             user_input = ""
             print("------------------------------------------------------------------------------")
@@ -89,11 +89,11 @@ def adventure_game():
                 else:
                     boss_battle(player)
 
-            if user_input == "EXIT":
+            else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
 
-        if direction == "E":
+        elif direction == "E":
             text_delay("Around you is the medical centre do you want to enter(Y/N) (Type 'exit' to close the game): ")
             user_input = ""
             print("------------------------------------------------------------------------------")
@@ -105,15 +105,15 @@ def adventure_game():
                 player.health = MedicalCentre(player.health).heal()
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
 
-            if user_input == "C":
+            elif user_input == "C":
                 text_delay("You quickly run around the corner to avoid the police and enter the casino.")
                 Casino().better_and_runner(player)
             
-            if user_input == "EXIT":
+            else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
 
-        if direction == "W":
+        elif direction == "W":
             text_delay("You see a field do you want to go in it?(Y/N) (Type 'exit' to close the game): ")
             user_input = ""
             print("------------------------------------------------------------------------------")
@@ -124,11 +124,11 @@ def adventure_game():
             if user_input == "Y":
                 monster_fight(player)
             
-            if user_input == "EXIT":
+            else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
 
-        if direction == "EXIT":
+        else:
             print("Goodbye, Thanks for playing!")
             playing = False
 
