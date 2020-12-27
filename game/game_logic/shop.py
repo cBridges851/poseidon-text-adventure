@@ -19,7 +19,7 @@ class Shop():
             "two-story house": 300, 
             "mansion": 500
         }
-        self.shop_items = ["armour", "apple", "jar of air"]
+        self.shop_items = ["armour", "apple", "jar of air", "damage upgrade"]
         self.all_game_items = self.get_all_game_items()
 
     def get_all_game_items(self):
@@ -138,12 +138,17 @@ class Shop():
 
         if confirm_buy == "Y":
             self.player.coins -= cost
-            if item_to_buy in self.player.inventory:
-                self.player.inventory[item_to_buy] += quantity
+            if item_to_buy == "damage upgrade":
+                damage_to_add = 5 * quantity
+                self.player.damage += damage_to_add
+                FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Damage", self.player.damage)
             else:
-                self.player.inventory[item_to_buy] = quantity
+                if item_to_buy in self.player.inventory:
+                    self.player.inventory[item_to_buy] += quantity
+                else:
+                    self.player.inventory[item_to_buy] = quantity
+                    FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
 
-        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
         FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Coins", self.player.coins)
         self.shop_menu()
 

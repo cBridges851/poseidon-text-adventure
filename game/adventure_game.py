@@ -82,9 +82,12 @@ def adventure_game():
                 print("------------------------------------------------------------------------------")
             
             if user_input == "Y":
-                boss_battle(player)
-                # implement players damage check to see if they can defeat them.
-                # implement damage upgrades
+                if player.damage < 25:
+                    text_delay("You aren't strong enough to defeat the boss. Level up your damage output at the shop.")
+                elif player.health < 100:
+                    text_delay("You are too weak go back to the Hospital and heal before trying again.")
+                else:
+                    boss_battle(player)
 
             if user_input == "E":
                 print("Goodbye, Thanks for playing!")
