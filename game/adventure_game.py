@@ -53,31 +53,31 @@ def adventure_game():
         print("------------------------------------------------------------------------------")
 
         if direction == "N":
-            text_delay("Around you is a shop(S), your house(H), the bank(B) and press (E) to exit the game: ")
+            text_delay("Around you is a shop(S), your house(H), the bank(B) (Type 'exit' to close the game): ")
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
-            while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "E":
+            while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
             
             if user_input == "S":
                 player = Shop(player).enter_shop()
-        
+            
             if user_input == "H":
                 NotImplemented
             
             if user_input == "B":
                 bank_logic(player)
             
-            if user_input == "E":
+            if user_input == "EXIT":
                 print("Goodbye, Thanks for playing!")
                 playing = False
         
         if direction == "S":
-            text_delay("Do you want to fight the boss?(Y/N) and press (E) to exit the game.")
+            text_delay("Do you want to fight the boss?(Y/N) (Type 'exit' to close the game):")
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
-            while user_input != "Y" and user_input != "N" and user_input != "E":
+            while user_input != "Y" and user_input != "N" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
             
@@ -89,15 +89,15 @@ def adventure_game():
                 else:
                     boss_battle(player)
 
-            if user_input == "E":
+            if user_input == "EXIT":
                 print("Goodbye, Thanks for playing!")
                 playing = False
 
         if direction == "E":
-            text_delay("Around you is the medical centre do you want to enter(Y/N) and exit the game press(E): ")
+            text_delay("Around you is the medical centre do you want to enter(Y/N) (Type 'exit' to close the game): ")
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
-            while user_input != "Y" and user_input != "N" and user_input != "E" and user_input != "C":
+            while user_input != "Y" and user_input != "N" and user_input != "EXIT" and user_input != "C":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
 
@@ -109,22 +109,22 @@ def adventure_game():
                 text_delay("You quickly run around the corner to avoid the police and enter the casino.")
                 Casino().better_and_runner(player)
             
-            if user_input == "E":
+            if user_input == "EXIT":
                 print("Goodbye, Thanks for playing!")
                 playing = False
 
         if direction == "W":
-            text_delay("You see a field do you want to go in it?(Y/N) and press (E) to exit the game: ")
+            text_delay("You see a field do you want to go in it?(Y/N) (Type 'exit' to close the game): ")
             user_input = input("What would you like to do? ").upper()
             print("------------------------------------------------------------------------------")
-            while user_input != "Y" and user_input != "N" and user_input != "E":
+            while user_input != "Y" and user_input != "N" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
 
             if user_input == "Y":
                 monster_fight(player)
             
-            if user_input == "E":
+            if user_input == "EXIT":
                 print("Goodbye, Thanks for playing!")
                 playing = False
 
