@@ -45,10 +45,10 @@ def adventure_game():
 
     playing = True
     while playing == True:
-        direction = input("Would you like to go North, South, East or West: ").upper()
+        direction = input("Would you like to go North(N), South(S), East(E) or West(W) (Type 'exit' to close the game): ").upper()
 
-        while direction != "N" and direction != "S" and direction != "E" and direction != "W":
-            direction = input("Would you like to go North, South, East or West: ").upper()
+        while direction != "N" and direction != "S" and direction != "E" and direction != "W" and direction != "EXIT":
+            direction = input("Would you like to go North(N), South(S), East(E) or West(W) (Type 'exit' to close the game): ").upper()
         
         print("------------------------------------------------------------------------------")
 
@@ -128,6 +128,9 @@ def adventure_game():
                 print("Goodbye, Thanks for playing!")
                 playing = False
 
+        if direction == "EXIT":
+            print("Goodbye, Thanks for playing!")
+            playing = False
 
 # Driver function
 if __name__ == "__main__":
