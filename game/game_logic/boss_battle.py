@@ -4,6 +4,7 @@ from models.player import Player
 import random
 from components.file_logic import FileLogic
 from components.text_delay import text_delay
+from game_logic.MonsterFight import MonsterFight
 
 PLAYER_FILENAME = "./player.json"
 
@@ -19,29 +20,9 @@ def boss_battle(player):
             monster = Monster()
             print(f"Minion {i + 1} of 3")
             text_delay(f"You have encountered a {monster.name}")
-            while monster.health > 0:
-                print("------------------------------------------------------------------------------")
-                player_input = ""
 
-                while player_input != "A" and player_input != "R":
-                    player_input = input("To attack the monster, press (A). To run away press (R): ").upper()
-                
-                if player_input == "A":
-                    monster.health -= player.damage
-                    print(f"You attacked the {monster.name} dealing {player.damage}. The monster has {monster.health} left.")
-                    monster.damage = random.randint(1, 20)
-                    if monster.health < 0:
-                        break
-                    else:
-                        player.health -= monster.damage
-                        FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
-                    print(f"The monster attacked you leaving you with {player.health}.")
-
-                if player_input == "R":
-                    break
-                
-                if Player().is_player_dead(player.health) == True:
-                    break
+            monster_fight = MonsterFight(player, monster)
+            monster_fight.monster_fight(1, 20)
 
             if monster.health <= 0:
                 print("------------------------------------------------------------------------------")
@@ -50,7 +31,8 @@ def boss_battle(player):
                 player.coins += round(coins_earned)
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
-                player.health = player.health * 1.4
+                new_health = player.health * 1.4
+                player.health = round(new_health)
                 print("------------------------------------------------------------------------------")
 
             if player.health <= 0:
@@ -75,33 +57,12 @@ def boss_battle(player):
         text_delay(f"You have encountered the {boss_monster.name} the toughest monster in the land.")
         text_delay(f"The {boss_monster.name} has taken the Princess hostage. To save her defeat the Monster and get rewarded handsomly.")
 
-        while boss_monster.health > 0:
-            print("------------------------------------------------------------------------------")
-            player_input = ""
-
-            while player_input != "A" and player_input != "R":
-                player_input = input("To attack the monster, press (A). To run away press (R): ").upper()
-                
-            if player_input == "A":
-                boss_monster.health -= player.damage
-                print(f"You attacked the {boss_monster.name} dealing {player.damage}. The monster has {boss_monster.health} left.")
-                boss_monster.damage = random.randint(15, 20)
-                if boss_monster.health < 0:
-                    break
-                else:
-                    player.health -= boss_monster.damage
-                    FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
-                print(f"The monster attacked you leaving you with {player.health}.")
-
-            if player_input == "R":
-                break
-            
-            if Player().is_player_dead(player.health) == True:
-                break
+        monster_fight = MonsterFight(player, boss_monster)
+        monster_fight.monster_fight(15, 20)
         
         if boss_monster.health <= 0:
             print("------------------------------------------------------------------------------")
-            print("You defeated the Boss Monster and in the process saved the Princess! Welldone!")
+            print(f"You defeated {boss_monster.name} and in the process saved the Princess! Welldone!")
             coins_earned = 1000
             player.coins += coins_earned
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)

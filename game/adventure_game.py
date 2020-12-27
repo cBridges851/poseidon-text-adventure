@@ -8,7 +8,7 @@ from models.monster import Monster
 from models.player import Player
 from components.text_delay import text_delay
 from components.file_logic import FileLogic
-from game_logic.monster_fight import monster_fight
+from game_logic.field import enter_field
 from game_logic.bank import bank_logic
 from game_logic.medical_centre import MedicalCentre
 from game_logic.shop import Shop
@@ -56,27 +56,25 @@ def adventure_game():
             text_delay("Around you is a shop(S), your house(H), the bank(B) (Type 'exit' to close the game): ")
             user_input = ""
             print("------------------------------------------------------------------------------")
+
             while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
             
             if user_input == "S":
                 player = Shop(player).enter_shop()
-            
             elif user_input == "H":
                 NotImplemented
-            
             elif user_input == "B":
                 bank_logic(player)
-            
             else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
-        
         elif direction == "S":
             text_delay("Do you want to fight the boss?(Y/N) (Type 'exit' to close the game):")
             user_input = ""
             print("------------------------------------------------------------------------------")
+
             while user_input != "Y" and user_input != "N" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
@@ -88,15 +86,16 @@ def adventure_game():
                     text_delay("You are too weak go back to the Hospital and heal before trying again.")
                 else:
                     boss_battle(player)
-
+            elif user_input == "N":
+                return
             else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
-
         elif direction == "E":
             text_delay("Around you is the medical centre do you want to enter(Y/N) (Type 'exit' to close the game): ")
             user_input = ""
             print("------------------------------------------------------------------------------")
+
             while user_input != "Y" and user_input != "N" and user_input != "EXIT" and user_input != "C":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
@@ -104,30 +103,26 @@ def adventure_game():
             if user_input == "Y":
                 player.health = MedicalCentre(player.health).heal()
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
-
             elif user_input == "C":
-                text_delay("You quickly run around the corner to avoid the police and enter the casino.")
+                text_delay("You look around and see a casino near the medical center and decide to go inside.")
                 Casino().better_and_runner(player)
-            
             else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
-
         elif direction == "W":
             text_delay("You see a field do you want to go in it?(Y/N) (Type 'exit' to close the game): ")
             user_input = ""
             print("------------------------------------------------------------------------------")
+
             while user_input != "Y" and user_input != "N" and user_input != "EXIT":
                 user_input = input("What would you like to do? ").upper()
                 print("------------------------------------------------------------------------------")
 
             if user_input == "Y":
-                monster_fight(player)
-            
+                enter_field(player)
             else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
-
         else:
             print("Goodbye, Thanks for playing!")
             playing = False
