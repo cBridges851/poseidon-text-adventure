@@ -87,7 +87,7 @@ def adventure_game():
                 else:
                     boss_battle(player)
             elif user_input == "N":
-                return
+                print("", end="")
             else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
@@ -103,6 +103,8 @@ def adventure_game():
             if user_input == "Y":
                 player.health = MedicalCentre(player.health).heal()
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+            elif user_input == "N":
+                print("", end="")
             elif user_input == "C":
                 text_delay("You look around and see a casino near the medical center and decide to go inside.")
                 Casino().better_and_runner(player)
@@ -120,6 +122,8 @@ def adventure_game():
 
             if user_input == "Y":
                 enter_field(player)
+            elif user_input == "N":
+                print("", end="")
             else:
                 print("Goodbye, Thanks for playing!")
                 playing = False
