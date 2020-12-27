@@ -1,9 +1,9 @@
+import random
 from components.text_delay import text_delay
+from components.file_logic import FileLogic
+from game_logic.monster_fight import MonsterFight
 from models.monster import Monster
 from models.player import Player
-from components.file_logic import FileLogic
-import random
-from game_logic.MonsterFight import MonsterFight
 
 PLAYER_FILENAME = "./player.json"
 
@@ -15,7 +15,6 @@ def enter_field(player):
     '''
     monster = Monster()
     playing = True
-    
     while playing:
         text_delay(f"You have encountered a {monster.name}")
         monster_fight = MonsterFight(player, monster)
@@ -23,7 +22,7 @@ def enter_field(player):
 
         if monster.health <= 0:
             print("------------------------------------------------------------------------------")
-            print("You defeated the monster!")
+            text_delay("You defeated the monster!")
             coins_earned = player.health / 10
             player.coins += round(coins_earned)
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)

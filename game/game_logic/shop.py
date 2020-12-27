@@ -145,6 +145,7 @@ class Shop():
             else:
                 if item_to_buy in self.player.inventory:
                     self.player.inventory[item_to_buy] += quantity
+                    FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
                 else:
                     self.player.inventory[item_to_buy] = quantity
                     FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)

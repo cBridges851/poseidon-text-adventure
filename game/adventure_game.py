@@ -4,8 +4,6 @@
 # The Adventure Game to end all adventure games
 import time
 import random
-from models.monster import Monster
-from models.player import Player
 from components.text_delay import text_delay
 from components.file_logic import FileLogic
 from game_logic.field import enter_field
@@ -14,6 +12,12 @@ from game_logic.medical_centre import MedicalCentre
 from game_logic.shop import Shop
 from game_logic.casino import Casino
 from game_logic.boss_battle import boss_battle
+from game_logic.game_areas.north import go_north
+from game_logic.game_areas.west import go_west
+from game_logic.game_areas.east import go_east
+from game_logic.game_areas.south import go_south
+from models.monster import Monster
+from models.player import Player
 
 PLAYER_FILENAME = "./player.json"
 
@@ -22,7 +26,6 @@ def adventure_game():
     Runs the main program.
     '''
     user_input = ""
-
     while user_input != "N" and user_input != "R":
         user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
 
@@ -46,89 +49,25 @@ def adventure_game():
     playing = True
     while playing == True:
         direction = ""
-
         while direction != "N" and direction != "S" and direction != "E" and direction != "W" and direction != "EXIT":
             direction = input("Would you like to go North(N), South(S), East(E) or West(W) (Type 'exit' to close the game): ").upper()
         
         print("------------------------------------------------------------------------------")
 
         if direction == "N":
-            text_delay("Around you is a shop(S), your house(H), the bank(B) (Type 'exit' to close the game): ")
-            user_input = ""
-            print("------------------------------------------------------------------------------")
+            playing = go_north(player, playing)
 
-            while user_input != "S" and user_input != "H" and user_input != "B" and user_input != "EXIT":
-                user_input = input("What would you like to do? ").upper()
-                print("------------------------------------------------------------------------------")
-            
-            if user_input == "S":
-                player = Shop(player).enter_shop()
-            elif user_input == "H":
-                NotImplemented
-            elif user_input == "B":
-                bank_logic(player)
-            else:
-                print("Goodbye, Thanks for playing!")
-                playing = False
         elif direction == "S":
-            text_delay("Do you want to fight the boss?(Y/N) (Type 'exit' to close the game):")
-            user_input = ""
-            print("------------------------------------------------------------------------------")
+            playing = go_south(player, playing)
 
-            while user_input != "Y" and user_input != "N" and user_input != "EXIT":
-                user_input = input("What would you like to do? ").upper()
-                print("------------------------------------------------------------------------------")
-            
-            if user_input == "Y":
-                if player.damage < 25:
-                    text_delay("You aren't strong enough to defeat the boss. Level up your damage output at the shop.")
-                elif player.health < 100:
-                    text_delay("You are too weak go back to the Hospital and heal before trying again.")
-                else:
-                    boss_battle(player)
-            elif user_input == "N":
-                print("", end="")
-            else:
-                print("Goodbye, Thanks for playing!")
-                playing = False
         elif direction == "E":
-            text_delay("Around you is the medical centre do you want to enter(Y/N) (Type 'exit' to close the game): ")
-            user_input = ""
-            print("------------------------------------------------------------------------------")
+            playing = go_east(player, playing)
 
-            while user_input != "Y" and user_input != "N" and user_input != "EXIT" and user_input != "C":
-                user_input = input("What would you like to do? ").upper()
-                print("------------------------------------------------------------------------------")
-
-            if user_input == "Y":
-                player.health = MedicalCentre(player.health).heal()
-                FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
-            elif user_input == "N":
-                print("", end="")
-            elif user_input == "C":
-                text_delay("You look around and see a casino near the medical center and decide to go inside.")
-                Casino().better_and_runner(player)
-            else:
-                print("Goodbye, Thanks for playing!")
-                playing = False
         elif direction == "W":
-            text_delay("You see a field do you want to go in it?(Y/N) (Type 'exit' to close the game): ")
-            user_input = ""
-            print("------------------------------------------------------------------------------")
+            playing = go_west(player, playing)
 
-            while user_input != "Y" and user_input != "N" and user_input != "EXIT":
-                user_input = input("What would you like to do? ").upper()
-                print("------------------------------------------------------------------------------")
-
-            if user_input == "Y":
-                enter_field(player)
-            elif user_input == "N":
-                print("", end="")
-            else:
-                print("Goodbye, Thanks for playing!")
-                playing = False
         else:
-            print("Goodbye, Thanks for playing!")
+            print("Goodbye, Thanks For Playing!")
             playing = False
 
 # Driver function

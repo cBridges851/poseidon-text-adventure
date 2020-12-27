@@ -1,8 +1,8 @@
+import random
 from components.text_delay import text_delay
+from components.file_logic import FileLogic
 from models.monster import Monster
 from models.player import Player
-from components.file_logic import FileLogic
-import random
 
 class MonsterFight:
     def __init__(self, player, monster):
@@ -26,20 +26,21 @@ class MonsterFight:
         while self.monster.health > 0:
             print("------------------------------------------------------------------------------")
             player_input = ""
-
             while player_input != "A" and player_input != "R":
-                player_input = input("To attack the monster, press (A). To run away press (R): ").upper()
+                player_input = input(f"To attack {self.monster.name}, press (A). To run away press (R): ").upper()
             
             if player_input == "A":
                 self.monster.health -= self.player.damage
                 print(f"You attacked the {self.monster.name} dealing {self.player.damage}. The monster has {self.monster.health} left.")
                 self.monster.damage = random.randint(min, max)
+
                 if self.monster.health < 0:
                     break
                 else:
                     self.player.health -= self.monster.damage
                     FileLogic().update_player_property(self.PLAYER_FILENAME, self.player, "Health", self.player.health)
-                print(f"The monster attacked you leaving you with {self.player.health}.")
+
+                print(f"{self.monster.name} attacked you, leaving you with {self.player.health}.")
 
             if player_input == "R":
                 break
