@@ -22,7 +22,10 @@ class MonsterFight:
         Args:
             min: integer, representing a min value for damage.
             max: integer, representing a max value for damage.
+        Returns:
+            active: bool, returns depending on whether the user runs away or not.
         '''
+        active = True
         while self.monster.health > 0:
             print("------------------------------------------------------------------------------")
             player_input = ""
@@ -43,7 +46,11 @@ class MonsterFight:
                 print(f"{self.monster.name} attacked you, leaving you with {self.player.health}.")
 
             if player_input == "R":
+                active = False
                 break
             
             if Player().is_player_dead(self.player.health) == True:
+                active = False
                 break
+        
+        return active

@@ -22,7 +22,11 @@ def boss_battle(player):
             text_delay(f"You have encountered a {monster.name}")
 
             monster_fight = MonsterFight(player, monster)
-            monster_fight.monster_fight(1, 20)
+            active = monster_fight.monster_fight(1, 20)
+
+            if not active:
+                print("------------------------------------------------------------------------------")
+                break
 
             if monster.health <= 0:
                 print("------------------------------------------------------------------------------")
@@ -47,6 +51,9 @@ def boss_battle(player):
         if playing == False:
             break
 
+        if not active:
+            break
+
         boss_monster = BossMonster()
         text_delay(f"You have managed to get past {boss_monster.name}'s minions... your're not done yet though. Time to fight {boss_monster.name}!")
         player.health = 100
@@ -58,7 +65,11 @@ def boss_battle(player):
         text_delay(f"The {boss_monster.name} has taken Princess Belle hostage. To save her, defeat the monster and you will be get rewarded handsomely.")
 
         monster_fight = MonsterFight(player, boss_monster)
-        monster_fight.monster_fight(15, 20)
+        active = monster_fight.monster_fight(15, 20)
+
+        if not active:
+            print("------------------------------------------------------------------------------")
+            break
         
         if boss_monster.health <= 0:
             print("------------------------------------------------------------------------------")
