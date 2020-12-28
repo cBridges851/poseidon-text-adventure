@@ -20,13 +20,8 @@ def boss_battle(player):
             monster = Monster()
             print(f"Minion {i + 1} of 3")
             text_delay(f"You have encountered a {monster.name}")
-
             monster_fight = MonsterFight(player, monster)
             active = monster_fight.monster_fight(1, 20)
-
-            if not active:
-                print("------------------------------------------------------------------------------")
-                break
 
             if monster.health <= 0:
                 print("------------------------------------------------------------------------------")
@@ -36,16 +31,28 @@ def boss_battle(player):
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
                 new_health = player.health * 1.4
-                player.health = round(new_health)
+
+                if new_health > 100:
+                    player.health = 100
+                else:
+                    player.health = round(new_health)
+                
+                text_delay("Health increased by 40%...")
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
                 print("------------------------------------------------------------------------------")
 
             if player.health <= 0:
                 print("------------------------------------------------------------------------------")
                 text_delay("You have died losing all coins on your person and need to restart the boss battle from the start.")
                 text_delay("You've been taken back shamefully to PebbleTown...")
+                print("------------------------------------------------------------------------------")
                 player.coins = 0
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 playing = False
+                break
+
+            if not active:
+                print("------------------------------------------------------------------------------")
                 break
             
         if playing == False:
@@ -57,6 +64,7 @@ def boss_battle(player):
         boss_monster = BossMonster()
         text_delay(f"You have managed to get past {boss_monster.name}'s minions... your're not done yet though. Time to fight {boss_monster.name}!")
         player.health = 100
+        FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
         text_delay(f"Your health has been restored to 100% before the fight. Good luck...")
 
         print("------------------------------------------------------------------------------")
@@ -66,10 +74,6 @@ def boss_battle(player):
 
         monster_fight = MonsterFight(player, boss_monster)
         active = monster_fight.monster_fight(15, 20)
-
-        if not active:
-            print("------------------------------------------------------------------------------")
-            break
         
         if boss_monster.health <= 0:
             print("------------------------------------------------------------------------------")
@@ -88,3 +92,7 @@ def boss_battle(player):
             text_delay("You've been taken back shamefully to PebbleTown...")
             player.coins = 0
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
+        
+        if not active:
+            print("------------------------------------------------------------------------------")
+            break

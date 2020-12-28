@@ -1,7 +1,6 @@
 import random
-from components.text_delay import text_delay
 from components.file_logic import FileLogic
-from models.monster import Monster
+from components.text_delay import text_delay
 from models.player import Player
 
 class MonsterFight:
@@ -37,7 +36,7 @@ class MonsterFight:
                 print(f"You attacked the {self.monster.name} dealing {self.player.damage}. The monster has {self.monster.health} left.")
                 self.monster.damage = random.randint(min, max)
 
-                if self.monster.health < 0:
+                if self.monster.health <= 0:
                     break
                 else:
                     self.player.health -= self.monster.damage

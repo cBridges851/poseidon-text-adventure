@@ -1,6 +1,6 @@
 from components.text_delay import text_delay 
-from game_logic.shop import Shop
 from game_logic.bank import bank_logic
+from game_logic.shop import Shop
 
 def go_north(player, playing):
     '''

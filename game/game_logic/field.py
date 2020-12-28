@@ -1,6 +1,6 @@
 import random
-from components.text_delay import text_delay
 from components.file_logic import FileLogic
+from components.text_delay import text_delay
 from game_logic.monster_fight import MonsterFight
 from models.monster import Monster
 from models.player import Player

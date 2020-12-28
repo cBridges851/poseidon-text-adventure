@@ -1,5 +1,5 @@
-from components.text_delay import text_delay 
 from components.file_logic import FileLogic
+from components.text_delay import text_delay 
 from game_logic.casino import Casino
 from game_logic.medical_centre import MedicalCentre
 
