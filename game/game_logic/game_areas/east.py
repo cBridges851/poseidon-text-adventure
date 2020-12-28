@@ -17,7 +17,7 @@ def go_east(player, playing):
     active = True
     while active:
         text_delay("In front of you is the medical centre.")
-        print("Do you want to enter(Y/N) (Type 'exit' to close the game): ")
+        print("Do you want to enter (Y/N) (Type 'exit' to close the game): ")
         user_input = ""
         print("------------------------------------------------------------------------------")
         while user_input != "Y" and user_input != "N" and user_input != "EXIT" and user_input != "C":
