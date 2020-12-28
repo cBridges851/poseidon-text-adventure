@@ -6,6 +6,7 @@ class Player:
         self.damage = 15
         self.coins = 0
         self.house = "shack"
+        self.boss_beaten = False
         self.inventory = {}
 
     def is_player_dead(self, player_health):

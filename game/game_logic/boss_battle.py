@@ -30,15 +30,18 @@ def boss_battle(player):
                 player.coins += round(coins_earned)
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
-                new_health = player.health * 1.4
 
-                if new_health > 100:
-                    player.health = 100
-                else:
-                    player.health = round(new_health)
-                
-                text_delay("Health increased by 40%...")
-                FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+                if i != 2:
+                    new_health = player.health * 1.4
+
+                    if new_health > 100:
+                        player.health = 100
+                    else:
+                        player.health = round(new_health)
+                    
+                    text_delay("Health increased by 40%...")
+                    FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+
                 print("------------------------------------------------------------------------------")
 
             if player.health <= 0:
@@ -81,6 +84,8 @@ def boss_battle(player):
             coins_earned = 1000
             player.coins += coins_earned
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
+            player.boss_beaten = True
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "BossBeaten", player.boss_beaten)
             text_delay(f"You earned {coins_earned} coins, putting your total to {player.coins}.")
             print("------------------------------------------------------------------------------")
             playing = False
