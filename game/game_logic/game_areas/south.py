@@ -13,7 +13,7 @@ def go_south(player, playing):
     text_delay("The Princess Belle has been taken hostage by the evil monster Gorgo. You mission should you chose to accept it...")
     text_delay("Is to fight past Grogo's Minions before taking on Grogo himself in a battle to save Princess Belle.")
     print("------------------------------------------------------------------------------")
-    print("Do you want to fight the boss? Or are you too scared.. (Y/N) (Type 'exit' to close the game):")
+    print("Do you want to fight the boss? Or are you too scared... (Y/N) (Type 'exit' to close the game):")
     user_input = ""
     print("------------------------------------------------------------------------------")
     while user_input != "Y" and user_input != "N" and user_input != "EXIT":
