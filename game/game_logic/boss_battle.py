@@ -1,6 +1,7 @@
 import random
 from components.file_logic import FileLogic
 from components.text_delay import text_delay
+from game_logic.medical_centre import MedicalCentre
 from game_logic.monster_fight import MonsterFight
 from models.boss_monster import BossMonster
 from models.monster import Monster
@@ -47,7 +48,9 @@ def boss_battle(player):
             if player.health <= 0:
                 print("------------------------------------------------------------------------------")
                 text_delay("You have died losing all coins on your person and need to restart the boss battle from the start.")
-                text_delay("You've been taken back shamefully to PebbleTown...")
+                text_delay("You've been transported to the medical centre for emergency help!")
+                player.health = MedicalCentre(player.health).heal()
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
                 print("------------------------------------------------------------------------------")
                 player.coins = 0
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
@@ -81,8 +84,7 @@ def boss_battle(player):
         if boss_monster.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay(f"You defeated {boss_monster.name}! In the process, you saved Princess Belle! Well done!")
-            coins_earned = 1000
-            player.coins += coins_earned
+            player.coins += 1000
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
             player.boss_beaten = True
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Boss Beaten", player.boss_beaten)
@@ -97,7 +99,9 @@ def boss_battle(player):
         if player.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay("You have died losing all coins on your person. You need to restart the boss battle from the start.")
-            text_delay("You've been taken back shamefully to PebbleTown...")
+            text_delay("You've been transported to the medical centre for emergency help!")
+            player.health = MedicalCentre(player.health).heal()
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
             player.coins = 0
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
         
