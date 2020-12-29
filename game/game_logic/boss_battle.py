@@ -65,7 +65,7 @@ def boss_battle(player):
             break
 
         boss_monster = BossMonster()
-        text_delay(f"You have managed to get past {boss_monster.name}'s minions... your're not done yet though. Time to fight {boss_monster.name}!")
+        text_delay(f"You have managed to get past {boss_monster.name}'s minions... you're not done yet though. Time to fight {boss_monster.name}!")
         player.health = 100
         FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
         text_delay(f"Your health has been restored to 100% before the fight. Good luck...")
@@ -73,10 +73,10 @@ def boss_battle(player):
         print("------------------------------------------------------------------------------")
 
         text_delay(f"You have encountered the {boss_monster.name}, the toughest monster in the land.")
-        text_delay(f"The {boss_monster.name} has taken Princess Belle hostage. To save her, defeat the monster and you will be get rewarded handsomely.")
+        text_delay(f"The {boss_monster.name} has taken Princess Belle hostage. To save her, defeat the monster and you will be rewarded handsomely.")
 
         monster_fight = MonsterFight(player, boss_monster)
-        active = monster_fight.monster_fight(15, 20)
+        active = monster_fight.monster_fight(20, 35)
         
         if boss_monster.health <= 0:
             print("------------------------------------------------------------------------------")
@@ -86,6 +86,9 @@ def boss_battle(player):
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
             player.boss_beaten = True
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Boss Beaten", player.boss_beaten)
+            player.health += 10
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+            text_delay(f"You gained 10 health for defeating Grogo!")
             text_delay(f"You earned {coins_earned} coins, putting your total to {player.coins}.")
             print("------------------------------------------------------------------------------")
             playing = False

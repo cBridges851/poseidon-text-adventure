@@ -17,7 +17,7 @@ class MonsterFight:
 
     def monster_fight(self, min, max):
         '''
-        Reuseable component where players can fight monsters.
+        Reusable component where players can fight monsters.
         Args:
             min: integer, representing a min value for damage.
             max: integer, representing a max value for damage.
