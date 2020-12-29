@@ -58,7 +58,7 @@ class FileLogic:
             "Damage": 15,
             "Coins": 0,
             "House": "shack",
-            "BossBeaten" : False,
+            "Boss Beaten" : False,
             "Inventory": {}
         }
 
@@ -89,7 +89,7 @@ class FileLogic:
                 player.damage = item["Damage"]
                 player.coins = item["Coins"]
                 player.house = item["House"]
-                player.boss_beaten = item["BossBeaten"]
+                player.boss_beaten = item["Boss Beaten"]
                 player.inventory = item["Inventory"]
 
         if playerFound == False:

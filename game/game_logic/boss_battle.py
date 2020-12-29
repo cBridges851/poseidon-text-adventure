@@ -25,7 +25,7 @@ def boss_battle(player):
 
             if monster.health <= 0:
                 print("------------------------------------------------------------------------------")
-                text_delay("You defeated the monster!")
+                text_delay(f"You defeated the {monster.name}!")
                 coins_earned = player.health / 10
                 player.coins += round(coins_earned)
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
@@ -85,7 +85,7 @@ def boss_battle(player):
             player.coins += coins_earned
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
             player.boss_beaten = True
-            FileLogic().update_player_property(PLAYER_FILENAME, player, "BossBeaten", player.boss_beaten)
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Boss Beaten", player.boss_beaten)
             text_delay(f"You earned {coins_earned} coins, putting your total to {player.coins}.")
             print("------------------------------------------------------------------------------")
             playing = False
