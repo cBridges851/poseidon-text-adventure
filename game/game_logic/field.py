@@ -1,6 +1,7 @@
 import random
 from components.file_logic import FileLogic
 from components.text_delay import text_delay
+from game_logic.medical_centre import MedicalCentre
 from game_logic.monster_fight import MonsterFight
 from models.monster import Monster
 from models.player import Player
@@ -33,4 +34,7 @@ def enter_field(player):
             text_delay("You have died losing all coins on your person.")
             player.coins = 0
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
+            text_delay("You've been transported to the medical centre for emergency help!")
+            player.health = MedicalCentre(player.health).heal()
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
         playing = False
