@@ -1,1 +1,1 @@
-{"Players": [{"Name": "John", "Bank Balance": 1070, "Health": 100, "Damage": 30, "Coins": 25, "House": "shack", "Boss Beaten": false, "Inventory": {}}]}
+{"Players": [{"Name": "John", "Bank Balance": 1070, "Health": 55, "Damage": 30, "Coins": 15, "House": "shack", "Boss Beaten": false, "Inventory": {}}, {"Name": "Josh", "Bank Balance": 0, "Health": 50, "Damage": 15, "Coins": 777, "House": "bungalow", "Boss Beaten": true, "Inventory": {}}]}

@@ -1,3 +1,4 @@
+from components.help import Help
 from components.text_delay import text_delay 
 from game_logic.field import enter_field
 
@@ -14,14 +15,19 @@ def go_west(player, playing):
     while active:
         text_delay("You see a field in the distance")
         user_input = ""
-        valid_inputs = ["F", "FIELD", "RUN AWAY", "EAST", "EXIT"]
+        valid_inputs = ["F", "FIELD", "RUN AWAY", "EAST", "EXIT", "QUIT"]
         is_unacceptable = True
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()
                 split_input = user_input.split()
-                if split_input[0] == "ENTER" or split_input[0] == "GO":
-                    user_input = split_input[1]
+                if split_input != []:
+                    if len(split_input) == 3:
+                        if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            user_input = split_input[2]
+                    else:
+                        if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            user_input = split_input[1]
             else:
                 is_unacceptable = False
 
@@ -33,6 +39,8 @@ def go_west(player, playing):
         elif user_input == "EAST" or user_input == "RUN AWAY":
             print("", end="")
             active = False
+        elif user_input == "HELP":
+            Help().display_help()
         else:
             print("Goodbye, Thanks For Playing!")
             playing = False

@@ -27,7 +27,7 @@ class MonsterFight:
         active = True
         while self.monster.health > 0:
             print("------------------------------------------------------------------------------")
-            valid_inputs = ["A", "R", "ATTACK", "RUN", "RUN AWAY", f"ATTACK {self.monster.name}"]
+            valid_inputs = ["A", "R", "ATTACK", "RUN", "RUN AWAY", f"ATTACK {self.monster.name}".upper(), "ATTACK MONSTER"]
             player_input = ""
             is_unacceptable = True
             while is_unacceptable:
@@ -36,8 +36,10 @@ class MonsterFight:
                 else:
                     is_unacceptable = False
             
-            if player_input == "A" or player_input == "ATTACK" or player_input == f"ATTACK {self.monster.name}":
+            if player_input == "A" or player_input == "ATTACK" or player_input == f"ATTACK {self.monster.name}".upper() or player_input == "ATTACK MONSTER":
                 self.monster.health -= self.player.damage
+                if self.monster.health < 0:
+                    self.monster.health = 0
                 print(f"You attacked the {self.monster.name} dealing {self.player.damage}. The monster has {self.monster.health} left.")
                 self.monster.damage = random.randint(min, max)
 
