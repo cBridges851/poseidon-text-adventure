@@ -13,17 +13,24 @@ def go_west(player, playing):
     active = True
     while active:
         text_delay("You see a field in the distance")
-        print("Do you want to go in it? (Y/N) (Type 'exit' to close the game): ")
         user_input = ""
-        print("------------------------------------------------------------------------------")
-        while user_input != "Y" and user_input != "N" and user_input != "EXIT":
-            user_input = input("What would you like to do? ").upper()
-            print("------------------------------------------------------------------------------")
+        valid_inputs = ["F", "FIELD", "RUN AWAY", "EAST", "EXIT"]
+        is_unacceptable = True
+        while is_unacceptable:
+            if user_input not in valid_inputs:
+                user_input = input("What would you like to do? ").upper()
+                split_input = user_input.split()
+                if split_input[0] == "ENTER" or split_input[0] == "GO":
+                    user_input = split_input[1]
+            else:
+                is_unacceptable = False
 
-        if user_input == "Y":
+        print("------------------------------------------------------------------------------")
+
+        if user_input == "F" or user_input == "FIELD":
             enter_field(player)
             print("------------------------------------------------------------------------------")
-        elif user_input == "N":
+        elif user_input == "EAST" or user_input == "RUN AWAY":
             print("", end="")
             active = False
         else:

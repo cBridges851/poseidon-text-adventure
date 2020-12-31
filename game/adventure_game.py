@@ -36,29 +36,33 @@ def adventure_game():
         if player == None:
             adventure_game()
             return
-    
-    text_delay("You find yourself in the main square of PebbleTown...")
 
     playing = True
     while playing == True:
+        text_delay("You find yourself in the main square of PebbleTown...")
+
         direction = ""
-        while direction != "N" and direction != "S" and direction != "E" and direction != "W" and direction != "EXIT":
-            direction = input("Would you like to go North(N), South(S), East(E) or West(W) (Type 'exit' to close the game): ").upper()
-        
+        valid_inputs = ["N", "E", "S", "W", "NORTH", "EAST", "SOUTH", "WEST", "EXIT"]
+        is_unacceptable = True
+        while is_unacceptable:
+            if direction not in valid_inputs:
+                direction = input("Where would you like to go?: ").upper()
+                split_direction = direction.split()
+                if split_direction[0] == "GO":
+                    direction = split_direction[1]
+            else:
+                is_unacceptable = False
+
         print("------------------------------------------------------------------------------")
 
-        if direction == "N":
+        if direction == "N" or direction == "NORTH":
             playing = go_north(player, playing)
-
-        elif direction == "S":
-            playing = go_south(player, playing)
-
-        elif direction == "E":
+        elif direction == "E" or direction == "EAST":
             playing = go_east(player, playing)
-
-        elif direction == "W":
+        elif direction == "S" or direction == "SOUTH":
+            playing = go_south(player, playing)
+        elif direction == "W" or direction == "WEST":
             playing = go_west(player, playing)
-
         else:
             print("Goodbye, Thanks For Playing!")
             playing = False

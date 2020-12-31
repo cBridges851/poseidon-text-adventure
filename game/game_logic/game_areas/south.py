@@ -14,14 +14,21 @@ def go_south(player, playing):
         text_delay("The Princess Belle has been taken hostage by the evil monster Gorgo. Your mission should you chose to accept it...")
         text_delay("Is to fight past Grogo's Minions before taking on Grogo himself in a battle to save Princess Belle.")
         print("------------------------------------------------------------------------------")
-        print("Do you want to fight the boss? Or are you too scared... (Y/N) (Type 'exit' to close the game):")
         user_input = ""
+        valid_inputs = ["F", "FIGHT", "YES", "Y", "NO", "N", "RUN AWAY", "I'M TOO SCARED", "NORTH", "EXIT"]
+        is_unacceptable = True
+        while is_unacceptable:
+            if user_input not in valid_inputs:
+                user_input = input("Do you want to fight the boss? Or are you too scared? ").upper()
+                split_input = user_input.split()
+                if split_input[0] == "ENTER" or split_input[0] == "GO":
+                    user_input = split_input[1]
+            else:
+                is_unacceptable = False
+        
         print("------------------------------------------------------------------------------")
-        while user_input != "Y" and user_input != "N" and user_input != "EXIT":
-            user_input = input("What would you like to do? ").upper()
-            print("------------------------------------------------------------------------------")
             
-        if user_input == "Y":
+        if user_input == "F" or user_input == "FIGHT" or user_input == "YES" or user_input == "Y":
             if player.damage < 25:
                 text_delay("You aren't strong enough to defeat the boss. Level up your damage output before trying again.")
                 print("------------------------------------------------------------------------------")
@@ -30,7 +37,7 @@ def go_south(player, playing):
                 print("------------------------------------------------------------------------------")
             else:
                 boss_battle(player)
-        elif user_input == "N":
+        elif user_input == "NORTH" or user_input == "RUN AWAY" or user_input == "I'M TOO SCARED" or user_input == "NO" or user_input == "NO":
             print("", end="")
         else:
             print("Goodbye, Thanks For Playing!")
