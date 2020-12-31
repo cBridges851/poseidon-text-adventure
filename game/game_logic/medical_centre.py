@@ -1,5 +1,5 @@
 import time 
-from text_delay import text_delay
+from components.text_delay import text_delay
 
 class MedicalCentre:
     '''

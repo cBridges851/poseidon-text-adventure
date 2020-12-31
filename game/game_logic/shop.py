@@ -1,5 +1,5 @@
-from text_delay import text_delay
-from file_logic import FileLogic
+from components.text_delay import text_delay
+from components.file_logic import FileLogic
 import json
 
 GAME_ITEMS_FILEPATH = "./game_items.json"
@@ -19,7 +19,7 @@ class Shop():
             "two-story house": 300, 
             "mansion": 500
         }
-        self.shop_items = ["armour", "apple", "jar of air"]
+        self.shop_items = ["armour", "apple", "jar of air", "damage upgrade"]
         self.all_game_items = self.get_all_game_items()
 
     def get_all_game_items(self):
@@ -61,7 +61,7 @@ class Shop():
                 print(f"Quantity: {self.player.inventory[item]}")
                 print("---------------------------------------------------------------------------------------------")
 
-        user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
+        user_input = ""
         while user_input != "B" and user_input != "S" and user_input != "U" and user_input != "E":
             user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
 
@@ -138,12 +138,18 @@ class Shop():
 
         if confirm_buy == "Y":
             self.player.coins -= cost
-            if item_to_buy in self.player.inventory:
-                self.player.inventory[item_to_buy] += quantity
+            if item_to_buy == "damage upgrade":
+                damage_to_add = 5 * quantity
+                self.player.damage += damage_to_add
+                FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Damage", self.player.damage)
             else:
-                self.player.inventory[item_to_buy] = quantity
+                if item_to_buy in self.player.inventory:
+                    self.player.inventory[item_to_buy] += quantity
+                    FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
+                else:
+                    self.player.inventory[item_to_buy] = quantity
+                    FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
 
-        FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
         FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Coins", self.player.coins)
         self.shop_menu()
 
@@ -237,7 +243,7 @@ class Shop():
             self.shop_menu()
             return
         
-        confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
+        confirm_upgrade = ""
 
         while confirm_upgrade != "Y" and confirm_upgrade != "N":
             confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()

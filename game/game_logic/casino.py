@@ -1,7 +1,7 @@
 import random
 import time
-from text_delay import text_delay
-from file_logic import FileLogic
+from components.file_logic import FileLogic
+from components.text_delay import text_delay
 
 PLAYER_FILENAME = "./player.json"
 
@@ -141,6 +141,7 @@ class Casino:
             if user_input == "Y":
                 game_result = ""
                 while True:
+                    print("------------------------------------------------------------------------------")
                     bet = input("How much do you want to bet? ")
                     while isinstance(user_input, int):
                         print("Invalid bet!")
@@ -165,6 +166,7 @@ class Casino:
                     player.coins += bet
                     FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     text_delay("Bet returned to your inventory.")
+                print("------------------------------------------------------------------------------")
 
             if user_input == "N":
                 text_delay("Okay, thanks for coming!")
