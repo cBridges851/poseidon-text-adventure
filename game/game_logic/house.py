@@ -46,4 +46,7 @@ class House():
             FileLogic().update_player_property(self.PLAYER_FILENAME, self.player, "Health", self.player.health)
             text_delay(f"Ah that was a nice sleep! You feel well-rested, and your health is now {self.player.health}")
         else:
-            text_delay("You need to upgrade your house to get a good night's sleep and heal.")
+            if self.player.house == "mansion":
+                text_delay("You've already had plenty of sleep, go off and play! Kids these days, all they want to do is sleep.")
+            else:
+                text_delay("You need to upgrade your house to get a good night's sleep and heal more.")
