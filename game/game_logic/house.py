@@ -6,16 +6,20 @@ class House():
         self.player = player
         self.all_houses = {
             "shack": {
-                "sleep": ["sack on the floor", 20]
+                "sleep": ["sack on the floor", 20],
+                "storage": ["rotting crate", 10]
             },
             "bungalow": {
-                "sleep": ["mattress with a blanket", 40]
+                "sleep": ["mattress with a blanket", 40],
+                "storage": ["chest", 20]
             },
             "two-story house": {
-                "sleep": ["single bed", 60]
+                "sleep": ["single bed", 60],
+                "storage": ["closet", 40]
             },
             "mansion": {
-                "sleep": ["king-sized bed", 80]
+                "sleep": ["king-sized bed", 80],
+                "storage": ["storage room", 80]
             }
         }
         self.player_house_object = self.all_houses[self.player.house]
@@ -23,7 +27,7 @@ class House():
 
     def enter_house(self):
             text_delay(f"You get the keys out of your pocket and unlock the door to your {self.player.house}.")
-            text_delay(f"In your house, there is a {self.player_house_object['sleep'][0]}.")
+            text_delay(f"In your house, there is a {self.player_house_object['sleep'][0]} and {self.player_house_object['storage'][0]}.")
             self.house_menu()
 
     def house_menu(self):
@@ -32,11 +36,13 @@ class House():
         while active == True:
             user_input = ""
 
-            while user_input != "S" and user_input != "E":
-                user_input = input(f"Would you like to sleep in your {self.player_house_object['sleep'][0]} (S) or exit (E)? ").upper()
+            while user_input != "S" and user_input != "P" and user_input != "E":
+                user_input = input(f"Would you like to sleep in your {self.player_house_object['sleep'][0]} (S), put something in your {self.player_house_object['storage'][0]} (P) or exit (E)? ").upper()
 
             if user_input == "S":
                 self.sleep()
+            elif user_input == "P":
+                self.storage()
             else:
                 active = False
 
@@ -50,3 +56,6 @@ class House():
                 text_delay("You've already had plenty of sleep, go off and play! Kids these days, all they want to do is sleep.")
             else:
                 text_delay("You need to upgrade your house to get a good night's sleep and heal more.")
+    
+    def storage(self):
+        print(f"Here are the items on your person: {}")
