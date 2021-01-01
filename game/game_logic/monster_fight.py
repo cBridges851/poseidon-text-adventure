@@ -25,11 +25,13 @@ class MonsterFight:
             active: bool, returns depending on whether the user runs away or not.
         '''
         active = True
+
         while self.monster.health > 0:
             print("------------------------------------------------------------------------------")
             valid_inputs = ["A", "R", "ATTACK", "RUN", "RUN AWAY", f"ATTACK {self.monster.name}".upper(), "ATTACK MONSTER"]
             player_input = ""
             is_unacceptable = True
+            
             while is_unacceptable:
                 if player_input not in valid_inputs:
                     player_input = input(f"What would you like to do: ").upper()

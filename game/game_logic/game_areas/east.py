@@ -16,12 +16,14 @@ def go_east(player, playing):
         playing: bool, whether the game should run or not.
     '''
     active = True
+    
     while active:
-        text_delay("Around you is the medical centre and well nothing...")
+        text_delay("Around you is the medical centre and, well, nothing...")
         print("------------------------------------------------------------------------------")
         user_input = ""
-        valid_inputs = ["M", "MEDICAL CENTRE", "MC", "WEST", "C", "CASINO", "EXIT", "QUIT"]
+        valid_inputs = ["M", "MEDICAL CENTRE", "MC", "INSIDE", "WEST", "BACK", "C", "CASINO", "EXIT", "QUIT"]
         is_unacceptable = True
+
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()
@@ -41,11 +43,11 @@ def go_east(player, playing):
 
         print("------------------------------------------------------------------------------")
 
-        if user_input == "M" or user_input == "MC" or user_input == "MEDICAL CENTRE":
+        if user_input == "M" or user_input == "MC" or user_input == "MEDICAL CENTRE" or user_input == "INSIDE":
             player.health = MedicalCentre(player.health).heal()
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
             print("------------------------------------------------------------------------------")
-        elif user_input == "WEST":
+        elif user_input == "WEST" or user_input == "BACK":
             print("", end="")
             active = False
         elif user_input == "C" or user_input == "CASINO":

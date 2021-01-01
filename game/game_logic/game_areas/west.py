@@ -12,11 +12,13 @@ def go_west(player, playing):
         playing: bool, whether the game should run or not.
     '''
     active = True
+    
     while active:
         text_delay("You see a field in the distance")
         user_input = ""
-        valid_inputs = ["F", "FIELD", "RUN AWAY", "EAST", "EXIT", "QUIT"]
+        valid_inputs = ["F", "FIELD", "RUN AWAY", "EAST", "BACK", "EXIT", "QUIT"]
         is_unacceptable = True
+
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()
@@ -36,7 +38,7 @@ def go_west(player, playing):
         if user_input == "F" or user_input == "FIELD":
             enter_field(player)
             print("------------------------------------------------------------------------------")
-        elif user_input == "EAST" or user_input == "RUN AWAY":
+        elif user_input == "EAST" or user_input == "RUN AWAY" or user_input == "BACK":
             print("", end="")
             active = False
         elif user_input == "HELP":

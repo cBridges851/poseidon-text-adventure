@@ -13,12 +13,14 @@ def go_north(player, playing):
         playing: bool, whether the game should run or not.
     '''
     active = True
+
     while active:
         text_delay("Around you is a shop, your house and the bank. ")
         print("------------------------------------------------------------------------------")
         user_input = ""
-        valid_inputs = ["S", "H", "B", "SOUTH", "SHOP", "HOUSE", "BANK", "EXIT", "QUIT", "HELP"]
+        valid_inputs = ["S", "H", "B", "SOUTH", "SHOP", "HOUSE", "BANK", "BACK", "EXIT", "QUIT", "HELP"]
         is_unacceptable = True
+        
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()
@@ -44,7 +46,7 @@ def go_north(player, playing):
         elif user_input == "B" or user_input == "BANK":
             bank_logic(player)
             print("------------------------------------------------------------------------------")
-        elif user_input == "SOUTH":
+        elif user_input == "SOUTH" or user_input == "BACK":
             print("", end="")
             active = False
         elif user_input == "HELP":
