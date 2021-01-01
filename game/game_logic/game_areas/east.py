@@ -18,7 +18,7 @@ def go_east(player, playing):
     active = True
     
     while active:
-        text_delay("Around you is the medical centre and, well, nothing...")
+        text_delay("Around you is the medical centre and the grand casino!")
         print("------------------------------------------------------------------------------")
         user_input = ""
         valid_inputs = ["M", "MEDICAL CENTRE", "MC", "INSIDE", "WEST", "BACK", "C", "CASINO", "EXIT", "QUIT"]
@@ -51,7 +51,6 @@ def go_east(player, playing):
             print("", end="")
             active = False
         elif user_input == "C" or user_input == "CASINO":
-            text_delay("You look around and see a casino near the medical centre and decide to go inside.")
             Casino().better_and_runner(player)
             print("------------------------------------------------------------------------------")
         elif user_input == "HELP":
