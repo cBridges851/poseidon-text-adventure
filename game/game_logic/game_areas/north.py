@@ -1,5 +1,6 @@
 from components.text_delay import text_delay 
 from game_logic.bank import bank_logic
+from game_logic.house import House
 from game_logic.shop import Shop
 
 def go_north(player, playing):
@@ -25,7 +26,7 @@ def go_north(player, playing):
             player = Shop(player).enter_shop()
             print("------------------------------------------------------------------------------")
         elif user_input == "H":
-            NotImplemented
+            House(player).enter_house()
             print("------------------------------------------------------------------------------")
         elif user_input == "B":
             bank_logic(player)
