@@ -121,10 +121,8 @@ class House():
                 # Adjust the amount in the house storage
                 if item_to_store in self.player.house_storage:
                     self.player.house_storage[item_to_store] += quantity
-                    FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "House Storage", self.player.house_storage)
                 else:
                     self.player.house_storage[item_to_store] = quantity
-                    FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "House Storage", self.player.house_storage)
 
                 if self.player.house_storage[item_to_store] == 1:
                     print(f"You now have {self.player.house_storage[item_to_store]} {item_to_store} in your {self.player_house_object['storage'][0]}.")
@@ -136,15 +134,44 @@ class House():
 
                 if self.player.inventory[item_to_store] == 0:
                     self.player.inventory.pop(item_to_store)
-
-                FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
             elif user_input == "O":
                 if amount_in_storage == 0:
                     print("You don't have any items in storage you can take out.")
                     self.storage()
                     return
                 
-                item_to_store = input(f"What would you like to take out of your {self.player_house_object['storage'][0]}? ")
+                item_to_take = input(f"What would you like to take out of your {self.player_house_object['storage'][0]}? ")
+                
+                if item_to_take not in self.player.house_storage:
+                    print(f"You don't have that in your {self.player.house_storage}.")
+                    self.storage()
+                    return
 
+                quantity = int(input(f"How may {item_to_take}s would you like to take out?"))
+
+                if self.player.house_storage[item_to_take] < quantity:
+                    print(f"You don't have that many {item_to_take}s.")
+                    self.storage()
+                    return
+
+                # Adjust the amount in the inventory
+                if item_to_take in self.player.inventory:
+                    self.player.inventory[item_to_take] += quantity
+                else:
+                    self.player.inventory[item_to_take] = quantity
+
+                if self.player.house_storage[item_to_take] == 1:
+                    print(f"You now have {self.player.inventory[item_to_take]} {item_to_take} in your inventory.")
+                else:
+                    print(f"You now have {self.player.inventory[item_to_take]} {item_to_take}s in your inventory.")
+
+                # Adjust the amount in house storage
+                self.player.house_storage[item_to_take] -= quantity
+
+                if self.player.house_storage[item_to_take] == 0:
+                    self.player.house_storage.pop(item_to_take)
             else:
                 active = False
+
+            FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "House Storage", self.player.house_storage)
+            FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
