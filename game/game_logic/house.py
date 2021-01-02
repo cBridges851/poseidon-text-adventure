@@ -23,7 +23,7 @@ class House():
             }
         }
         self.player_house_object = self.all_houses[self.player.house]
-        self.PLAYER_FILENAME = "./player.json"
+        self.PLAYER_FILEPATH = "./player.json"
 
     def enter_house(self):
         text_delay(f"You get the keys out of your pocket and unlock the door to your {self.player.house}.")
@@ -51,7 +51,7 @@ class House():
         print("---------------------------------------------------------------------------------------------")
         if self.player.health < self.player_house_object["sleep"][1]:
             self.player.health = self.player_house_object["sleep"][1]
-            FileLogic().update_player_property(self.PLAYER_FILENAME, self.player, "Health", self.player.health)
+            FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Health", self.player.health)
             text_delay(f"Ah that was a nice sleep! You feel well-rested, and your health is now {self.player.health}")
         else:
             if self.player.house == "mansion":
@@ -96,7 +96,55 @@ class House():
             elif user_input == "I":
                 if amount_in_storage == self.player_house_object['storage'][1]:
                     print("You cannot put any more items in storage")
+                    self.storage()
+                    return
+                
+                item_to_store = input(f"What would you like to put in your {self.player_house_object['storage'][0]}? ")
+                
+                if item_to_store not in self.player.inventory:
+                    print("You don't have that in your inventory")
+                    self.storage()
+                    return
+                
+                quantity = int(input(f"How may {item_to_store}s would you like to put away?"))
+
+                if self.player.inventory[item_to_store] < quantity:
+                    print(f"You don't have that many {item_to_store}s.")
+                    self.storage()
+                    return
+
+                if (self.player_house_object['storage'][1] - quantity) < 0:
+                    print("You do not have enough room for all those items.")
+                    self.storage()
+                    return
+
+                # Adjust the amount in the house storage
+                if item_to_store in self.player.house_storage:
+                    self.player.house_storage[item_to_store] += quantity
+                    FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "House Storage", self.player.house_storage)
                 else:
-                    print("What would you like to put in storage?")
+                    self.player.house_storage[item_to_store] = quantity
+                    FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "House Storage", self.player.house_storage)
+
+                if self.player.house_storage[item_to_store] == 1:
+                    print(f"You now have {self.player.house_storage[item_to_store]} {item_to_store} in your {self.player_house_object['storage'][0]}.")
+                else:
+                    print(f"You now have {self.player.house_storage[item_to_store]} {item_to_store}s in your {self.player_house_object['storage'][0]}.")
+
+                # Adjust the amount in inventory
+                self.player.inventory[item_to_store] -= quantity
+
+                if self.player.inventory[item_to_store] == 0:
+                    self.player.inventory.pop(item_to_store)
+
+                FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
+            elif user_input == "O":
+                if amount_in_storage == 0:
+                    print("You don't have any items in storage you can take out.")
+                    self.storage()
+                    return
+                
+                item_to_store = input(f"What would you like to take out of your {self.player_house_object['storage'][0]}? ")
+
             else:
                 active = False
