@@ -160,7 +160,7 @@ class House():
                 else:
                     self.player.inventory[item_to_take] = quantity
 
-                if self.player.house_storage[item_to_take] == 1:
+                if self.player.inventory[item_to_take] == 1:
                     print(f"You now have {self.player.inventory[item_to_take]} {item_to_take} in your inventory.")
                 else:
                     print(f"You now have {self.player.inventory[item_to_take]} {item_to_take}s in your inventory.")

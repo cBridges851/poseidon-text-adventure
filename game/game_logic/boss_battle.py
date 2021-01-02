@@ -98,11 +98,13 @@ def boss_battle(player):
 
         if player.health <= 0:
             print("------------------------------------------------------------------------------")
-            text_delay("You have died losing all coins on your person. You need to restart the boss battle from the start.")
+            text_delay("You have died losing all coins and items on your person. You need to restart the boss battle from the start.")
             text_delay("You've been transported to the medical centre for emergency help!")
             player.health = MedicalCentre(player.health).heal()
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+            player.inventory = {}
             player.coins = 0
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Inventory", player.inventory)
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
         
         if not active:
