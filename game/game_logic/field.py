@@ -37,6 +37,5 @@ def enter_field(player):
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Inventory", player.inventory)
             text_delay("You've been transported to the medical centre for emergency help!")
-            player.health = MedicalCentre(player.health).heal()
-            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+            MedicalCentre(player).enter_medical_centre(True)
         playing = False

@@ -25,8 +25,7 @@ def go_east(player, playing):
             print("------------------------------------------------------------------------------")
 
         if user_input == "Y":
-            player.health = MedicalCentre(player.health).heal()
-            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+            MedicalCentre(player).enter_medical_centre()
             print("------------------------------------------------------------------------------")
         elif user_input == "N":
             print("", end="")
