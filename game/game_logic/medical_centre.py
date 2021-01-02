@@ -23,5 +23,6 @@ class MedicalCentre:
         delay_time = (100 - self.current_health) / 20 
         time.sleep(delay_time)
         print("You are all better!")
-        print(f"Your current health is now 100!")
+        print("Your current health is now 100!")
+        print("You leave the medical centre.")
         return 100

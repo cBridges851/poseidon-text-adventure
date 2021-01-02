@@ -4,8 +4,9 @@
 # The Adventure Game to end all adventure games
 import time
 import random
-from components.text_delay import text_delay
 from components.file_logic import FileLogic
+from components.help import Help
+from components.text_delay import text_delay
 from game_logic.game_areas.north import go_north
 from game_logic.game_areas.west import go_west
 from game_logic.game_areas.east import go_east
@@ -36,29 +37,36 @@ def adventure_game():
         if player == None:
             adventure_game()
             return
-    
-    text_delay("You find yourself in the main square of PebbleTown...")
 
     playing = True
     while playing == True:
+        text_delay("You find yourself in the main square of PebbleTown...")
+
         direction = ""
-        while direction != "N" and direction != "S" and direction != "E" and direction != "W" and direction != "EXIT":
-            direction = input("Would you like to go North(N), South(S), East(E) or West(W) (Type 'exit' to close the game): ").upper()
-        
+        valid_inputs = ["N", "E", "S", "W", "NORTH", "EAST", "SOUTH", "WEST", "EXIT", "QUIT", "HELP"]
+        is_unacceptable = True
+        while is_unacceptable:
+            if direction not in valid_inputs:
+                direction = input("Where would you like to go?: ").upper()
+                split_direction = direction.split()
+                if split_direction != []:
+                    if split_direction[0] == "GO" or split_direction[0] == "MOVE":
+                        direction = split_direction[1]
+            else:
+                is_unacceptable = False
+
         print("------------------------------------------------------------------------------")
 
-        if direction == "N":
+        if direction == "N" or direction == "NORTH":
             playing = go_north(player, playing)
-
-        elif direction == "S":
-            playing = go_south(player, playing)
-
-        elif direction == "E":
+        elif direction == "E" or direction == "EAST":
             playing = go_east(player, playing)
-
-        elif direction == "W":
+        elif direction == "S" or direction == "SOUTH":
+            playing = go_south(player, playing)
+        elif direction == "W" or direction == "WEST":
             playing = go_west(player, playing)
-
+        elif direction == "HELP":
+            Help().display_help()
         else:
             print("Goodbye, Thanks For Playing!")
             playing = False
