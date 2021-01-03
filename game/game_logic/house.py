@@ -27,7 +27,7 @@ class House():
 
     def enter_house(self):
         text_delay(f"You get the keys out of your pocket and unlock the door to your {self.player.house}.")
-        text_delay(f"In your house, there is a {self.player_house_object['sleep'][0]} and a {self.player_house_object['storage'][0]}.")
+        text_delay(f"In your house, there is a {self.player_house_object['sleep'][0]}, a notebook and a {self.player_house_object['storage'][0]}.")
         self.house_menu()
 
     def house_menu(self):
@@ -37,11 +37,13 @@ class House():
             print("---------------------------------------------------------------------------------------------")
             user_input = ""
 
-            while user_input != "S" and user_input != "U" and user_input != "E":
-                user_input = input(f"Would you like to sleep in your {self.player_house_object['sleep'][0]} (S), use your {self.player_house_object['storage'][0]} (U) or exit (E)? ").upper()
+            while user_input != "S" and user_input != "R" and user_input != "U" and user_input != "E":
+                user_input = input(f"Would you like to sleep in your {self.player_house_object['sleep'][0]} (S), read your notebook (R), use your {self.player_house_object['storage'][0]} (U) or exit (E)? ").upper()
 
             if user_input == "S":
                 self.sleep()
+            elif user_input == "R":
+                self.notebook()
             elif user_input == "U":
                 self.storage()
             else:
@@ -59,6 +61,16 @@ class House():
             else:
                 text_delay("You need to upgrade your house to get a good night's sleep and heal more.")
     
+    def notebook(self):
+        print("---------------------------------------------------------------------------------------------")
+        text_delay("In your notebook, you can see the species of monsters and how many you've defeated!")
+        print("---------------------------------------------------------------------------------------------")
+        
+        for species in self.player.monsters_killed:
+            print(f"Species: {species}")
+            print(f"Number Killed: {self.player.monsters_killed[species]}")
+            print("---------------------------------------------------------------------------------------------")
+
     def storage(self):
         active = True
 
