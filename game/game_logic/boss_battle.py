@@ -32,6 +32,13 @@ def boss_battle(player):
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
 
+                if monster.name not in player.monsters_killed:
+                    player.monsters_killed[monster.name] = 1
+                else:
+                    player.monsters_killed[monster.name] += 1
+
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Monsters Killed", player.monsters_killed)
+                
                 if i != 2:
                     new_health = player.health * 1.4
 
@@ -89,7 +96,7 @@ def boss_battle(player):
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Boss Beaten", player.boss_beaten)
             player.health += 10
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
-            text_delay(f"You gained 10 health for defeating Grogo!")
+            text_delay(f"You gained 10 health for defeating {boss_monster.name}!")
             text_delay(f"You earned {coins_earned} coins, putting your total to {player.coins}.")
             print("------------------------------------------------------------------------------")
             playing = False

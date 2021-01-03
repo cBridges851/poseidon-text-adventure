@@ -29,6 +29,13 @@ def enter_field(player):
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
             text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
 
+            if monster.name not in player.monsters_killed:
+                player.monsters_killed[monster.name] = 1
+            else:
+                player.monsters_killed[monster.name] += 1
+
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Monsters Killed", player.monsters_killed)
+
         if player.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay("You have died losing all coins and items on your person.")

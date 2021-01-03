@@ -34,11 +34,9 @@ class MedicalCentre:
                 text_delay("Okay. Bye.")
 
         else:
-            if self.player.coins < 5:
-                text_delay("You cannot afford great medical treatment, but I suppose we better give you SOME treatment since you're nearly dead.")
-                self.heal(50)
-            else:
-                self.heal(100)
+            text_delay("You cannot afford great medical treatment since you lost all your coins in the fight, but I suppose we better give you SOME treatment since you're nearly dead.")
+            self.heal(50)
+            
 
     def heal(self, health_point_increase):
         '''
