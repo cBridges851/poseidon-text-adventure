@@ -24,10 +24,16 @@ def enter_field(player):
         if monster.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay("You defeated the monster!")
-            coins_earned = player.health / 10
-            player.coins += round(coins_earned)
+            
+            ran_int = random.randint(0,2)
+            if ran_int == 0:
+                coins_earned = 10
+            else:
+                coins_earned = 5
+
+            player.coins += coins_earned
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
-            text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
+            text_delay(f"You earned {coins_earned} coins putting your total to {player.coins}.")
 
             if monster.name not in player.monsters_killed:
                 player.monsters_killed[monster.name] = 1

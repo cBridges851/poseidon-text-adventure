@@ -25,14 +25,23 @@ class MonsterFight:
             active: bool, returns depending on whether the user runs away or not.
         '''
         active = True
+
         while self.monster.health > 0:
             print("------------------------------------------------------------------------------")
+            valid_inputs = ["A", "R", "ATTACK", "RUN", "RUN AWAY", f"ATTACK {self.monster.name}".upper(), "ATTACK MONSTER"]
             player_input = ""
-            while player_input != "A" and player_input != "R":
-                player_input = input(f"To attack {self.monster.name}, press (A). To run away press (R): ").upper()
+            is_unacceptable = True
             
-            if player_input == "A":
+            while is_unacceptable:
+                if player_input not in valid_inputs:
+                    player_input = input(f"What would you like to do: ").upper()
+                else:
+                    is_unacceptable = False
+            
+            if player_input == "A" or player_input == "ATTACK" or player_input == f"ATTACK {self.monster.name}".upper() or player_input == "ATTACK MONSTER":
                 self.monster.health -= self.player.damage
+                if self.monster.health < 0:
+                    self.monster.health = 0
                 print(f"You attacked the {self.monster.name} dealing {self.player.damage}. The monster has {self.monster.health} left.")
                 self.monster.damage = random.randint(min, max)
 
@@ -44,7 +53,7 @@ class MonsterFight:
 
                 print(f"{self.monster.name} attacked you, leaving you with {self.player.health}.")
 
-            if player_input == "R":
+            if player_input == "R" or player_input == "RUN" or player_input == "RUN AWAY":
                 active = False
                 break
             

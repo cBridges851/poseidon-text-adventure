@@ -97,7 +97,7 @@ def boss_battle(player):
             player.health += 10
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
             text_delay(f"You gained 10 health for defeating {boss_monster.name}!")
-            text_delay(f"You earned {coins_earned} coins, putting your total to {player.coins}.")
+            text_delay(f"You earned 1000 coins, putting your total to {player.coins}.")
             print("------------------------------------------------------------------------------")
             playing = False
             break
