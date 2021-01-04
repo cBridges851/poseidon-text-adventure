@@ -43,6 +43,7 @@ def enter_field(player):
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Monsters Killed", player.monsters_killed)
 
         if player.health <= 0:
+            player.health = 0
             print("------------------------------------------------------------------------------")
             text_delay("You have died losing all coins and items on your person.")
             player.inventory = {}

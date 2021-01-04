@@ -53,6 +53,7 @@ def boss_battle(player):
                 print("------------------------------------------------------------------------------")
 
             if player.health <= 0:
+                player.health = 0
                 print("------------------------------------------------------------------------------")
                 text_delay("You have died losing all coins on your person and need to restart the boss battle from the start.")
                 text_delay("You've been transported to the medical centre for emergency help!")
