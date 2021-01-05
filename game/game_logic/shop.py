@@ -190,6 +190,7 @@ class Shop():
         if quantity == 0:
             print(f"Fine, I won't buy any {item_to_sell}s from you then, weirdo.")
             self.sell()
+            return
 
         if quantity > self.player.inventory[item_to_sell]:
             print(f"You don't even have that many {item_to_sell}s, can you even count?")

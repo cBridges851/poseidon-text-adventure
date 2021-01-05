@@ -59,7 +59,9 @@ class FileLogic:
             "Coins": 0,
             "House": "shack",
             "Boss Beaten" : False,
-            "Inventory": {}
+            "Inventory": {},
+            "House Storage": {},
+            "Monsters Killed": {}
         }
 
         file_content["Players"].append(new_player)
@@ -91,6 +93,8 @@ class FileLogic:
                 player.house = item["House"]
                 player.boss_beaten = item["Boss Beaten"]
                 player.inventory = item["Inventory"]
+                player.house_storage = item["House Storage"]
+                player.monsters_killed = item["Monsters Killed"]
 
         if playerFound == False:
             print("Hmmmm, we could not find that player.")

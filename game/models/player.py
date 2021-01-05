@@ -8,6 +8,8 @@ class Player:
         self.house = "shack"
         self.boss_beaten = False
         self.inventory = {}
+        self.house_storage = {}
+        self.monsters_killed = {}
 
     def is_player_dead(self, player_health):
         '''

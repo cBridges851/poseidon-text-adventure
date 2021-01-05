@@ -32,6 +32,13 @@ def boss_battle(player):
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 text_delay(f"You earned {round(coins_earned)} coins putting your total to {player.coins}.")
 
+                if monster.name not in player.monsters_killed:
+                    player.monsters_killed[monster.name] = 1
+                else:
+                    player.monsters_killed[monster.name] += 1
+
+                FileLogic().update_player_property(PLAYER_FILENAME, player, "Monsters Killed", player.monsters_killed)
+                
                 if i != 2:
                     new_health = player.health * 1.4
 
@@ -46,11 +53,11 @@ def boss_battle(player):
                 print("------------------------------------------------------------------------------")
 
             if player.health <= 0:
+                player.health = 0
                 print("------------------------------------------------------------------------------")
                 text_delay("You have died losing all coins on your person and need to restart the boss battle from the start.")
                 text_delay("You've been transported to the medical centre for emergency help!")
-                player.health = MedicalCentre(player.health).heal()
-                FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+                MedicalCentre(player).enter_medical_centre(True)
                 print("------------------------------------------------------------------------------")
                 player.coins = 0
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
@@ -90,7 +97,7 @@ def boss_battle(player):
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Boss Beaten", player.boss_beaten)
             player.health += 10
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
-            text_delay(f"You gained 10 health for defeating Grogo!")
+            text_delay(f"You gained 10 health for defeating {boss_monster.name}!")
             text_delay(f"You earned 1000 coins, putting your total to {player.coins}.")
             print("------------------------------------------------------------------------------")
             playing = False
@@ -98,11 +105,13 @@ def boss_battle(player):
 
         if player.health <= 0:
             print("------------------------------------------------------------------------------")
-            text_delay("You have died losing all coins on your person. You need to restart the boss battle from the start.")
+            text_delay("You have died losing all coins and items on your person. You need to restart the boss battle from the start.")
             text_delay("You've been transported to the medical centre for emergency help!")
-            player.health = MedicalCentre(player.health).heal()
+            MedicalCentre(player.health).enter_medical_centre()
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+            player.inventory = {}
             player.coins = 0
+            FileLogic().update_player_property(PLAYER_FILENAME, player, "Inventory", player.inventory)
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
         
         if not active:

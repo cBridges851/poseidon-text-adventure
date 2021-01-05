@@ -44,8 +44,7 @@ def go_east(player, playing):
         print("------------------------------------------------------------------------------")
 
         if user_input == "M" or user_input == "MC" or user_input == "MEDICAL CENTRE" or user_input == "INSIDE":
-            player.health = MedicalCentre(player.health).heal()
-            FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
+            MedicalCentre(player).enter_medical_centre()
             print("------------------------------------------------------------------------------")
         elif user_input == "WEST" or user_input == "BACK":
             print("", end="")
