@@ -1,6 +1,8 @@
 {
-    "armour": 500,
-    "apple": 10,
-    "jar of air": 100,
-    "sword upgrade": 150
+    "armour" : 500,
+    "apple" : 10,
+    "jar of air" : 100,
+    "weapon upgrade" : 150,
+    "bow and arrow" : 75,
+    "heavy axe" : 100
 }

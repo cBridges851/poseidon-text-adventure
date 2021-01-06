@@ -3,7 +3,7 @@ class Player:
         self.name = None
         self.bank_balance = 0
         self.health = 100
-        self.damage = 15
+        self.weapons = {}
         self.coins = 0
         self.house = "shack"
         self.boss_beaten = False

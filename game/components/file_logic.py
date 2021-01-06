@@ -88,7 +88,7 @@ class FileLogic:
                 player.name = item["Name"]
                 player.bank_balance = item["Bank Balance"]
                 player.health = item["Health"]
-                player.damage = item["Damage"]
+                player.weapons = item["Weapons"]
                 player.coins = item["Coins"]
                 player.house = item["House"]
                 player.boss_beaten = item["Boss Beaten"]
