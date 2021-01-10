@@ -10,7 +10,7 @@ To start the game open the game folder and run the python file "adventure_game.p
 - If you are new to the game, select a the new option and enter your name before you are transported to the main square to play the main game. 
 - If you aren't new, select the returning player option and use the name you've previously used.
 
-# Help 🆘
+## Help 🆘
 Should you need any help whilst in the game, type help when in any of the main areas to bring up the help menu.
 
 ## Credits 🎞
