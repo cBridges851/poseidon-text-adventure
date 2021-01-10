@@ -57,7 +57,7 @@ class MonsterFight:
                 active = False
                 break
             
-            if Player().is_player_dead(self.player.health) == True:
+            if Player().is_player_dead(self.player.health) is True:
                 active = False
                 break
         

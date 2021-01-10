@@ -13,7 +13,7 @@ def bank_logic(player):
     text_delay("You open the door to the bank and look inside...")
     text_delay("You notice you can deposit the coins on you into your account, check your balance or withdraw money out.")
     playing = True
-    while playing == True:
+    while playing is True:
         user_input = ""
         while user_input != "D" and user_input != "B" and user_input != "W" and user_input != "E":
             user_input = input("Do you want to deposit(D), checkout your balance(B), withdraw money from the bank(W) or exit(E)? ").upper()

@@ -94,7 +94,7 @@ class Casino:
                     print("\nBlackJack!")
                     return "W"
 
-        if is_player_bust == True:
+        if is_player_bust is True:
             return "L"      
         else:
             while True:
@@ -132,7 +132,7 @@ class Casino:
     def better_and_runner(self, player):
         text_delay("Welcome to the casino! Here, you can play blackjack: ")
         in_casino = True
-        while in_casino == True:
+        while in_casino is True:
             user_input = input("Would you like to play?(Y/N): ").upper()
 
             while user_input != "Y" and user_input != "N":
