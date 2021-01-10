@@ -3,6 +3,9 @@ from components.text_delay import text_delay
 
 class House():
     def __init__(self, player):
+        '''
+            Initialises the house.
+        '''
         self.player = player
         self.all_houses = {
             "shack": {
@@ -26,11 +29,17 @@ class House():
         self.PLAYER_FILEPATH = "./player.json"
 
     def enter_house(self):
+        '''
+            Allows the player to enter the house.
+        '''
         text_delay(f"You get the keys out of your pocket and unlock the door to your {self.player.house}.")
         text_delay(f"In your house, there is a {self.player_house_object['sleep'][0]}, a notebook and a {self.player_house_object['storage'][0]}.")
         self.house_menu()
 
     def house_menu(self):
+        '''
+            Allows the player to choose what they wish to do in the house.
+        '''
         active = True
 
         while active == True:
@@ -50,6 +59,10 @@ class House():
                 active = False
 
     def sleep(self):
+        '''
+            Allows the player to sleep and gain more health points providing their house 
+            is upgraded enough.
+        '''
         print("---------------------------------------------------------------------------------------------")
         if self.player.health < self.player_house_object["sleep"][1]:
             self.player.health = self.player_house_object["sleep"][1]
@@ -62,6 +75,10 @@ class House():
                 text_delay("You need to upgrade your house to get a good night's sleep and heal more.")
     
     def notebook(self):
+        '''
+            Allows the player to view the monsters and how many of each 
+            species they have killed
+        '''
         print("---------------------------------------------------------------------------------------------")
         text_delay("In your notebook, you can see the species of monsters and how many you've defeated!")
         print("---------------------------------------------------------------------------------------------")
@@ -72,6 +89,10 @@ class House():
             print("---------------------------------------------------------------------------------------------")
 
     def storage(self):
+        '''
+            Allows the user to view the items they have on their person and in storage.
+            They can also put and take items from storage.
+        '''
         active = True
 
         while active == True:

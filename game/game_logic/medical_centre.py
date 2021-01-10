@@ -14,6 +14,10 @@ class MedicalCentre:
         self.PLAYER_FILEPATH = "./player.json"
 
     def enter_medical_centre(self, near_death=False):
+        '''
+            Allows the player to enter the medical centre and they decide whether they
+            wish to have treatment.
+        '''
         text_delay("You enter the medical centre. There are lots of ill people about, but at least the place is somewhat clean.")
         
         if near_death == False:
