@@ -38,7 +38,7 @@ def adventure_game():
                 creating_user = False 
 
     if user_input == "R":
-        # Read in the current users stats
+        # Read in the current user's stats
         name = input("Welcome back to the program, what name did you use last time? ")
         player = FileLogic().retrieve_player(PLAYER_FILENAME, name)
         
