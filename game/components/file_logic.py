@@ -68,12 +68,12 @@ class FileLogic:
 
         player_exists = False
 
-        for player in file_content["Players"]:
-            if player["Name"] == new_player["Name"]:
+        for item in file_content["Players"]:
+            if item["Name"] == new_player["Name"]:
                 player_exists = True
                 break
 
-        if player_exists == False:
+        if player_exists is False:
             file_content["Players"].append(new_player)
             FileLogic().update_json_file(filepath, file_content)
         else:
