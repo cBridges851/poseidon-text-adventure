@@ -16,4 +16,4 @@ Should you need any help whilst in the game, type help when in any of the main a
 ## Credits 🎞
 - [John Mason](https://github.com/johnmason27)
 - [Christa Bridges](https://github.com/cBridges851)
-- Joshua Talbot
+- [Joshua Talbot](https://github.com/13JoshT)
