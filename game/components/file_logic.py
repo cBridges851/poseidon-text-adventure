@@ -48,6 +48,8 @@ class FileLogic:
         Args:
             filepath: string, representing a filepath.
             player: obj, player object representing a new player.
+        Returns:
+            player_exists: if the player already exists.
         '''
         file_content = FileLogic().get_json(filepath)
 
@@ -64,9 +66,18 @@ class FileLogic:
             "Monsters Killed": {}
         }
 
-        file_content["Players"].append(new_player)
+        player_exists = False
 
-        FileLogic().update_json_file(filepath, file_content)
+        for player in file_content["Players"]:
+            if player["Name"] == new_player["Name"]:
+                player_exists = True
+                break
+
+        if player_exists == False:
+            file_content["Players"].append(new_player)
+            FileLogic().update_json_file(filepath, file_content)
+        else:
+            return player_exists
 
     def retrieve_player(self, filepath, name):
         '''

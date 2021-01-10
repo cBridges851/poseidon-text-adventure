@@ -24,10 +24,18 @@ def adventure_game():
         user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
 
     if user_input == "N":
+        # Creating a new user
         player = Player()
-        # Create some new stats the user can use
-        player.name = input("What is your first name? ")
-        FileLogic().add_new_player(PLAYER_FILENAME, player)
+        creating_user = True
+
+        while creating_user:
+            player.name = input("What is your first name? ")
+            player_exists = FileLogic().add_new_player(PLAYER_FILENAME, player)
+
+            if player_exists:
+                print("Player already exists, choose a new name.")
+            else:
+                creating_user = False 
 
     if user_input == "R":
         # Read in the current users stats
@@ -38,8 +46,11 @@ def adventure_game():
             adventure_game()
             return
 
+    print("------------------------------------------------------------------------------")
+
     playing = True
     while playing == True:
+        # Main square leading off to further game areas
         text_delay("You find yourself in the main square of PebbleTown...")
 
         direction = ""
