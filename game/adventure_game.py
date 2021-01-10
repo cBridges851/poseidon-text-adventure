@@ -17,7 +17,7 @@ PLAYER_FILENAME = "./player.json"
 
 def adventure_game():
     '''
-    Runs the main program.
+        Runs the main program.
     '''
     user_input = ""
     while user_input != "N" and user_input != "R":
