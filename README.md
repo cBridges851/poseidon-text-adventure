@@ -14,6 +14,6 @@ To start the game open the game folder and run the python file "adventure_game.p
 Should you need any help whilst in the game, type help when in any of the main areas to bring up the help menu.
 
 ## Credits 🎞
-- John Mason
+- [John Mason](https://github.com/johnmason27)
 - Christa Bridges
 - Joshua Talbot
