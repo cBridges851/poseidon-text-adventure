@@ -1,5 +1,5 @@
 # Poseidon-Text-Adventure 🐙
-A text adventure created by memebers of Poseiden for coding challenge 3.
+A text adventure created by members of Poseidon for coding challenge 3.
 
 ## Context 📑
 You start the game inside PebbleTown and you can travel around the area finding suprises along the way. Should you travel in the right direction you may come across a field, enter if
