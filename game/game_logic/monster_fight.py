@@ -15,12 +15,12 @@ class MonsterFight:
         self.player = player
         self.monster = monster
 
-    def monster_fight(self, min, max):
+    def monster_fight(self, min_val, max_val):
         '''
         Reusable component where players can fight monsters.
         Args:
-            min: integer, representing a min value for damage.
-            max: integer, representing a max value for damage.
+            min_val: integer, representing a min value for damage.
+            max_val: integer, representing a max value for damage.
         Returns:
             active: bool, returns depending on whether the user runs away or not.
         '''
@@ -43,7 +43,7 @@ class MonsterFight:
                 if self.monster.health < 0:
                     self.monster.health = 0
                 print(f"You attacked the {self.monster.name} dealing {self.player.damage}. The monster has {self.monster.health} left.")
-                self.monster.damage = random.randint(min, max)
+                self.monster.damage = random.randint(min_val, max_val)
 
                 if self.monster.health <= 0:
                     break
