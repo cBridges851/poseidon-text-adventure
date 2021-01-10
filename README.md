@@ -13,7 +13,7 @@ To start the game open the game folder and run the python file "adventure_game.p
 # Help 🆘
 Should you need any help whilst in the game, type help when in any of the main areas to bring up the help menu.
 
-# Credits 🎞
+## Credits 🎞
 - John Mason
 - Christa Bridges
 - Joshua Talbot
