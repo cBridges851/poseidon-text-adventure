@@ -20,7 +20,7 @@ class MedicalCentre:
         '''
         text_delay("You enter the medical centre. There are lots of ill people about, but at least the place is somewhat clean.")
         
-        if near_death == False:
+        if near_death is False:
             text_delay("It costs 5 coins to get treatment from the medical centre.")
             get_treatment = ""
 

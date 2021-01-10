@@ -107,7 +107,7 @@ class FileLogic:
                 player.house_storage = item["House Storage"]
                 player.monsters_killed = item["Monsters Killed"]
 
-        if playerFound == False:
+        if playerFound is False:
             print("Hmmmm, we could not find that player.")
             return None
 

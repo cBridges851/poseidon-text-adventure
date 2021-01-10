@@ -42,7 +42,7 @@ class House():
         '''
         active = True
 
-        while active == True:
+        while active is True:
             print("---------------------------------------------------------------------------------------------")
             user_input = ""
 

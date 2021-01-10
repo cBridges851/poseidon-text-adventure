@@ -42,14 +42,14 @@ def adventure_game():
         name = input("Welcome back to the program, what name did you use last time? ")
         player = FileLogic().retrieve_player(PLAYER_FILENAME, name)
         
-        if player == None:
+        if player is None:
             adventure_game()
             return
 
     print("------------------------------------------------------------------------------")
 
     playing = True
-    while playing == True:
+    while playing is True:
         # Main square leading off to further game areas
         text_delay("You find yourself in the main square of PebbleTown...")
 
