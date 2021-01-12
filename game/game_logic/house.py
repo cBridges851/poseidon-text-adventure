@@ -64,6 +64,7 @@ class House():
             is upgraded enough.
         '''
         print("---------------------------------------------------------------------------------------------")
+
         if self.player.health < self.player_house_object["sleep"][1]:
             self.player.health = self.player_house_object["sleep"][1]
             FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Health", self.player.health)

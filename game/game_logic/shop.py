@@ -62,6 +62,7 @@ class Shop():
                 print("---------------------------------------------------------------------------------------------")
 
         user_input = ""
+
         while user_input != "B" and user_input != "S" and user_input != "U" and user_input != "E":
             user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
 

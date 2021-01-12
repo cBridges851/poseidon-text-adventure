@@ -16,6 +16,7 @@ def enter_field(player):
     '''
     monster = Monster()
     playing = True
+
     while playing:
         text_delay(f"You have encountered a {monster.name}")
         monster_fight = MonsterFight(player, monster)

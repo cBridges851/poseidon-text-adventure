@@ -53,10 +53,12 @@ class MedicalCentre:
         text_delay("Healing...")
         delay_time = (100 - self.player.health) / 20 
         time.sleep(delay_time)
+
         if health_point_increase == 100:
             print("You are all better!")
         else:
             print("You're not ALL better, but you're not as dead as before. Be grateful.")
+
         self.player.health = health_point_increase
         FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Health", self.player.health)
         print(f"Your current health is now {health_point_increase}!")

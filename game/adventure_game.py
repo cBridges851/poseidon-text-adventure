@@ -20,6 +20,7 @@ def adventure_game():
         Runs the main program.
     '''
     user_input = ""
+
     while user_input != "N" and user_input != "R":
         user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
 
@@ -47,8 +48,8 @@ def adventure_game():
             return
 
     print("------------------------------------------------------------------------------")
-
     playing = True
+
     while playing is True:
         # Main square leading off to further game areas
         text_delay("You find yourself in the main square of PebbleTown...")
@@ -56,6 +57,7 @@ def adventure_game():
         direction = ""
         valid_inputs = ["N", "E", "S", "W", "NORTH", "EAST", "SOUTH", "WEST", "EXIT", "QUIT", "HELP"]
         is_unacceptable = True
+
         while is_unacceptable:
             if direction not in valid_inputs:
                 direction = input("Where would you like to go?: ").upper()

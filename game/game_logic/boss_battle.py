@@ -16,6 +16,7 @@ def boss_battle(player):
         player: obj, representing a player.
     '''
     playing = True
+
     while playing:
         for i in range(3):
             monster = Monster()

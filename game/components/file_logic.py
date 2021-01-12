@@ -123,6 +123,7 @@ class FileLogic:
                 property_value: any, the value that the given property will be updated to.
         '''
         file_content = FileLogic().get_json(filepath)
+
         for item in file_content["Players"]:
             if item["Name"] == player.name:
                 item[property_name] = property_value

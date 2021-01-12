@@ -27,6 +27,7 @@ class Casino:
             value: int, value of the list.
         '''
         value = 0
+
         for i in cards:
             if isinstance(i, int):
                 value += i
@@ -34,6 +35,7 @@ class Casino:
                 value += 11
             else:
                 value += 10
+
         return value
     
     def play_blackjack(self):
@@ -57,22 +59,26 @@ class Casino:
         amount_of_cards = len(cards) - 1
         player_selection = ""
         print("------------------------------------------------------------------------------")
+
         while player_selection.upper() != "S":
             print("Dealer's cards: ")
             Casino().print_cards(dealer_cards)
             print("\nYour cards:")
             Casino().print_cards(player_cards)
             value = Casino().calc_card_value(player_cards)
+
             if value == 21:
                 print("\nBlackJack!")
                 return "W"
+
             player_selection = input("\nWould you like to hit(H) or stand(S): ").upper()
             print("------------------------------------------------------------------------------")
+
             if player_selection == "H":
                 player_cards.append(cards.pop(random.randint(0, amount_of_cards)))
                 amount_of_cards -= 1
-
                 value = Casino().calc_card_value(player_cards)
+
                 if value > 21:
                     if "A" in player_cards:
                         value -= 10
@@ -95,15 +101,18 @@ class Casino:
                     return "W"
 
         if is_player_bust is True:
-            return "L"      
+            return "L"
+
         else:
             while True:
                 print("Dealer's cards: ")
                 Casino().print_cards(dealer_cards)
                 print("")
                 dealer_val = Casino().calc_card_value(dealer_cards)
+
                 if dealer_val > 21:
                     print("------------------------------------------------------------------------------")
+
                     if "A" in dealer_cards:
                         dealer_val -= 10
                         if dealer_val > 21:
@@ -132,6 +141,7 @@ class Casino:
     def better_and_runner(self, player):
         text_delay("Welcome to the casino! Here, you can play blackjack: ")
         in_casino = True
+
         while in_casino is True:
             user_input = input("Would you like to play?(Y/N): ").upper()
 
@@ -140,13 +150,17 @@ class Casino:
 
             if user_input == "Y":
                 game_result = ""
+
                 while True:
                     print("------------------------------------------------------------------------------")
                     bet = input("How much do you want to bet? ")
+
                     while isinstance(user_input, int):
                         print("Invalid bet!")
                         bet = input("How much do you want to bet? ")
+
                     bet = int(bet)
+
                     if bet > player.coins or bet <= 0:
                         text_delay("The amount you entered was out of range.")
                     else:
