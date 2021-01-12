@@ -83,10 +83,13 @@ class House():
         text_delay("In your notebook, you can see the species of monsters and how many you've defeated!")
         print("---------------------------------------------------------------------------------------------")
         
-        for species in self.player.monsters_killed:
-            print(f"Species: {species}")
-            print(f"Number Killed: {self.player.monsters_killed[species]}")
-            print("---------------------------------------------------------------------------------------------")
+        if len(self.player.monsters_killed) == 0:
+            print("You haven't killed any monsters yet. You should get out more.")
+        else:
+            for species in self.player.monsters_killed:
+                print(f"Species: {species}")
+                print(f"Number Killed: {self.player.monsters_killed[species]}")
+                print("---------------------------------------------------------------------------------------------")
 
     def storage(self):
         '''
