@@ -69,7 +69,7 @@ def boss_battle(player):
                 print("------------------------------------------------------------------------------")
                 break
             
-        if playing is False:
+        if not playing:
             break
 
         if not active:

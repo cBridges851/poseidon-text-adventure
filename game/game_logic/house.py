@@ -42,7 +42,7 @@ class House():
         '''
         active = True
 
-        while active is True:
+        while active:
             print("---------------------------------------------------------------------------------------------")
             user_input = ""
 
@@ -99,7 +99,7 @@ class House():
         '''
         active = True
 
-        while active is True:
+        while active:
             print("---------------------------------------------------------------------------------------------")
             user_input = ""
             amount_in_storage = 0

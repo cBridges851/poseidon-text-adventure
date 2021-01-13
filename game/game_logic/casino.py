@@ -100,7 +100,7 @@ class Casino:
                     print("\nBlackJack!")
                     return "W"
 
-        if is_player_bust is True:
+        if is_player_bust:
             return "L"
 
         else:
@@ -148,7 +148,7 @@ class Casino:
         text_delay("Welcome to the casino! Here, you can play blackjack: ")
         in_casino = True
 
-        while in_casino is True:
+        while in_casino:
             user_input = input("Would you like to play?(Y/N): ").upper()
 
             while user_input != "Y" and user_input != "N":

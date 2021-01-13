@@ -50,7 +50,7 @@ def adventure_game():
     print("------------------------------------------------------------------------------")
     playing = True
 
-    while playing is True:
+    while playing:
         # Main square leading off to further game areas
         text_delay("You find yourself in the main square of PebbleTown...")
 

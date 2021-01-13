@@ -11,7 +11,7 @@ def go_south(player, playing):
         Returns:
             playing: bool, whether the game should run or not.
     '''
-    if player.boss_beaten is False:
+    if not player.boss_beaten:
         text_delay("The Princess Belle has been taken hostage by the evil monster Gorgo. Your mission should you chose to accept it...")
         text_delay("Is to fight past Gorgo's Minions before taking on Gorgo himself in a battle to save Princess Belle.")
         print("------------------------------------------------------------------------------")

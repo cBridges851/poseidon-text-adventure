@@ -73,7 +73,7 @@ class FileLogic:
                 player_exists = True
                 break
 
-        if player_exists is False:
+        if not player_exists:
             file_content["Players"].append(new_player)
             FileLogic().update_json_file(filepath, file_content)
         else:
@@ -107,7 +107,7 @@ class FileLogic:
                 player.house_storage = item["House Storage"]
                 player.monsters_killed = item["Monsters Killed"]
 
-        if playerFound is False:
+        if not playerFound:
             print("Hmmmm, we could not find that player.")
             return None
 
