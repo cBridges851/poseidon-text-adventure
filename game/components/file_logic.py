@@ -4,11 +4,11 @@ from models.player import Player
 class FileLogic:
     def get_json(self, filepath):
         '''
-        Opens the content of the Json file.
-        Args:
-            filepath: string, representing a filepath.
-        Returns:
-            file_content: dic, representing file contents.
+            Opens the content of the Json file.
+            Args:
+                filepath: string, representing a filepath.
+            Returns:
+                file_content: dic, representing file contents.
         '''
         try:
             with open(filepath, "r") as content:
@@ -26,10 +26,10 @@ class FileLogic:
 
     def update_json_file(self, filepath, file_content):
         '''
-        Update the Json file using the content passed in.
-        Args:
-            filepath: string, representing a filepath.
-            file_content: dic, representing Json.
+            Update the Json file using the content passed in.
+            Args:
+                filepath: string, representing a filepath.
+                file_content: dic, representing Json.
         '''
         try:
             file_content = json.dumps(file_content)
@@ -44,12 +44,12 @@ class FileLogic:
 
     def add_new_player(self, filepath, player):
         '''
-        Add a new player to the player.json file with a balance of 0.
-        Args:
-            filepath: string, representing a filepath.
-            player: obj, player object representing a new player.
-        Returns:
-            player_exists: if the player already exists.
+            Add a new player to the player.json file with a balance of 0.
+            Args:
+                filepath: string, representing a filepath.
+                player: obj, player object representing a new player.
+            Returns:
+                player_exists: if the player already exists.
         '''
         file_content = FileLogic().get_json(filepath)
 

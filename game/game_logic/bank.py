@@ -6,9 +6,9 @@ PLAYER_FILENAME = "./player.json"
 
 def bank_logic(player):
     '''
-    Main program logic for the bank.
-    Args:
-        player: obj, player object.
+        Main program logic for the bank.
+        Args:
+            player: obj, player object.
     '''
     text_delay("You open the door to the bank and look inside...")
     text_delay("You notice you can deposit the coins on you into your account, check your balance or withdraw money out.")

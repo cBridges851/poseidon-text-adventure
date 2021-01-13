@@ -11,9 +11,9 @@ PLAYER_FILENAME = "./player.json"
 
 def boss_battle(player):
     '''
-    Boss fight logic where the player takes on the boss.
-    Args:
-        player: obj, representing a player.
+        Boss fight logic where the player takes on the boss.
+        Args:
+            player: obj, representing a player.
     '''
     playing = True
 

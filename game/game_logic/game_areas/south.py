@@ -4,12 +4,12 @@ from game_logic.boss_battle import boss_battle
 
 def go_south(player, playing):
     '''
-    South part of the game map.
-    Args:
-        player: obj, representing a player.
-        playing: obj, representing the active game.
-    Returns:
-        playing: bool, whether the game should run or not.
+        South part of the game map.
+        Args:
+            player: obj, representing a player.
+            playing: obj, representing the active game.
+        Returns:
+            playing: bool, whether the game should run or not.
     '''
     if player.boss_beaten is False:
         text_delay("The Princess Belle has been taken hostage by the evil monster Gorgo. Your mission should you chose to accept it...")

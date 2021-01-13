@@ -1,7 +1,7 @@
 class Help:
     def display_help(self):
         '''
-        Displays help for the user, such as commands and hints.
+            Displays help for the user, such as commands and hints.
         '''
         print("Navigation:")
         print("When in the main square -")

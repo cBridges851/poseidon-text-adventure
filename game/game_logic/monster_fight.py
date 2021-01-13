@@ -6,10 +6,10 @@ from models.player import Player
 class MonsterFight:
     def __init__(self, player, monster):
         '''
-        Initilises the player and monster in the class.
-        Args:
-            player: obj, representing a player.
-            monster: obj, representing a monster.
+            Initialises the player and monster in the class.
+            Args:
+                player: obj, representing a player.
+                monster: obj, representing a monster.
         '''
         self.PLAYER_FILENAME = "./player.json"
         self.player = player
@@ -17,12 +17,12 @@ class MonsterFight:
 
     def monster_fight(self, min_val, max_val):
         '''
-        Reusable component where players can fight monsters.
-        Args:
-            min_val: integer, representing a min value for damage.
-            max_val: integer, representing a max value for damage.
-        Returns:
-            active: bool, returns depending on whether the user runs away or not.
+            Reusable component where players can fight monsters.
+            Args:
+                min_val: integer, representing a min value for damage.
+                max_val: integer, representing a max value for damage.
+            Returns:
+                active: bool, returns depending on whether the user runs away or not.
         '''
         active = True
 
