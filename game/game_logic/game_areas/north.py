@@ -6,12 +6,12 @@ from game_logic.shop import Shop
 
 def go_north(player, playing):
     '''
-    North part of the game map.
-    Args:
-        player: obj, representing a player.
-        playing: obj, representing the active game.
-    Returns:
-        playing: bool, whether the game should run or not.
+        North part of the game map.
+        Args:
+            player: obj, representing a player.
+            playing: obj, representing the active game.
+        Returns:
+            playing: bool, whether the game should run or not.
     '''
     active = True
 

@@ -8,9 +8,9 @@ PLAYER_FILENAME = "./player.json"
 class Casino:
     def print_cards(self, cards):
         '''
-        Prints the cards of the given list.
-        Args:
-            cards: list, containing card values.
+            Prints the cards of the given list.
+            Args:
+                cards: list, containing card values.
         '''
         for i in range(len(cards)):
             if i == len(cards) - 1:
@@ -20,13 +20,14 @@ class Casino:
     
     def calc_card_value(self, cards):
         '''
-        Calculates the value of the player's hand.
-        Args:
-            cards: list, cards in the player's hand.
-        Returns:
-            value: int, value of the list.
+            Calculates the value of the player's hand.
+            Args:
+                cards: list, cards in the player's hand.
+            Returns:
+                value: int, value of the list.
         '''
         value = 0
+
         for i in cards:
             if isinstance(i, int):
                 value += i
@@ -34,13 +35,14 @@ class Casino:
                 value += 11
             else:
                 value += 10
+
         return value
     
     def play_blackjack(self):
         '''
-        Driver function for the game.
-        Returns:
-            W/L/D: string, the one returned depends on the result of the game.
+            Driver function for the game.
+            Returns:
+                W/L/D: string, the one returned depends on the result of the game.
         '''
         cards = [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,"J","J","J","J","Q","Q","Q","Q","K","K","K","K","A","A","A","A"]
         dealer_cards = []
@@ -57,22 +59,26 @@ class Casino:
         amount_of_cards = len(cards) - 1
         player_selection = ""
         print("------------------------------------------------------------------------------")
+
         while player_selection.upper() != "S":
             print("Dealer's cards: ")
             Casino().print_cards(dealer_cards)
             print("\nYour cards:")
             Casino().print_cards(player_cards)
             value = Casino().calc_card_value(player_cards)
+
             if value == 21:
                 print("\nBlackJack!")
                 return "W"
+
             player_selection = input("\nWould you like to hit(H) or stand(S): ").upper()
             print("------------------------------------------------------------------------------")
+
             if player_selection == "H":
                 player_cards.append(cards.pop(random.randint(0, amount_of_cards)))
                 amount_of_cards -= 1
-
                 value = Casino().calc_card_value(player_cards)
+
                 if value > 21:
                     if "A" in player_cards:
                         value -= 10
@@ -94,16 +100,19 @@ class Casino:
                     print("\nBlackJack!")
                     return "W"
 
-        if is_player_bust == True:
-            return "L"      
+        if is_player_bust:
+            return "L"
+
         else:
             while True:
                 print("Dealer's cards: ")
                 Casino().print_cards(dealer_cards)
                 print("")
                 dealer_val = Casino().calc_card_value(dealer_cards)
+
                 if dealer_val > 21:
                     print("------------------------------------------------------------------------------")
+
                     if "A" in dealer_cards:
                         dealer_val -= 10
                         if dealer_val > 21:
@@ -112,6 +121,7 @@ class Casino:
                     else:
                         print("Dealer busts, you win!")
                         return "W"
+
                 if dealer_val > 16:
                     print("------------------------------------------------------------------------------")
                     print("Dealer stands")
@@ -130,9 +140,16 @@ class Casino:
                     time.sleep(1)
     
     def better_and_runner(self, player):
+        '''
+            Introduces the player to the casino and gets the number of coins 
+            they wish to bet.
+            Args: 
+                player: obj, representing a player.
+        '''
         text_delay("Welcome to the casino! Here, you can play blackjack: ")
         in_casino = True
-        while in_casino == True:
+
+        while in_casino:
             user_input = input("Would you like to play?(Y/N): ").upper()
 
             while user_input != "Y" and user_input != "N":
@@ -140,15 +157,23 @@ class Casino:
 
             if user_input == "Y":
                 game_result = ""
+
                 while True:
                     print("------------------------------------------------------------------------------")
-                    bet = input("How much do you want to bet? ")
-                    while isinstance(user_input, int):
-                        print("Invalid bet!")
-                        bet = input("How much do you want to bet? ")
-                    bet = int(bet)
-                    if bet > player.coins or bet <= 0:
-                        text_delay("The amount you entered was out of range.")
+                    bet = ""
+                    
+                    while not isinstance(bet, int):
+                        try:
+                            bet = int(input("How much do you want to bet? "))
+                        except Exception:
+                            print("Invalid bet!")
+
+                    if player.coins <= 0:
+                        text_delay("The casino manager yells at you saying you can't play without any coins. Beat it scum!")
+                        break
+                    elif bet > player.coins:
+                        text_delay("You don't have enough coins for this bet.")
+                        break
                     else:
                         text_delay(f"Taken {bet} coins from your inventory.")
                         player.coins -= bet
@@ -162,7 +187,7 @@ class Casino:
                     text_delay("You doubled your bet. Added your earnings to your inventory.")
                 elif game_result == "L":
                     text_delay("You lost your bet.")
-                else:
+                elif game_result == "D":
                     player.coins += bet
                     FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     text_delay("Bet returned to your inventory.")

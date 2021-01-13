@@ -4,12 +4,12 @@ from game_logic.field import enter_field
 
 def go_west(player, playing):
     '''
-    West part of the game map.
-    Args:
-        player: obj, representing a player.
-        playing: obj, representing the active game.
-    Returns:
-        playing: bool, whether the game should run or not.
+        West part of the game map.
+        Args:
+            player: obj, representing a player.
+            playing: obj, representing the active game.
+        Returns:
+            playing: bool, whether the game should run or not.
     '''
     active = True
     

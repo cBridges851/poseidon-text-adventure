@@ -14,9 +14,13 @@ class MedicalCentre:
         self.PLAYER_FILEPATH = "./player.json"
 
     def enter_medical_centre(self, near_death=False):
+        '''
+            Allows the player to enter the medical centre and they decide whether they
+            wish to have treatment.
+        '''
         text_delay("You enter the medical centre. There are lots of ill people about, but at least the place is somewhat clean.")
         
-        if near_death == False:
+        if not near_death:
             text_delay("It costs 5 coins to get treatment from the medical centre.")
             get_treatment = ""
 
@@ -49,10 +53,12 @@ class MedicalCentre:
         text_delay("Healing...")
         delay_time = (100 - self.player.health) / 20 
         time.sleep(delay_time)
+
         if health_point_increase == 100:
             print("You are all better!")
         else:
             print("You're not ALL better, but you're not as dead as before. Be grateful.")
+
         self.player.health = health_point_increase
         FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Health", self.player.health)
         print(f"Your current health is now {health_point_increase}!")

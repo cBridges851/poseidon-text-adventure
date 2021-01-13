@@ -4,11 +4,11 @@ from models.player import Player
 class FileLogic:
     def get_json(self, filepath):
         '''
-        Opens the content of the Json file.
-        Args:
-            filepath: string, representing a filepath.
-        Returns:
-            file_content: dic, representing file contents.
+            Opens the content of the Json file.
+            Args:
+                filepath: string, representing a filepath.
+            Returns:
+                file_content: dic, representing file contents.
         '''
         try:
             with open(filepath, "r") as content:
@@ -26,10 +26,10 @@ class FileLogic:
 
     def update_json_file(self, filepath, file_content):
         '''
-        Update the Json file using the content passed in.
-        Args:
-            filepath: string, representing a filepath.
-            file_content: dic, representing Json.
+            Update the Json file using the content passed in.
+            Args:
+                filepath: string, representing a filepath.
+                file_content: dic, representing Json.
         '''
         try:
             file_content = json.dumps(file_content)
@@ -44,10 +44,12 @@ class FileLogic:
 
     def add_new_player(self, filepath, player):
         '''
-        Add a new player to the player.json file with a balance of 0.
-        Args:
-            filepath: string, representing a filepath.
-            player: obj, player object representing a new player.
+            Add a new player to the player.json file with a balance of 0.
+            Args:
+                filepath: string, representing a filepath.
+                player: obj, player object representing a new player.
+            Returns:
+                player_exists: if the player already exists.
         '''
         file_content = FileLogic().get_json(filepath)
 
@@ -64,9 +66,18 @@ class FileLogic:
             "Monsters Killed": {}
         }
 
-        file_content["Players"].append(new_player)
+        player_exists = False
 
-        FileLogic().update_json_file(filepath, file_content)
+        for item in file_content["Players"]:
+            if item["Name"] == new_player["Name"]:
+                player_exists = True
+                break
+
+        if not player_exists:
+            file_content["Players"].append(new_player)
+            FileLogic().update_json_file(filepath, file_content)
+        else:
+            return player_exists
 
     def retrieve_player(self, filepath, name):
         '''
@@ -96,7 +107,7 @@ class FileLogic:
                 player.house_storage = item["House Storage"]
                 player.monsters_killed = item["Monsters Killed"]
 
-        if playerFound == False:
+        if not playerFound:
             print("Hmmmm, we could not find that player.")
             return None
 
@@ -112,6 +123,7 @@ class FileLogic:
                 property_value: any, the value that the given property will be updated to.
         '''
         file_content = FileLogic().get_json(filepath)
+
         for item in file_content["Players"]:
             if item["Name"] == player.name:
                 item[property_name] = property_value

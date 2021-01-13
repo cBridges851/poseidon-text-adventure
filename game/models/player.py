@@ -1,5 +1,12 @@
 class Player:
+    '''
+    Used to represent the player during the game and
+    passed around the methods when the player moves.
+    '''
     def __init__(self):
+        '''
+        Defines what makes up a player.
+        '''
         self.name = None
         self.bank_balance = 0
         self.health = 100

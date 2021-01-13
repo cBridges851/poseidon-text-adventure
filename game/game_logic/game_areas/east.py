@@ -8,12 +8,12 @@ PLAYER_FILENAME = "./player.json"
 
 def go_east(player, playing):
     '''
-    East part of the game map.
-    Args:
-        player: obj, representing a player.
-        playing: obj, representing the active game.
-    Returns:
-        playing: bool, whether the game should run or not.
+        East part of the game map.
+        Args:
+            player: obj, representing a player.
+            playing: obj, representing the active game.
+        Returns:
+            playing: bool, whether the game should run or not.
     '''
     active = True
     

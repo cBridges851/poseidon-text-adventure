@@ -10,12 +10,13 @@ PLAYER_FILENAME = "./player.json"
 
 def enter_field(player):
     '''
-    Where players can fight monsters to gain coins.
-    Args:
-        player: obj, representing a player.
+        Where players can fight monsters to gain coins.
+        Args:
+            player: obj, representing a player.
     '''
     monster = Monster()
     playing = True
+
     while playing:
         text_delay(f"You have encountered a {monster.name}")
         monster_fight = MonsterFight(player, monster)
