@@ -80,9 +80,7 @@ def boss_battle(player):
         player.health = 100
         FileLogic().update_player_property(PLAYER_FILENAME, player, "Health", player.health)
         text_delay(f"Your health has been restored to 100% before the fight. Good luck...")
-
         print("------------------------------------------------------------------------------")
-
         text_delay(f"You have encountered the {boss_monster.name}, the toughest monster in the land.")
         text_delay(f"The {boss_monster.name} has taken Princess Belle hostage. To save her, defeat the monster and you will be rewarded handsomely.")
 
