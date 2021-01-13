@@ -121,6 +121,7 @@ class Casino:
                     else:
                         print("Dealer busts, you win!")
                         return "W"
+
                 if dealer_val > 16:
                     print("------------------------------------------------------------------------------")
                     print("Dealer stands")
@@ -159,16 +160,20 @@ class Casino:
 
                 while True:
                     print("------------------------------------------------------------------------------")
-                    bet = input("How much do you want to bet? ")
+                    bet = ""
+                    
+                    while not isinstance(bet, int):
+                        try:
+                            bet = int(input("How much do you want to bet? "))
+                        except Exception:
+                            print("Invalid bet!")
 
-                    while isinstance(user_input, int):
-                        print("Invalid bet!")
-                        bet = input("How much do you want to bet? ")
-
-                    bet = int(bet)
-
-                    if bet > player.coins or bet <= 0:
-                        text_delay("The amount you entered was out of range.")
+                    if player.coins <= 0:
+                        text_delay("The casino manager yells at you saying you can't play without any coins. Beat it scum!")
+                        break
+                    elif bet > player.coins:
+                        text_delay("You don't have enough coins for this bet.")
+                        break
                     else:
                         text_delay(f"Taken {bet} coins from your inventory.")
                         player.coins -= bet
@@ -182,7 +187,7 @@ class Casino:
                     text_delay("You doubled your bet. Added your earnings to your inventory.")
                 elif game_result == "L":
                     text_delay("You lost your bet.")
-                else:
+                elif game_result == "D":
                     player.coins += bet
                     FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     text_delay("Bet returned to your inventory.")

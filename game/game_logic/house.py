@@ -90,7 +90,6 @@ class House():
             for species in self.player.monsters_killed:
                 print(f"Species: {species}")
                 print(f"Number Killed: {self.player.monsters_killed[species]}")
-                print("---------------------------------------------------------------------------------------------")
 
     def storage(self):
         '''
