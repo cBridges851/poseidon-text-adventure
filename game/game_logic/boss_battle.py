@@ -11,20 +11,22 @@ PLAYER_FILENAME = "./player.json"
 
 def boss_battle(player):
     '''
-        Boss fight logic where the player takes on the boss.
+        Boss fight logic where the player takes on the boss.  
         Args:
             player: obj, representing a player.
     '''
     playing = True
 
     while playing:
+        # Minions fight
         for i in range(3):
             monster = Monster()
             print(f"Minion {i + 1} of 3")
             text_delay(f"You have encountered a {monster.name}")
             monster_fight = MonsterFight(player, monster)
             active = monster_fight.monster_fight(1, 20)
-
+            
+            # Should the monster be dead.
             if monster.health <= 0:
                 print("------------------------------------------------------------------------------")
                 text_delay(f"You defeated the {monster.name}!")
@@ -53,6 +55,7 @@ def boss_battle(player):
 
                 print("------------------------------------------------------------------------------")
 
+            # If the player is dead.
             if player.health <= 0:
                 player.health = 0
                 print("------------------------------------------------------------------------------")
@@ -74,7 +77,8 @@ def boss_battle(player):
 
         if not active:
             break
-
+        
+        # Boss fight
         boss_monster = BossMonster()
         text_delay(f"You have managed to get past {boss_monster.name}'s minions... you're not done yet though. Time to fight {boss_monster.name}!")
         player.health = 100
@@ -87,6 +91,7 @@ def boss_battle(player):
         monster_fight = MonsterFight(player, boss_monster)
         active = monster_fight.monster_fight(20, 35)
         
+        # Checking who won.
         if boss_monster.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay(f"You defeated {boss_monster.name}! In the process, you saved Princess Belle! Well done!")
@@ -102,6 +107,7 @@ def boss_battle(player):
             playing = False
             break
 
+        # If the player has lost.
         if player.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay("You have died losing all coins and items on your person. You need to restart the boss battle from the start.")

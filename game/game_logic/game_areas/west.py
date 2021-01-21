@@ -4,7 +4,7 @@ from game_logic.field import enter_field
 
 def go_west(player, playing):
     '''
-        West part of the game map.
+        West part of the game map.  
         Args:
             player: obj, representing a player.
             playing: obj, representing the active game.
@@ -19,6 +19,7 @@ def go_west(player, playing):
         valid_inputs = ["F", "FIELD", "RUN AWAY", "EAST", "BACK", "EXIT", "QUIT"]
         is_unacceptable = True
 
+        # If the input isn't in the list ask again.
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()

@@ -10,7 +10,7 @@ PLAYER_FILENAME = "./player.json"
 
 def enter_field(player):
     '''
-        Where players can fight monsters to gain coins.
+        Where players can fight monsters to gain coins.  
         Args:
             player: obj, representing a player.
     '''
@@ -18,14 +18,17 @@ def enter_field(player):
     playing = True
 
     while playing:
+        # Monster fight
         text_delay(f"You have encountered a {monster.name}")
         monster_fight = MonsterFight(player, monster)
         monster_fight.monster_fight(1, 20)
 
+        # Checking who won
         if monster.health <= 0:
             print("------------------------------------------------------------------------------")
             text_delay("You defeated the monster!")
             
+            # Randomise the reward.
             ran_int = random.randint(0,2)
             if ran_int == 0:
                 coins_earned = 10
@@ -43,6 +46,7 @@ def enter_field(player):
 
             FileLogic().update_player_property(PLAYER_FILENAME, player, "Monsters Killed", player.monsters_killed)
 
+        # If the player dies.
         if player.health <= 0:
             player.health = 0
             print("------------------------------------------------------------------------------")

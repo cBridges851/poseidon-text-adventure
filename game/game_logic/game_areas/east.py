@@ -8,7 +8,7 @@ PLAYER_FILENAME = "./player.json"
 
 def go_east(player, playing):
     '''
-        East part of the game map.
+        East part of the game map.  
         Args:
             player: obj, representing a player.
             playing: obj, representing the active game.
@@ -24,6 +24,7 @@ def go_east(player, playing):
         valid_inputs = ["M", "MEDICAL CENTRE", "MC", "INSIDE", "WEST", "BACK", "C", "CASINO", "EXIT", "QUIT"]
         is_unacceptable = True
 
+        # If the input isn't in the list ask again.
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()

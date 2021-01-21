@@ -60,11 +60,12 @@ class House():
 
     def sleep(self):
         '''
-            Allows the player to sleep and gain more health points providing their house 
+            Allows the player to sleep and gain more health points providing their house  
             is upgraded enough.
         '''
         print("---------------------------------------------------------------------------------------------")
 
+        # Update the players health property.
         if self.player.health < self.player_house_object["sleep"][1]:
             self.player.health = self.player_house_object["sleep"][1]
             FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Health", self.player.health)
@@ -77,13 +78,14 @@ class House():
     
     def notebook(self):
         '''
-            Allows the player to view the monsters and how many of each 
+            Allows the player to view the monsters and how many of each  
             species they have killed
         '''
         print("---------------------------------------------------------------------------------------------")
         text_delay("In your notebook, you can see the species of monsters and how many you've defeated!")
         print("---------------------------------------------------------------------------------------------")
         
+        # Print all monsters killed.
         if len(self.player.monsters_killed) == 0:
             print("You haven't killed any monsters yet. You should get out more.")
         else:
@@ -93,7 +95,7 @@ class House():
 
     def storage(self):
         '''
-            Allows the user to view the items they have on their person and in storage.
+            Allows the user to view the items they have on their person and in storage.  
             They can also put and take items from storage.
         '''
         active = True

@@ -15,7 +15,7 @@ class MedicalCentre:
 
     def enter_medical_centre(self, near_death=False):
         '''
-            Allows the player to enter the medical centre and they decide whether they
+            Allows the player to enter the medical centre and they decide whether they  
             wish to have treatment.
         '''
         text_delay("You enter the medical centre. There are lots of ill people about, but at least the place is somewhat clean.")
@@ -44,13 +44,15 @@ class MedicalCentre:
 
     def heal(self, health_point_increase):
         '''
-            Heals the player by setting their health to 100
+            Heals the player by setting their health to 100.  
             Args:
                 self: to retrieve the player, which has the health property
         '''
         
         print(f"Your current health is {self.player.health}!")
         text_delay("Healing...")
+        # Time in medical centre is based off how much health they have. 
+        # Large amount short item and vise versa.
         delay_time = (100 - self.player.health) / 20 
         time.sleep(delay_time)
 

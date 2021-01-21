@@ -6,7 +6,7 @@ from game_logic.shop import Shop
 
 def go_north(player, playing):
     '''
-        North part of the game map.
+        North part of the game map.  
         Args:
             player: obj, representing a player.
             playing: obj, representing the active game.
@@ -22,6 +22,7 @@ def go_north(player, playing):
         valid_inputs = ["S", "H", "B", "SOUTH", "SHOP", "HOUSE", "BANK", "BACK", "EXIT", "QUIT", "HELP"]
         is_unacceptable = True
         
+        # If the input isn't in the list ask again.
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()

@@ -8,7 +8,7 @@ PLAYER_FILEPATH = "./player.json"
 class Shop():
     def __init__(self, player):
         '''
-            The method for initalising the shop.
+            The method for initalising the shop.  
             Args:
                 player: obj, player object.
         '''
@@ -24,7 +24,7 @@ class Shop():
 
     def get_all_game_items(self):
         '''
-            Gets all the items the player could possibly buy and/or sell.
+            Gets all the items the player could possibly buy and/or sell.  
             Returns:
                 item_content: dictionary, all the possible items in the game.
         '''
@@ -33,7 +33,7 @@ class Shop():
 
     def enter_shop(self):
         '''
-            The method is called when the player enters the shop.
+            The method is called when the player enters the shop.  
             Returns:
                 player: obj, player object.
         '''
@@ -47,13 +47,14 @@ class Shop():
 
     def shop_menu(self):
         '''
-            The method that allows the player to select what they will do in the shop.
+            The method that allows the player to select what they will do in the shop.    
             Returns (when the user chooses to exit):
                 player: obj, player object.
         '''
         print("---------------------------------------------------------------------------------------------")
         text_delay(f"You have {self.player.coins} coins on your person.")
 
+        # Print inventory.
         if len(self.player.inventory) != 0:
             print("Here is your inventory:")
             for item in self.player.inventory:
@@ -63,6 +64,7 @@ class Shop():
 
         user_input = ""
 
+        # Get user choice for what they want to do inside shop.
         while user_input != "B" and user_input != "S" and user_input != "U" and user_input != "E":
             user_input = input("Would you like to buy(B) or sell(S) items, upgrade your house (U), or exit (E)? ").upper()
 
@@ -81,14 +83,15 @@ class Shop():
 
     def buy(self):
         '''
-            The method that allows the player to buy items from the shop.
-            Calls the shop_menu method when they have finished buying an item.
+            The method that allows the player to buy items from the shop.  
+            Calls the shop_menu method when they have finished buying an item.  
             Returns:
                 Just returns when there is an invalid input to prevent code continuing.
         '''
         print("\nHere are the items you can buy:")
         print("---------------------------------------------------------------------------------------------")
 
+        # Print shop inventory.
         for item in self.shop_items:
             print(f"Item Name: {item}")
             
@@ -96,6 +99,7 @@ class Shop():
                 print(f"Price: {self.all_game_items[item]}")
             print("---------------------------------------------------------------------------------------------")
 
+        # Get name of item.
         item_to_buy = input("Enter the item name of what you could like to buy," 
                             + " or press E if you're being awkward and changed your mind: ").lower()
 
@@ -108,6 +112,7 @@ class Shop():
             self.buy()
             return
 
+        # Get quantity of item.
         quantity = int(input(f"How many {item_to_buy}s would you like to buy? "))
         cost = quantity * self.all_game_items[item_to_buy]
 
@@ -119,6 +124,7 @@ class Shop():
         else:
             print(f"{quantity} {item_to_buy}s cost {cost} coins.")
 
+        # Check they can afford the item.
         if self.player.coins < cost:
             print("You don't have enough money, and we don't do discounts.")
             self.buy()
@@ -139,6 +145,7 @@ class Shop():
 
         if confirm_buy == "Y":
             self.player.coins -= cost
+            # If the sword upgraded is choose update damage else add to player inventory.
             if item_to_buy == "sword upgrade":
                 damage_to_add = 5 * quantity
                 self.player.damage += damage_to_add
@@ -156,8 +163,8 @@ class Shop():
 
     def sell(self):
         '''
-            The method that allow the player to sell items from their inventory.
-            Calls the shop_menu method when they have finished selling an item.
+            The method that allow the player to sell items from their inventory.  
+            Calls the shop_menu method when they have finished selling an item.  
             Returns:
                 Just returns when there is an invalid input to prevent code continuing.
         '''
@@ -166,6 +173,7 @@ class Shop():
             self.shop_menu()
             return
 
+        # Print player inventory.
         print("\nHere are the items in your inventory you can sell:")
         print("---------------------------------------------------------------------------------------------")
         for item in self.player.inventory:
@@ -175,6 +183,7 @@ class Shop():
             print(f"Price per item: {self.all_game_items[item]}")
             print("---------------------------------------------------------------------------------------------")
 
+        # Get inventory item.
         item_to_sell = input("What would you like to sell, or are you going to be awkward and press E to exit? ").lower()
 
         if item_to_sell == "e":
@@ -186,6 +195,7 @@ class Shop():
                     + " Oh you don't actually have one? Funny that. I don't buy imaginary items.")
             self.sell()
 
+        # Get quantity of items.
         quantity = int(input(f"How many {item_to_sell}s would you like to sell? "))
 
         if quantity == 0:
@@ -212,6 +222,7 @@ class Shop():
             else:
                 confirm_sell = input(f"I'll buy {quantity} {item_to_sell}s for {cost} coins. Does that sound good? (Y/N) ").upper()
 
+        # Update players inventory and coins based off the sale.
         if confirm_sell == "Y":
             self.player.coins += cost
             self.player.inventory[item_to_sell] -= quantity
@@ -225,8 +236,8 @@ class Shop():
 
     def upgrade_house(self):
         '''
-            The method that allows the user to upgrade their house.
-            Calls the shop_menu method when they have finished upgrading their house.
+            The method that allows the user to upgrade their house.  
+            Calls the shop_menu method when they have finished upgrading their house.  
             Returns:
                 Just returns when the player does not have enough coins or 
                 cannot upgrade anymore to prevent code continuing. 
@@ -241,6 +252,7 @@ class Shop():
 
         next_house = list(self.available_houses.keys())[current_house_index + 1]
 
+        # Check they can afford the purchase.
         if self.available_houses[next_house] > self.player.coins:
             print("You don't have enough money to upgrade")
             self.shop_menu()
@@ -251,6 +263,7 @@ class Shop():
         while confirm_upgrade != "Y" and confirm_upgrade != "N":
             confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
 
+        # Update players balance and house.
         if confirm_upgrade == "Y":
             self.player.house = next_house
             self.player.coins -= self.available_houses[next_house]

@@ -1,7 +1,10 @@
-# Christa Bridges
-# Josh Talbot
-# John Mason
-# The Adventure Game to end all adventure games
+# Coding Challenge, adventure game!
+# Name: (Worked on by John Mason, Christa Briges and Joshua Talbot)
+# Student No: 
+
+# Poseidon Adventure Game
+
+# -----------------------------------
 import time
 import random
 from components.file_logic import FileLogic
@@ -29,6 +32,7 @@ def adventure_game():
         player = Player()
         creating_user = True
 
+        # Make sure a user doesn't already exist.
         while creating_user:
             player.name = input("What is your first name? ")
             player_exists = FileLogic().add_new_player(PLAYER_FILENAME, player)
@@ -43,6 +47,7 @@ def adventure_game():
         name = input("Welcome back to the program, what name did you use last time? ")
         player = FileLogic().retrieve_player(PLAYER_FILENAME, name)
         
+        # Reload the game if user doesn't exist.
         if player is None:
             adventure_game()
             return
@@ -54,10 +59,12 @@ def adventure_game():
         # Main square leading off to further game areas
         text_delay("You find yourself in the main square of PebbleTown...")
 
+        # Get user direction input.
         direction = ""
         valid_inputs = ["N", "E", "S", "W", "NORTH", "EAST", "SOUTH", "WEST", "EXIT", "QUIT", "HELP"]
         is_unacceptable = True
 
+        # If the input isn't in the list ask again.
         while is_unacceptable:
             if direction not in valid_inputs:
                 direction = input("Where would you like to go?: ").upper()
@@ -70,6 +77,7 @@ def adventure_game():
 
         print("------------------------------------------------------------------------------")
 
+        # Action depending on the direction.
         if direction == "N" or direction == "NORTH":
             playing = go_north(player, playing)
         elif direction == "E" or direction == "EAST":

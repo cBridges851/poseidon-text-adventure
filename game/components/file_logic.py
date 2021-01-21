@@ -4,7 +4,7 @@ from models.player import Player
 class FileLogic:
     def get_json(self, filepath):
         '''
-            Opens the content of the Json file.
+            Opens the content of the Json file.  
             Args:
                 filepath: string, representing a filepath.
             Returns:
@@ -26,7 +26,7 @@ class FileLogic:
 
     def update_json_file(self, filepath, file_content):
         '''
-            Update the Json file using the content passed in.
+            Update the Json file using the content passed in.  
             Args:
                 filepath: string, representing a filepath.
                 file_content: dic, representing Json.
@@ -44,7 +44,7 @@ class FileLogic:
 
     def add_new_player(self, filepath, player):
         '''
-            Add a new player to the player.json file with a balance of 0.
+            Add a new player to the player.json file with a balance of 0.  
             Args:
                 filepath: string, representing a filepath.
                 player: obj, player object representing a new player.
@@ -68,6 +68,7 @@ class FileLogic:
 
         player_exists = False
 
+        # Player validation for when creating a new one making sure it can't already exist.
         for item in file_content["Players"]:
             if item["Name"] == new_player["Name"]:
                 player_exists = True
@@ -81,8 +82,8 @@ class FileLogic:
 
     def retrieve_player(self, filepath, name):
         '''
-            Attempts to get the player based on the name that was inputted in adventure_game.py.
-            It creates an object if the player has been found.
+            Attempts to get the player based on the name that was inputted in adventure_game.py.  
+            It creates an object if the player has been found.  
             Args:
                 filepath: string, represents the file path that contains information about the registered players.
                 name: string, the name the user inputted in adventure_game.py and this is used to find the player object.
@@ -93,6 +94,7 @@ class FileLogic:
         player = Player()
         playerFound = False
 
+        # Get a player and all it's profile contents.
         for item in file_content["Players"]:
             if item["Name"] == name:
                 playerFound = True
@@ -115,7 +117,7 @@ class FileLogic:
 
     def update_player_property(self, filepath, player, property_name, property_value):
         '''
-            Updates the value of a given property.
+            Updates the value of a given property.  
             Args:
                 filepath: string, the file path to the file that needs to be adjsuted
                 player: obj, player object
@@ -124,6 +126,7 @@ class FileLogic:
         '''
         file_content = FileLogic().get_json(filepath)
 
+        # Search for the player and update their profile.
         for item in file_content["Players"]:
             if item["Name"] == player.name:
                 item[property_name] = property_value

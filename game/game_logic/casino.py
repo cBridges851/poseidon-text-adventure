@@ -8,7 +8,7 @@ PLAYER_FILENAME = "./player.json"
 class Casino:
     def print_cards(self, cards):
         '''
-            Prints the cards of the given list.
+            Prints the cards of the given list.  
             Args:
                 cards: list, containing card values.
         '''
@@ -20,7 +20,7 @@ class Casino:
     
     def calc_card_value(self, cards):
         '''
-            Calculates the value of the player's hand.
+            Calculates the value of the player's hand.  
             Args:
                 cards: list, cards in the player's hand.
             Returns:
@@ -40,13 +40,14 @@ class Casino:
     
     def play_blackjack(self):
         '''
-            Driver function for the game.
+            Driver function for the game.  
             Returns:
                 W/L/D: string, the one returned depends on the result of the game.
         '''
         cards = [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,"J","J","J","J","Q","Q","Q","Q","K","K","K","K","A","A","A","A"]
         dealer_cards = []
         player_cards = []
+        # Randomise the first set of cards given out.
         card_index = random.randint(0,51)
         player_cards.append(cards.pop(card_index))
         card_index = random.randint(0,50)
@@ -61,6 +62,7 @@ class Casino:
         print("------------------------------------------------------------------------------")
 
         while player_selection.upper() != "S":
+            # Print the first set of cards.
             print("Dealer's cards: ")
             Casino().print_cards(dealer_cards)
             print("\nYour cards:")
@@ -105,6 +107,7 @@ class Casino:
 
         else:
             while True:
+                # If the player stands load the dealer logic.
                 print("Dealer's cards: ")
                 Casino().print_cards(dealer_cards)
                 print("")
@@ -141,8 +144,8 @@ class Casino:
     
     def better_and_runner(self, player):
         '''
-            Introduces the player to the casino and gets the number of coins 
-            they wish to bet.
+            Introduces the player to the casino and gets the number of coins  
+            they wish to bet.  
             Args: 
                 player: obj, representing a player.
         '''
@@ -162,6 +165,7 @@ class Casino:
                     print("------------------------------------------------------------------------------")
                     bet = ""
                     
+                    # Bet validation.
                     while not isinstance(bet, int):
                         try:
                             bet = int(input("How much do you want to bet? "))
@@ -181,6 +185,7 @@ class Casino:
                         game_result = Casino().play_blackjack()
                         break
 
+                # Update the players coins based off the game result.
                 if game_result == "W":
                     player.coins += bet * 2
                     FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)

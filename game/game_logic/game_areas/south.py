@@ -4,7 +4,7 @@ from game_logic.boss_battle import boss_battle
 
 def go_south(player, playing):
     '''
-        South part of the game map.
+        South part of the game map.  
         Args:
             player: obj, representing a player.
             playing: obj, representing the active game.
@@ -19,6 +19,7 @@ def go_south(player, playing):
         valid_inputs = ["F", "FIGHT", "YES", "Y", "NO", "RUN AWAY", "I'M TOO SCARED", "NORTH", "BACK", "EXIT", "QUIT"]
         is_unacceptable = True
         
+        # If the input isn't in the list ask again.
         while is_unacceptable:
             if user_input not in valid_inputs:
                 user_input = input("Do you want to fight the boss? Or are you too scared? ").upper()

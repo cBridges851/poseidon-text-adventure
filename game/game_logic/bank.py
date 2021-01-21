@@ -6,7 +6,7 @@ PLAYER_FILENAME = "./player.json"
 
 def bank_logic(player):
     '''
-        Main program logic for the bank.
+        Main program logic for the bank.  
         Args:
             player: obj, player object.
     '''
@@ -22,12 +22,14 @@ def bank_logic(player):
 
         print("------------------------------------------------------------------------------")
 
+        # Deposit coins
         if user_input == "D":
             user_input = ""
 
             while user_input != "A" and user_input != "C":
                 user_input = input("Do you want to deposit all your coins(A) or a certain amount(C)? ").upper()
 
+            # Deposit a cerain amount of coins.
             if user_input == "A":
                 text_delay("You chose to deposit all your coins.")
                 player.bank_balance += player.coins
@@ -36,6 +38,7 @@ def bank_logic(player):
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 print(f"Balance has been updated, new balance is {player.bank_balance} coins.")
             
+            # Deposit a set amount of coins
             if user_input == "C":
                 text_delay("You chose to deposit a set amount.")
                 print(f"You currently have {player.coins} coins.")
@@ -51,10 +54,12 @@ def bank_logic(player):
                     FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     print(f"Balance has been updated, new balance is {player.bank_balance} coins.")
 
+        # Checkout balance
         if user_input == "B":
             text_delay("You chose to checkout your balance.")
             print(f"Your current balance is {player.bank_balance} coins.")
 
+        # Withdraw coins
         if user_input == "W":
             text_delay("You have chosen to take money out.")
             print(f"Your current balance is {player.bank_balance} coins.")
@@ -69,6 +74,7 @@ def bank_logic(player):
                 FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                 text_delay(f"You now have {player.coins} in your inventory.")
         
+        # Exit bank
         if user_input == "E":
             text_delay("Goodbye, thanks for using the bank.")
             playing = False
