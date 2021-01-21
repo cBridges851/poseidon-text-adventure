@@ -29,7 +29,7 @@ def bank_logic(player):
             while user_input != "A" and user_input != "C":
                 user_input = input("Do you want to deposit all your coins(A) or a certain amount(C)? ").upper()
 
-            # Deposit a cerain amount of coins.
+            # Deposit a certain amount of coins.
             if user_input == "A":
                 text_delay("You chose to deposit all your coins.")
                 player.bank_balance += player.coins
