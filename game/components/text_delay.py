@@ -7,7 +7,11 @@ def text_delay(sentence):
             sentence: string, to print out.
     '''
     for letter in sentence:
+        # Prints a letter with no separator and ending, while clearing 
+        # the internal buffer
         print(letter, sep="", end="", flush=True)
+        # Pausing before the next output
         time.sleep(.01)
 
+    # Print new line after a sentence
     print("")
