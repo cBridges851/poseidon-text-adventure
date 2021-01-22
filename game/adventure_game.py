@@ -24,6 +24,7 @@ def adventure_game():
     '''
     user_input = ""
 
+    # Loops until the user specifies that they would like to create a new player or they are a returning player
     while user_input != "N" and user_input != "R":
         user_input = input("Welcome to the Poseidon text adventure! Are you a new(N) or returning(R) player? ").upper()
 
@@ -35,11 +36,15 @@ def adventure_game():
         # Make sure a user doesn't already exist.
         while creating_user:
             player.name = input("What is your first name? ")
+            # Creates a new player and returns true, or returns false if 
+            # there is already a player with the name that the user inputted
             player_exists = FileLogic().add_new_player(PLAYER_FILENAME, player)
 
             if player_exists:
                 print("Player already exists, choose a new name.")
             else:
+                # The user has been created, so the process of creating a user 
+                # is complete and the loop ends
                 creating_user = False 
 
     if user_input == "R":
@@ -69,8 +74,11 @@ def adventure_game():
             if direction not in valid_inputs:
                 direction = input("Where would you like to go?: ").upper()
                 split_direction = direction.split()
+
                 if split_direction != []:
+                    # Sees if the first inputted word is "GO" or "MOVE"
                     if split_direction[0] == "GO" or split_direction[0] == "MOVE":
+                        # The direction for the user to move will be the second inputted word
                         direction = split_direction[1]
             else:
                 is_unacceptable = False
