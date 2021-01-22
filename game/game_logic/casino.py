@@ -14,8 +14,10 @@ class Casino:
         '''
         for i in range(len(cards)):
             if i == len(cards) - 1:
+                # Prints the card with a space after it if it is the last one
                 print(str(cards[i]), end=" ")
             else:
+                # Prints the card with a comma after it
                 print(str(cards[i]), end=", ")
     
     def calc_card_value(self, cards):
@@ -30,10 +32,13 @@ class Casino:
 
         for i in cards:
             if isinstance(i, int):
+                # If the card is an integer, the value is incremented by this number
                 value += i
             elif i == "A":
+                # Value is incremented by 11 if it is an ace
                 value += 11
             else:
+                # Value incremented by 10 otherwise
                 value += 10
 
         return value
@@ -44,13 +49,14 @@ class Casino:
             Returns:
                 W/L/D: string, the one returned depends on the result of the game.
         '''
+        # List of all cards
         cards = [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,"J","J","J","J","Q","Q","Q","Q","K","K","K","K","A","A","A","A"]
         dealer_cards = []
         player_cards = []
         # Randomise the first set of cards given out.
-        card_index = random.randint(0,51)
+        card_index = random.randint(0, 51)
         player_cards.append(cards.pop(card_index))
-        card_index = random.randint(0,50)
+        card_index = random.randint(0, 50)
         dealer_cards.append(cards.pop(card_index))
         card_index = random.randint(0, 49)
         player_cards.append(cards.pop(card_index))
@@ -61,6 +67,7 @@ class Casino:
         player_selection = ""
         print("------------------------------------------------------------------------------")
 
+        # Loops until the player chooses to stand
         while player_selection.upper() != "S":
             # Print the first set of cards.
             print("Dealer's cards: ")
@@ -81,6 +88,7 @@ class Casino:
                 amount_of_cards -= 1
                 value = Casino().calc_card_value(player_cards)
 
+                # Player goes bust if the value is above 21
                 if value > 21:
                     if "A" in player_cards:
                         value -= 10
@@ -96,12 +104,14 @@ class Casino:
                         print("\nBust, you lose")
                         is_player_bust = True
                         break
+                # Player wins if the value is exactly 21
                 elif value == 21:
                     print("Your cards:")
                     Casino().print_cards(player_cards)
                     print("\nBlackJack!")
                     return "W"
 
+        # Returns that the player lost if they went bust
         if is_player_bust:
             return "L"
 
@@ -132,9 +142,11 @@ class Casino:
                         print("Dealer wins")
                         return "L"
                     elif dealer_val < value:
+                        # Returns that the player has won
                         print("You win!")
                         return "W"
                     else:
+                        # Returns that the game resolved to a draw
                         print("Draw!")
                         return "D"
                 else:
@@ -152,8 +164,9 @@ class Casino:
         text_delay("Welcome to the casino! Here, you can play blackjack: ")
         in_casino = True
 
+        # Loops until the player leaves the casino
         while in_casino:
-            user_input = input("Would you like to play?(Y/N): ").upper()
+            user_input = ""
 
             while user_input != "Y" and user_input != "N":
                 user_input = input("Would you like to play?(Y/N): ").upper()
@@ -165,19 +178,22 @@ class Casino:
                     print("------------------------------------------------------------------------------")
                     bet = ""
                     
-                    # Bet validation.
+                    # Bet validation by checking if it is an integer
                     while not isinstance(bet, int):
                         try:
                             bet = int(input("How much do you want to bet? "))
                         except Exception:
                             print("Invalid bet!")
 
+                    # For if the player does not have any coins
                     if player.coins <= 0:
                         text_delay("The casino manager yells at you saying you can't play without any coins. Beat it scum!")
                         break
+                    # For if the player inputs more coins than they actually have
                     elif bet > player.coins:
                         text_delay("You don't have enough coins for this bet.")
                         break
+                    # Allows the player to proceed with the game
                     else:
                         text_delay(f"Taken {bet} coins from your inventory.")
                         player.coins -= bet
@@ -187,6 +203,7 @@ class Casino:
 
                 # Update the players coins based off the game result.
                 if game_result == "W":
+                    # Player gets double their bet
                     player.coins += bet * 2
                     FileLogic().update_player_property(PLAYER_FILENAME, player, "Coins", player.coins)
                     text_delay("You doubled your bet. Added your earnings to your inventory.")
