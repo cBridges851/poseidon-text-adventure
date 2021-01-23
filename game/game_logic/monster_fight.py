@@ -33,7 +33,7 @@ class MonsterFight:
             player_input = ""
             is_unacceptable = True
             
-            # Get user input
+            # Get user input and if it's not in the valid input list ask again.
             while is_unacceptable:
                 if player_input not in valid_inputs:
                     player_input = input(f"What would you like to do: ").upper()
@@ -42,6 +42,7 @@ class MonsterFight:
             
             # Attack monster
             if player_input == "A" or player_input == "ATTACK" or player_input == f"ATTACK {self.monster.name}".upper() or player_input == "ATTACK MONSTER":
+                # Reduce monster health.
                 self.monster.health -= self.player.damage
                 if self.monster.health < 0:
                     self.monster.health = 0
@@ -49,9 +50,11 @@ class MonsterFight:
                 # Randomise the monster attack.
                 self.monster.damage = random.randint(min_val, max_val)
 
+                # Check if the monster is dead.
                 if self.monster.health <= 0:
                     break
                 else:
+                    # Attack the player if the monster is alive.
                     self.player.health -= self.monster.damage
                     FileLogic().update_player_property(self.PLAYER_FILENAME, self.player, "Health", self.player.health)
 

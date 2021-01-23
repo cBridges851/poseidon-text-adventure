@@ -107,6 +107,7 @@ class Shop():
             self.shop_menu()
             return
 
+        # Check what they entered is in the shop items.
         if item_to_buy not in self.shop_items:
             print("That isn't an item in the shop. Can you even read?")
             self.buy()
@@ -116,6 +117,7 @@ class Shop():
         quantity = int(input(f"How many {item_to_buy}s would you like to buy? "))
         cost = quantity * self.all_game_items[item_to_buy]
 
+        # Check the quantity entered.
         if quantity == 0:
             print(f"What do you mean you want to buy 0 {item_to_buy}s?")
             self.buy()
@@ -132,6 +134,7 @@ class Shop():
 
         confirm_buy = ""
 
+        # Checking if they want to really buy the item.
         if quantity == 1:
             confirm_buy = input(f"Are you sure you want to buy { quantity } { item_to_buy }? (Y/N) ").upper()
         else:
@@ -151,6 +154,7 @@ class Shop():
                 self.player.damage += damage_to_add
                 FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Damage", self.player.damage)
             else:
+                # Updating the player object depending on the purchase.
                 if item_to_buy in self.player.inventory:
                     self.player.inventory[item_to_buy] += quantity
                     FileLogic().update_player_property(PLAYER_FILEPATH, self.player, "Inventory", self.player.inventory)
@@ -168,6 +172,7 @@ class Shop():
             Returns:
                 Just returns when there is an invalid input to prevent code continuing.
         '''
+        # Check the player has items to sell.
         if len(self.player.inventory) == 0:
             print("You have no items you can sell. What do you plan to sell? Air from your lungs?")
             self.shop_menu()
@@ -190,6 +195,7 @@ class Shop():
             self.shop_menu()
             return
 
+        # Check the item they wanted to sell is in the players inventory.
         if item_to_sell not in self.player.inventory:
             print(f"Oh you'd like to sell your {item_to_sell}? Where is it then?" 
                     + " Oh you don't actually have one? Funny that. I don't buy imaginary items.")
@@ -198,6 +204,7 @@ class Shop():
         # Get quantity of items.
         quantity = int(input(f"How many {item_to_sell}s would you like to sell? "))
 
+        # Checking the quantity entered.
         if quantity == 0:
             print(f"Fine, I won't buy any {item_to_sell}s from you then, weirdo.")
             self.sell()
@@ -210,7 +217,8 @@ class Shop():
 
         cost = self.all_game_items[item_to_sell] * quantity
         confirm_sell = ""
-
+    
+        # Confirming they want to sell the item.
         if quantity == 1:
             confirm_sell = input(f"I'll buy {quantity} {item_to_sell} for {cost} coins. Does that sound good? (Y/N) ").upper()
         else:
@@ -242,9 +250,11 @@ class Shop():
                 Just returns when the player does not have enough coins or 
                 cannot upgrade anymore to prevent code continuing. 
         '''
+        # Get the players current house.
         print(f"\nThis is the house you currently have: {self.player.house}")
         current_house_index = list(self.available_houses.keys()).index(self.player.house)
 
+        # Check if they can upgrade the house they own.
         if current_house_index + 1 > len(list(self.available_houses.keys())) - 1:
             print("You can't upgrade your house any more.")
             self.shop_menu()
@@ -260,6 +270,7 @@ class Shop():
         
         confirm_upgrade = ""
 
+        # Purchase input validation.
         while confirm_upgrade != "Y" and confirm_upgrade != "N":
             confirm_upgrade = input(f"Would you like to upgrade to a {next_house} for {self.available_houses[next_house]} coins?(Y/N) ").upper()
 

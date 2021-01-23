@@ -80,6 +80,7 @@ class Casino:
                 print("\nBlackJack!")
                 return "W"
 
+            # Decide the players action.
             player_selection = input("\nWould you like to hit(H) or stand(S): ").upper()
             print("------------------------------------------------------------------------------")
 
@@ -123,6 +124,7 @@ class Casino:
                 print("")
                 dealer_val = Casino().calc_card_value(dealer_cards)
 
+                # If the dealers card values are above 21 the player wins.
                 if dealer_val > 21:
                     print("------------------------------------------------------------------------------")
 
@@ -134,10 +136,12 @@ class Casino:
                     else:
                         print("Dealer busts, you win!")
                         return "W"
-
+                
+                # If the dealers card value is above 16 from the first round, stand.
                 if dealer_val > 16:
                     print("------------------------------------------------------------------------------")
                     print("Dealer stands")
+                    # Check who wins.
                     if dealer_val > value:
                         print("Dealer wins")
                         return "L"
@@ -150,6 +154,7 @@ class Casino:
                         print("Draw!")
                         return "D"
                 else:
+                    # Get a new card for the dealer.
                     dealer_cards.append(cards.pop(random.randint(0, amount_of_cards)))
                     amount_of_cards -= 1
                     time.sleep(1)
@@ -168,6 +173,7 @@ class Casino:
         while in_casino:
             user_input = ""
 
+            # Decide whether the player wants to play.
             while user_input != "Y" and user_input != "N":
                 user_input = input("Would you like to play?(Y/N): ").upper()
 

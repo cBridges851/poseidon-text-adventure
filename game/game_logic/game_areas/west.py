@@ -36,6 +36,7 @@ def go_west(player, playing):
 
         print("------------------------------------------------------------------------------")
 
+        # Decide what the player entered and enter that part of the map.
         if user_input == "F" or user_input == "FIELD":
             enter_field(player)
             print("------------------------------------------------------------------------------")

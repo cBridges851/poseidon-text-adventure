@@ -24,13 +24,16 @@ class MedicalCentre:
             text_delay("It costs 5 coins to get treatment from the medical centre.")
             get_treatment = ""
 
+            # Check they want to have treatment.
             while get_treatment != "Y" and get_treatment != "N":
                 get_treatment = input("Would you like to have treatment (Y/N)? ").upper()
 
             if get_treatment == "Y":
+                # Check they can afford treatment.
                 if self.player.coins < 5:
                     text_delay("You are too poor for treatment. Go away peasant.")
                 else:
+                    # Remove coins from the player.
                     self.player.coins -= 5
                     FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Coins", self.player.coins)
                     self.heal(100)
@@ -38,6 +41,7 @@ class MedicalCentre:
                 text_delay("Okay. Bye.")
 
         else:
+            # If the player can afford treatment heal them upto 50 percent.
             text_delay("You cannot afford great medical treatment since you lost all your coins in the fight, but I suppose we better give you SOME treatment since you're nearly dead.")
             self.heal(50)
             
@@ -61,6 +65,7 @@ class MedicalCentre:
         else:
             print("You're not ALL better, but you're not as dead as before. Be grateful.")
 
+        # Update the player health property based off the treatment.
         self.player.health = health_point_increase
         FileLogic().update_player_property(self.PLAYER_FILEPATH, self.player, "Health", self.player.health)
         print(f"Your current health is now {health_point_increase}!")

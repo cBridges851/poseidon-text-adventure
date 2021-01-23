@@ -38,7 +38,8 @@ def go_north(player, playing):
                 is_unacceptable = False
 
         print("------------------------------------------------------------------------------")
-                
+        
+        # Decide what the player entered and enter that part of the map.
         if user_input == "S" or user_input == "SHOP":
             player = Shop(player).enter_shop()
             print("------------------------------------------------------------------------------")

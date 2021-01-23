@@ -32,6 +32,7 @@ def go_south(player, playing):
         
         print("------------------------------------------------------------------------------")
             
+        # Decide what the player entered.
         if user_input == "F" or user_input == "FIGHT" or user_input == "YES" or user_input == "Y":
             if player.damage < 25:
                 text_delay("You aren't strong enough to defeat the boss. Level up your damage output before trying again.")

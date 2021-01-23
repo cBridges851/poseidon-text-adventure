@@ -44,6 +44,7 @@ def go_east(player, playing):
 
         print("------------------------------------------------------------------------------")
 
+        # Decide what the player entered and enter that part of the map.
         if user_input == "M" or user_input == "MC" or user_input == "MEDICAL CENTRE" or user_input == "INSIDE":
             MedicalCentre(player).enter_medical_centre()
             print("------------------------------------------------------------------------------")
