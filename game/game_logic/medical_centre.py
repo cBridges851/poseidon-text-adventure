@@ -20,6 +20,7 @@ class MedicalCentre:
         '''
         text_delay("You enter the medical centre. There are lots of ill people about, but at least the place is somewhat clean.")
         
+        # If the player is not about to die, charge them
         if not near_death:
             text_delay("It costs 5 coins to get treatment from the medical centre.")
             get_treatment = ""
@@ -41,7 +42,7 @@ class MedicalCentre:
                 text_delay("Okay. Bye.")
 
         else:
-            # If the player can afford treatment heal them upto 50 percent.
+            # If the player is about to die, heal them up to 50 health points
             text_delay("You cannot afford great medical treatment since you lost all your coins in the fight, but I suppose we better give you SOME treatment since you're nearly dead.")
             self.heal(50)
             
@@ -56,7 +57,7 @@ class MedicalCentre:
         print(f"Your current health is {self.player.health}!")
         text_delay("Healing...")
         # Time in medical centre is based off how much health they have. 
-        # Large amount short item and vise versa.
+        # Large amount, shorter time and vice versa.
         delay_time = (100 - self.player.health) / 20 
         time.sleep(delay_time)
 
