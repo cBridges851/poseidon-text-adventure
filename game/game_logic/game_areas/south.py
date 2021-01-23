@@ -4,13 +4,15 @@ from game_logic.boss_battle import boss_battle
 
 def go_south(player, playing):
     '''
-        South part of the game map.
+        South part of the game map.  
         Args:
             player: obj, representing a player.
             playing: obj, representing the active game.
         Returns:
             playing: bool, whether the game should run or not.
     '''
+
+    # If the player has not previously beaten the boss
     if not player.boss_beaten:
         text_delay("The Princess Belle has been taken hostage by the evil monster Gorgo. Your mission should you chose to accept it...")
         text_delay("Is to fight past Gorgo's Minions before taking on Gorgo himself in a battle to save Princess Belle.")
@@ -19,18 +21,23 @@ def go_south(player, playing):
         valid_inputs = ["F", "FIGHT", "YES", "Y", "NO", "RUN AWAY", "I'M TOO SCARED", "NORTH", "BACK", "EXIT", "QUIT"]
         is_unacceptable = True
         
+        # If the input isn't in the list ask again.
         while is_unacceptable:
+            # If the value the user inputted is not one of the elements in the valid_inputs list
             if user_input not in valid_inputs:
                 user_input = input("Do you want to fight the boss? Or are you too scared? ").upper()
                 split_input = user_input.split()
                 if split_input != []:
+                    # If the first inputted word is enter, go or move
                     if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                        # The direction for the user will be the second inputted word
                         user_input = split_input[1]
             else:
                 is_unacceptable = False
         
         print("------------------------------------------------------------------------------")
             
+        # Decide what the player entered.
         if user_input == "F" or user_input == "FIGHT" or user_input == "YES" or user_input == "Y":
             if player.damage < 25:
                 text_delay("You aren't strong enough to defeat the boss. Level up your damage output before trying again.")

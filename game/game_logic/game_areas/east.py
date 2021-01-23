@@ -8,7 +8,7 @@ PLAYER_FILENAME = "./player.json"
 
 def go_east(player, playing):
     '''
-        East part of the game map.
+        East part of the game map.  
         Args:
             player: obj, representing a player.
             playing: obj, representing the active game.
@@ -17,6 +17,7 @@ def go_east(player, playing):
     '''
     active = True
     
+    # Loops until the player leaves this area
     while active:
         text_delay("Around you is the medical centre and the grand casino!")
         print("------------------------------------------------------------------------------")
@@ -24,25 +25,34 @@ def go_east(player, playing):
         valid_inputs = ["M", "MEDICAL CENTRE", "MC", "INSIDE", "WEST", "BACK", "C", "CASINO", "EXIT", "QUIT"]
         is_unacceptable = True
 
+        # If the input isn't in the list ask again.
         while is_unacceptable:
+            # If the value the user inputted is not one of the elements in the valid_inputs list
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()
                 split_input = user_input.split()
                 if split_input != []:
                     if len(split_input) == 2:
+                        # Sees if the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the user to move will be the second inputted word
                             user_input = split_input[1]
                     elif len(split_input) == 4:
+                        # If the first inputted word is go or move, or the second word is in
                         if split_input[0] == "GO" or split_input[1] == "IN" or split_input[0] == "MOVE":
+                            # The direction for the user to move will be the third and fourth word to account for the medical centre (since it's 2 words)
                             user_input = split_input[2] + " " + split_input[3]
                     else:
+                        # If the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the user will be the third inputted word
                             user_input = split_input[2]
             else:
                 is_unacceptable = False
 
         print("------------------------------------------------------------------------------")
 
+        # Decide what the player entered and enter that part of the map.
         if user_input == "M" or user_input == "MC" or user_input == "MEDICAL CENTRE" or user_input == "INSIDE":
             MedicalCentre(player).enter_medical_centre()
             print("------------------------------------------------------------------------------")
