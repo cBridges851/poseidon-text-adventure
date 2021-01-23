@@ -11,6 +11,8 @@ def go_south(player, playing):
         Returns:
             playing: bool, whether the game should run or not.
     '''
+
+    # If the player has not previously beaten the boss
     if not player.boss_beaten:
         text_delay("The Princess Belle has been taken hostage by the evil monster Gorgo. Your mission should you chose to accept it...")
         text_delay("Is to fight past Gorgo's Minions before taking on Gorgo himself in a battle to save Princess Belle.")
@@ -25,7 +27,9 @@ def go_south(player, playing):
                 user_input = input("Do you want to fight the boss? Or are you too scared? ").upper()
                 split_input = user_input.split()
                 if split_input != []:
+                    # If the first inputted word is enter, go or move
                     if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                        # The direction for the user will be the second inputted word
                         user_input = split_input[1]
             else:
                 is_unacceptable = False
