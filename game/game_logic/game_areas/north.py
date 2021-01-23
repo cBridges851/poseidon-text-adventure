@@ -15,6 +15,7 @@ def go_north(player, playing):
     '''
     active = True
 
+    # Loops until the player leaves this area
     while active:
         text_delay("Around you is a shop, your house and the bank. ")
         print("------------------------------------------------------------------------------")
@@ -29,10 +30,14 @@ def go_north(player, playing):
                 split_input = user_input.split()
                 if split_input != []:
                     if len(split_input) == 2:
+                        # If the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the user will be the second inputted word
                             user_input = split_input[1]
                     else:
+                        # If the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the user to go in will be the third inputted word
                             user_input = split_input[2]
             else:
                 is_unacceptable = False
