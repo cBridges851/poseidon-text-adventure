@@ -17,6 +17,7 @@ def go_east(player, playing):
     '''
     active = True
     
+    # Loops until the player leaves this area
     while active:
         text_delay("Around you is the medical centre and the grand casino!")
         print("------------------------------------------------------------------------------")
@@ -31,13 +32,19 @@ def go_east(player, playing):
                 split_input = user_input.split()
                 if split_input != []:
                     if len(split_input) == 2:
+                        # Sees if the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the user to move will be the second inputted word
                             user_input = split_input[1]
                     elif len(split_input) == 4:
+                        # If the first inputted word is go or move, or the second word is in
                         if split_input[0] == "GO" or split_input[1] == "IN" or split_input[0] == "MOVE":
+                            # The direction for the user to move will be the third and fourth word to account for the medical centre (since it's 2 words)
                             user_input = split_input[2] + " " + split_input[3]
                     else:
+                        # If the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the user will be the third inputted word
                             user_input = split_input[2]
             else:
                 is_unacceptable = False
