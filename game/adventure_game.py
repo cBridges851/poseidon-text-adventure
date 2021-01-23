@@ -71,6 +71,7 @@ def adventure_game():
 
         # If the input isn't in the list ask again.
         while is_unacceptable:
+            # If the value the user inputted is not one of the elements in the valid_inputs list
             if direction not in valid_inputs:
                 direction = input("Where would you like to go?: ").upper()
                 split_direction = direction.split()

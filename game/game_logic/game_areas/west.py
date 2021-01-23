@@ -13,6 +13,7 @@ def go_west(player, playing):
     '''
     active = True
     
+    # Loops until the player leaves this area
     while active:
         text_delay("You see a field in the distance")
         user_input = ""
@@ -21,15 +22,20 @@ def go_west(player, playing):
 
         # If the input isn't in the list ask again.
         while is_unacceptable:
+            # If the value the user inputted is not one of the elements in the valid_inputs list
             if user_input not in valid_inputs:
                 user_input = input("What would you like to do? ").upper()
                 split_input = user_input.split()
                 if split_input != []:
                     if len(split_input) == 3:
+                        # If the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the player to go in is the third inputted word
                             user_input = split_input[2]
                     else:
+                        # If the first inputted word is enter, go or move
                         if split_input[0] == "ENTER" or split_input[0] == "GO" or split_input[0] == "MOVE":
+                            # The direction for the user to go in is the second inputted word
                             user_input = split_input[1]
             else:
                 is_unacceptable = False
