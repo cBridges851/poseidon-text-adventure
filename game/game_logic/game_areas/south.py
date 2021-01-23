@@ -23,6 +23,7 @@ def go_south(player, playing):
         
         # If the input isn't in the list ask again.
         while is_unacceptable:
+            # If the value the user inputted is not one of the elements in the valid_inputs list
             if user_input not in valid_inputs:
                 user_input = input("Do you want to fight the boss? Or are you too scared? ").upper()
                 split_input = user_input.split()
